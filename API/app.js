@@ -1,14 +1,16 @@
-var mongoose = require('mongoose');
-var app = require('./app');
-var port = process.env._port || 3977;
+/* importaciones de dependecias para su uso */
+var express = require('express');
+var bodyParser = require('body-parser');
 
-mongoose.connect('mongodb://localhost:/DbItinerantur', (err, res) => {
-    if (err) {
-        throw err;
-    } else {
-       console.log('la conexión a la base de datos está corriendo corractamente..');
-      app.listen(port, function(){
-            console.log('El servidor esta recibiendo peticiones');
-      });
-    }
-});
+
+var app = express();
+var user_routes = require('./routers/router-user');
+
+
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+
+app.use('/api', user_routes);
+module.exports = app;

@@ -1,9 +1,10 @@
 {
-  "name": "api",
+  "name": "api-itineratur",
   "version": "1.0.0",
-  "description": "",
+  "description": "Creación de api rest para la aplicación de Itineratur",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
