@@ -8,3 +8,32 @@ npm install --save @angular/material
 npm install --save @angular/flex-layout 
 npm install --save @angular/animations 
 npm install --save @angular/cdk
+
+
+flex-layout
+Angular Flex Layout provides a sophisticated layout API using FlexBox CSS + mediaQuery. 
+
+fxLayout="row"-> indica que los hijos que contenga estarán desplegados el fila
+fxLayout="column"-> indica que los hijos que contenga estarán desplegados el columna
+fxLayoutAlign="center center" -> indica que los hijos dentro del padre estarán colocados centrados
+fxLayoutAlign="center stretch" -> indica que los hijos dentro del padre estarán colocados y ocuparan todo el espacio al ancho
+
+
+The Angular Flex Layout uses media queries to defined the following breakpoints:
+
+xs - max-width: 599px;
+gt-xs - min-width: 600px;
+sm - min-width: 600px; max-width: 959px;
+gt-sm - min-width: 960px;
+md - min-width: 960px; max-width: 1279px;
+gt-md - min-width: 1280;
+lg - min-width: 1280px; max-width: 1919px;
+gt-lg - min-width: 1920px;
+xl - min-width: 1920px; max-width: 5000px;
+
+
+fxLayout.xs="column" -> indica cuando la aplicación tenga max-width: 599px los hijos se desplegarán como columna
+fxLayoutAlign.xs="center stretch" -> indica cuando la aplicación tenga un max-width: 599px los hijos se desplegarán centrados y ocuparan todo el espacio a lo ancho.
+
+fxShow="true" -> indica que los elementos estarán mostrados
+fxHide.xs="true" -> indica que los elementos se ocultarán cuando el contenedos max-width: 599px
