@@ -1,8 +1,10 @@
-npm init -> crear el proyecto
-npm install express - > para hacer uso de la arquitectura de express
-npm install mongoose -> para la conexión con mongo db
-npm install nodemon --save-dev  -> para detectar automaticamente los cambios echos en la aplicación
-npm install bcrypt-nodejs -> creo que es para la encriptación (investigar más)
-npm install jwt-simple -> es para la generación de token (investigar más)
-npm install moment -> para el manejo de las fechas
-npm install conect-multiparty -> subir archivos al servidor
+1.- node -v (ver la versión de node)
+2.- npm -v (ver la versión de npm installada)
+3.- ng -v (ver la versión de angular cli instalada)
+4.- crear el proyecto ng new my-project -ng4 --style=scss
+
+
+npm install --save @angular/material 
+npm install --save @angular/flex-layout 
+npm install --save @angular/animations 
+npm install --save @angular/cdk
