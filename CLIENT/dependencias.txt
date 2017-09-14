@@ -2,6 +2,28 @@
 2.- npm -v (ver la versión de npm installada)
 3.- ng -v (ver la versión de angular cli instalada)
 4.- crear el proyecto ng new my-project -ng4 --style=scss
+5.- crear modulo dentro de una carpeta
+6.- para crear el routing de la aplicación -> ng g module app-routing (ponerlo a raiz de app y declararlo en el app.module)
+7.- para crear componente de login -> ng g component sign-in sign-in/ --style=scss
+
+
+
+Scaffold	Usage
+Component	ng g component my-new-component
+Directive	ng g directive my-new-directive
+Pipe	ng g pipe my-new-pipe
+Service	ng g service my-new-service
+Class	ng g class my-new-class
+Guard	ng g guard my-new-guard
+Interface	ng g interface my-new-interface
+Enum	ng g enum my-new-enum
+Module	ng g module my-module
+
+ ng g component not-found.component not-found/
+ng serve --port 4201 --live-reload-port 4200 -- abrir en otro puero otra aplicación
+
+
+
 
 
 npm install --save @angular/material 
@@ -37,3 +59,15 @@ fxLayoutAlign.xs="center stretch" -> indica cuando la aplicación tenga un max-wi
 
 fxShow="true" -> indica que los elementos estarán mostrados
 fxHide.xs="true" -> indica que los elementos se ocultarán cuando el contenedos max-width: 599px
+
+para el uso de ocultación del nav
+https://stackoverflow.com/questions/44816068/md-sidenav-responsive-with-flex-layout
+
+
+
+
+
+
+Utilice el selector de pseudo-clase host para orientar los estilos en el 
+elemento que aloja el componente (en oposición a los 
+elementos de orientación dentro de la plantilla del componente).
