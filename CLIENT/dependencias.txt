@@ -9,6 +9,7 @@
 8.- para crear componente de mi cuenta> ng g component my-account my-account/ --style=scss
 10.- meti todos los componentes dentro de components
 11.- crear el servicio de photos - ng g service photos services/
+12.- para crear componente del home> ng g component home home/ --style=scss
 
 Scaffold	Usage
 Component	ng g component my-new-component
@@ -62,8 +63,7 @@ fxLayoutAlign.xs="center stretch" -> indica cuando la aplicación tenga un max-wi
 fxShow="true" -> indica que los elementos estarán mostrados
 fxHide.xs="true" -> indica que los elementos se ocultarán cuando el contenedos max-width: 599px
 
-para el uso de ocultación del nav
-https://stackoverflow.com/questions/44816068/md-sidenav-responsive-with-flex-layout
+
 
 
 
@@ -75,3 +75,6 @@ elemento que aloja el componente (en oposición a los
 elementos de orientación dentro de la plantilla del componente).
 
 https://github.com/angular/flex-layout/wiki/Responsive-API
+http://brianflove.com/2017/05/03/responsive-angular/
+para el uso de ocultación del nav
+https://stackoverflow.com/questions/44816068/md-sidenav-responsive-with-flex-layout

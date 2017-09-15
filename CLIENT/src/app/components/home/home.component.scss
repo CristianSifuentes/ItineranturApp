@@ -1,0 +1,26 @@
+/* Cards */
+/*md-card {
+    margin: 10px;
+}*/
+
+
+:host{
+
+    md-card {
+        // background-color: #1257EC;//quitar
+        background-color: #fff;                 
+         margin: 16px;
+
+         /*md-card-title {
+             text-transform: uppercase;
+             text-align: center;
+             margin-bottom: 48px;
+           }*/
+
+           md-card-content {
+            margin: 16px;
+             //background-color: #19EC12;//quitar
+           }
+
+     }
+   } 

@@ -1,0 +1,81 @@
+<!--div class="flex-container" fxLayout="column">
+
+  <div fxLayout="column" fxLayoutAlign="center" class="card-container">
+    <md-card  *ngFor="let photo of photos">
+      <md-card-header>
+        <img md-card-avatar src="../../assets/Meekus.png">
+        <md-card-title>Cristian Sifuentes</md-card-title>
+        <md-card-subtitle>Covarrubias</md-card-subtitle>
+      </md-card-header>
+      <img md-card-image src="assets/{{ photo.name }}.png" alt="photo of the super model {{photo.name}}">
+      <md-card-content>
+        Increible lugar para visitar
+      </md-card-content>
+      <md-card-actions>
+        <button md-button>LIKE</button>
+        <button md-button>SHARE</button>
+      </md-card-actions>
+    </md-card>
+  </div>
+
+</div-->
+
+<!--div style="font-style: italic"
+[style.xs]="{'font-size.px': 10, color: 'blue'}"
+[style.sm]="{'font-size.px': 20, color: 'lightblue'}"
+[style.md]="{'font-size.px': 30, color: 'orange'}"
+[style.lg]="styleLgExp">
+asdasdas
+</div-->
+<div class="flex-container" fxLayout="column">
+
+  <div fxLayout="row" fxLayoutAlign="center">
+    <md-toolbar color="primary" class="mat-elevation-z5">
+      <span>
+              <md-icon class="mat-icon-20">favorite</md-icon>
+              <span>Itinerantur</span>
+      </span>
+      <button md-icon-button [md-menu-trigger-for]="menu">
+              <md-icon>more_vert</md-icon>
+            </button>
+    </md-toolbar>
+    <md-menu x-position="before" #menu="mdMenu">
+      <md-card>
+        <md-card-header>
+          <img md-card-avatar src="../assets/Alexanya.png">
+          <md-card-title>Titulo</md-card-title>
+          <md-card-subtitle>Titlo</md-card-subtitle>
+        </md-card-header>
+        <md-card-actions class="mat-card-actions">
+          <button md-menu-item>Toggle Theme</button>
+          <button md-menu-item>Free Hugs!</button>
+          <button md-menu-item>Help</button>
+        </md-card-actions>
+      </md-card>
+
+    </md-menu>
+  </div>
+
+
+  <div fxLayout="row" fxLayoutAlign="center">
+
+    <div fxLayout="column" fxLayoutAlign="center" class="card-container">
+      <md-card *ngFor="let photo of photos">
+        <md-card-header>
+          <img md-card-avatar src="../../assets/Meekus.png">
+          <md-card-title>Cristian Sifuentes</md-card-title>
+          <md-card-subtitle>Covarrubias</md-card-subtitle>
+        </md-card-header>
+        <img md-card-image src="assets/{{ photo.name }}.png" alt="photo of the super model {{photo.name}}">
+        <md-card-content>
+          {{photo.description}}
+        </md-card-content>
+        <md-card-actions>
+          <button md-button>LIKE</button>
+          <button md-button>SHARE</button>
+        </md-card-actions>
+      </md-card>
+    </div>
+  </div>
+
+</div>

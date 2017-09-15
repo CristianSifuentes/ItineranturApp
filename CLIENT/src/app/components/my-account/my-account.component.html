@@ -1,17 +1,74 @@
-<!-- todos los hijos del div serán desplegados en columnas  centrados -->
-<div class="flex-container" fxLayout="column">
+<!--[fxHide]="sidenav.close()"-->
 
-  <!-- Espacio entre photos -->
-  <md-grid-list [cols]="cols | async" gutterSize="5px">
-    <md-grid-tile *ngFor="let photo of photos">
-      <img src="assets/{{photo.name}}.png" alt="photo of the super photo {{photo.name}}">
-      <md-grid-tile-footer>
-        <h3 md-line>{{photo.name}}</h3>
-        <span md-line>{{photo.description}}</span>
-        <button md-icon-button>
-                  <md-icon>info</md-icon>
-                </button>
-      </md-grid-tile-footer>
-    </md-grid-tile>
-  </md-grid-list>
-</div>
+<md-sidenav-container>
+  <md-sidenav #sidenav  class="sidenav">
+    <md-nav-list>
+      <a md-list-item (click)="sidenav.close()" [routerLink]="['/']">
+        <md-icon md-list-icon>Home</md-icon>
+        <span md-line>Home</span>
+        <span md-line class="secondary">Home</span>
+      </a>
+      <a md-list-item (click)="sidenav.close()" [routerLink]="['/categories']">
+        <md-icon md-list-icon>list</md-icon>
+        <span md-line>Categories</span>
+        <span md-line class="secondary">Categories</span>
+      </a>
+      <a md-list-item (click)="sidenav.close()" [routerLink]="['/tags']">
+        <md-icon md-list-icon>bookmark</md-icon>
+        <span md-line>Tags</span>
+        <span md-line class="secondary">Tags</span>
+      </a>
+      <a md-list-item (click)="sidenav.close()" [routerLink]="['/questions']">
+        <md-icon md-list-icon>question_answer</md-icon>
+        <span md-line>Questions</span>
+        <span md-line class="secondary">Questions</span>
+      </a>
+    </md-nav-list>
+  </md-sidenav>
+  <div class="my-content">
+    <md-toolbar color="primary" class="mat-elevation-z5">
+      <button md-icon-button (click)="sidenav.open()">
+          <md-icon>menu</md-icon>
+        </button>
+      <span>{{title}}</span>
+      <span class="fill-remaining-space"></span>
+      <span>rwa</span>
+    </md-toolbar>
+    <div fxLayout="column" fxLayoutAlign="center" class="card-container">
+
+      <md-grid-list [cols]="cols | async" gutterSize="5px">
+        <md-grid-tile *ngFor="let photo of photos">
+          <img src="assets/{{photo.name}}.png" alt="photo of the super photo {{photo.name}}">
+          <md-grid-tile-footer>
+            <h3 md-line>{{photo.name}}</h3>
+            <span md-line>{{photo.status}}</span>
+            <button md-icon-button>
+                            <md-icon>info</md-icon>
+                          </button>
+          </md-grid-tile-footer>
+        </md-grid-tile>
+      </md-grid-list>
+    </div>
+  </div>
+</md-sidenav-container>
+
+<!--
+
+
+  <div fxLayout="column" fxLayoutAlign="center" class="card-container">
+
+    <md-grid-list [cols]="cols | async" gutterSize="5px">
+      <md-grid-tile *ngFor="let photo of photos">
+        <img src="assets/{{photo.name}}.png" alt="photo of the super photo {{photo.name}}">
+        <md-grid-tile-footer>
+          <h3 md-line>{{photo.name}}</h3>
+          <span md-line>{{photo.status}}</span>
+          <button md-icon-button>
+                    <md-icon>info</md-icon>
+                  </button>
+        </md-grid-tile-footer>
+      </md-grid-tile>
+    </md-grid-list>
+  </div>
+
+ -->

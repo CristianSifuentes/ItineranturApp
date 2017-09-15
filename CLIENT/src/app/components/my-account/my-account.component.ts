@@ -15,7 +15,7 @@ import { Photo } from './../../models/photos';
 })
 export class MyAccountComponent implements OnInit {
   public photos: Photo[];
-
+  public hideSidebar;
   public cols: Observable<number>;
   constructor(
     private observableMedia: ObservableMedia,
@@ -25,6 +25,7 @@ export class MyAccountComponent implements OnInit {
       this.photos = this.photosService.getAll();
     }
 
+    toggleSidebar(): void { this.hideSidebar = !this.hideSidebar }
     ngOnInit() {
       // set cols
       if (this.observableMedia.isActive('xs')) {

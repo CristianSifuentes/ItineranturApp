@@ -15,16 +15,19 @@ import { AppComponent } from './app.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { MyAccountComponent } from './components/my-account/my-account.component';
+import { HomeComponent } from './components/home/home.component';
 
 /* servicios */
 import { PhotosService } from './services/photos.service';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     SignInComponent,
     SignUpComponent,
-    MyAccountComponent
+    MyAccountComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
