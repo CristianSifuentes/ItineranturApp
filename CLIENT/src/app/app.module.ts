@@ -12,6 +12,7 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { MyAccountComponent } from './my-account/my-account.component';
 
 
 
@@ -19,7 +20,8 @@ import { SignUpComponent } from './sign-up/sign-up.component';
   declarations: [
     AppComponent,
     SignInComponent,
-    SignUpComponent
+    SignUpComponent,
+    MyAccountComponent
   ],
   imports: [
     BrowserModule,
