@@ -9,12 +9,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+
+/** Componentes */
 import { AppComponent } from './app.component';
-import { SignInComponent } from './sign-in/sign-in.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
-import { MyAccountComponent } from './my-account/my-account.component';
+import { SignInComponent } from './components/sign-in/sign-in.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { MyAccountComponent } from './components/my-account/my-account.component';
 
-
+/* servicios */
+import { PhotosService } from './services/photos.service';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,7 @@ import { MyAccountComponent } from './my-account/my-account.component';
     BrowserAnimationsModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [PhotosService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

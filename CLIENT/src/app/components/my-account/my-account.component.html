@@ -1,0 +1,21 @@
+<md-grid-list [cols]="cols | async" gutterSize="16px">
+    <!--md-grid-tile style="border-style: solid;">1</md-grid-tile>
+    <md-grid-tile style="border-style: solid;">2</md-grid-tile>
+    <md-grid-tile style="border-style: solid;">3</md-grid-tile>
+    <md-grid-tile style="border-style: solid;">4</md-grid-tile>
+    <md-grid-tile style="border-style: solid;">5</md-grid-tile>
+    <md-grid-tile style="border-style: solid;">6</md-grid-tile>
+    <md-grid-tile style="border-style: solid;">7</md-grid-tile>
+    <md-grid-tile style="border-style: solid;">8</md-grid-tile>
+    <md-grid-tile style="border-style: solid;">9</md-grid-tile-->
+  <md-grid-tile *ngFor="let photo of photos">
+    <img src="assets/{{photo.name}}.png" alt="photo of the super photo {{photo.name}}">
+    <md-grid-tile-footer>
+      <h3 md-line>{{photo.name}}</h3>
+      <span md-line>{{photo.status}}</span>
+      <button md-icon-button>
+            <md-icon>info</md-icon>
+          </button>
+    </md-grid-tile-footer>
+  </md-grid-tile>
+</md-grid-list>

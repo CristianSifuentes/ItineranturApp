@@ -6,7 +6,9 @@
 6.- para crear el routing de la aplicación -> ng g module app-routing (ponerlo a raiz de app y declararlo en el app.module)
 7.- para crear componente de login -> ng g component sign-in sign-in/ --style=scss
 8.- para crear componente de registrarse-> ng g component sign-up sign-up/ --style=scss
-
+8.- para crear componente de mi cuenta> ng g component my-account my-account/ --style=scss
+10.- meti todos los componentes dentro de components
+11.- crear el servicio de photos - ng g service photos services/
 
 Scaffold	Usage
 Component	ng g component my-new-component
