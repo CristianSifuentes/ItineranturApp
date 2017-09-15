@@ -5,7 +5,7 @@
 5.- crear modulo dentro de una carpeta
 6.- para crear el routing de la aplicación -> ng g module app-routing (ponerlo a raiz de app y declararlo en el app.module)
 7.- para crear componente de login -> ng g component sign-in sign-in/ --style=scss
-
+8.- para crear componente de registrarse-> ng g component sign-up sign-up/ --style=scss
 
 
 Scaffold	Usage
@@ -71,3 +71,5 @@ https://stackoverflow.com/questions/44816068/md-sidenav-responsive-with-flex-lay
 Utilice el selector de pseudo-clase host para orientar los estilos en el 
 elemento que aloja el componente (en oposición a los 
 elementos de orientación dentro de la plantilla del componente).
+
+https://github.com/angular/flex-layout/wiki/Responsive-API

@@ -1,9 +1,30 @@
-
 <!-- todos los hijos del div serán desplegados en columnas  centrados -->
-<div class="flex-container" fxLayout="column" fxLayoutAlign="center center">
+<div class="flex-container" fxLayout="column" fxLayoutAlign="center stretch">
 
   <!-- todos los hijos del div serán desplegados en renglores 1 centrados -->
   <div fxLayout="row" fxLayoutAlign="center" class="card-container">
+
+    <div fxFlex="90%" fxFlex.md="50%" fxFlex.lg="40%">
+
+      <md-card>
+        <md-card-title>Login</md-card-title>
+        <md-card-content>
+          <form [formGroup]="form" novalidate>
+            <div fxLayout="column" >
+              <md-input-container >
+                <input mdInput required placeholder="Correo" autocorrect="off" autocapitalize="off" spellcheck="off" formControlName="email">
+              </md-input-container>
+              <md-input-container >
+                <input mdInput required type="password" placeholder="Contraseña" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="off" formControlName="password">
+              </md-input-container>
+              <button md-raised-button color="accent" [disabled]="form.invalid" type="submit">Ingresar</button>
+              <a md-button [routerLink]="['/registrar']">Registrarse</a>
+            </div>
+          </form>
+        </md-card-content>
+      </md-card>
+
+    </div>
 
   </div>
 
