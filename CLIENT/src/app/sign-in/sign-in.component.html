@@ -1,6 +1,9 @@
 <!-- todos los hijos del div serán desplegados en columnas  centrados -->
-<div class="flex-container" fxLayout="column" fxLayoutAlign="center stretch">
-
+<div class="flex-container" fxLayout="column" >
+ 
+  <button fxFlexAlign="center" class="logo-container">
+    <div class="logo"></div>
+  </button>
   <!-- todos los hijos del div serán desplegados en renglores 1 centrados -->
   <div fxLayout="row" fxLayoutAlign="center" class="card-container">
 
@@ -9,10 +12,10 @@
       <md-card>
         <md-card-title>Login</md-card-title>
         <md-card-content>
-          <form [formGroup]="form" novalidate>
+          <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
             <div fxLayout="column" >
               <md-input-container >
-                <input mdInput required placeholder="Correo" autocorrect="off" autocapitalize="off" spellcheck="off" formControlName="email">
+                <input mdInput required placeholder="Correo Electrónico" autocorrect="off" autocapitalize="off" spellcheck="off" formControlName="email">
               </md-input-container>
               <md-input-container >
                 <input mdInput required type="password" placeholder="Contraseña" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="off" formControlName="password">

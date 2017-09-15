@@ -1,3 +1,37 @@
-<p>
-  sign-up works!
-</p>
+<div class="flex-container" fxLayout="column" >
+  
+  <button  fxFlexAlign="center" class="logo-container">
+    <div class="logo"></div>
+  </button>
+  <div fxLayout="row" fxLayoutAlign="center" class="card-container">
+    <div fxFlex="90%" fxFlex.md="50%" fxFlex.lg="40%">
+      <md-card>
+        <md-card-title>Registrar</md-card-title>
+        <md-card-content>
+      
+          <form  [formGroup]="signupForm" novalidate>
+            <div fxLayout="column">
+              <md-input-container>
+                <input mdInput required placeholder="Nombre" autocorrect="off" autocapitalize="off" spellcheck="off" formControlName="firstName">
+              </md-input-container>
+              <md-input-container>
+                <input mdInput required placeholder="Apellidos" autocorrect="off" autocapitalize="off" spellcheck="off" formControlName="lastName">
+              </md-input-container>
+              <md-input-container>
+                <input mdInput required placeholder="Correo Electrónico" autocorrect="off" autocapitalize="off" spellcheck="off" formControlName="email">
+              </md-input-container>
+              <md-input-container>
+                <input mdInput required placeholder="Nick" autocorrect="off" autocapitalize="off" spellcheck="off" formControlName="nick">
+              </md-input-container>
+              <md-input-container>
+                <input mdInput required type="password" placeholder="Contraseña" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="off" formControlName="password">
+              </md-input-container>
+              <button md-raised-button [disabled]="signupForm.invalid" type="submit" color="accent">Registrar</button>
+              <button md-raised-button  [routerLink]="['/login']" color="accent">Regresar</button>
+            </div>
+          </form>
+        </md-card-content>
+      </md-card>
+    </div>
+  </div>
+</div>

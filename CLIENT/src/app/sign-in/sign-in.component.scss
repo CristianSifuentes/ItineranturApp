@@ -23,9 +23,38 @@
                 box-shadow: 0 2px 4px 1px rgba(0,0,0,.14);
                 z-index: 0;
               }
+
+
+              .logo-container, .card-container {
+                z-index: 1;
+              }
+          
+
+              button.logo-container {
+                background: transparent;
+                padding: 0 16px;
+                box-sizing: border-box;
+                cursor: pointer;
+                user-select: none;
+                outline: 0;
+                border: none;
+                display: inline-block;
+                white-space: nowrap;
+                text-decoration: none;
+                vertical-align: baseline;
+          
+                .logo {
+                  height: 64px;
+                  width: 64px;
+                  margin: 48px auto;
+                  background: url("http://placehold.it/64x64") contain;
+          
+                }
+              }
+
               /*pra que se vea cuando otro elemeto lo topa*/
               .card-container{
-                z-index: 1;
+           
                // border-style: dotted solid dashed double;//quitar
 
                 md-card {
