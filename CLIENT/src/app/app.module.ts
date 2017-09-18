@@ -1,13 +1,15 @@
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { MaterialModule } from '@angular/material';
+import { MaterialModule, MdSnackBar } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MdButtonModule, MdCardModule, MdMenuModule, MdToolbarModule, MdIconModule } from '@angular/material';
+import { MdButtonModule, MdCardModule, MdMenuModule, MdToolbarModule, MdIconModule, MdProgressBarModule} from '@angular/material';
+import { MdSnackBarModule, MdSnackBarConfig } from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
 
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpClient, HttpClientModule} from '@angular/common/http';
 
 
 /** Componentes */
@@ -19,6 +21,7 @@ import { HomeComponent } from './components/home/home.component';
 
 /* servicios */
 import { PhotosService } from './services/photos.service';
+import { UsersService } from './services/users.service';
 
 
 @NgModule({
@@ -30,6 +33,7 @@ import { PhotosService } from './services/photos.service';
     HomeComponent
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     MaterialModule,
     FormsModule,
@@ -40,10 +44,12 @@ import { PhotosService } from './services/photos.service';
     MdMenuModule,
     MdToolbarModule,
     MdIconModule,
+    MdProgressBarModule,
     BrowserAnimationsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MdSnackBarModule
   ],
-  providers: [PhotosService],
+  providers: [PhotosService, UsersService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

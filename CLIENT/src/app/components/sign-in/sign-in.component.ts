@@ -1,3 +1,4 @@
+import { UsersService } from './../../services/users.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -10,8 +11,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class SignInComponent implements OnInit {
   public form: FormGroup;
   constructor(
-    private formBuilder: FormBuilder
-  ) { }
+    private formBuilder: FormBuilder,
+    private userService: UsersService
+  ) { 
+
+    
+  }
 
   ngOnInit() {
     this.form = this.formBuilder.group({

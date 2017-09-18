@@ -1,6 +1,6 @@
-<div class="flex-container" fxLayout="column" >
-  
-  <button  fxFlexAlign="center" class="logo-container">
+<div class="flex-container" fxLayout="column">
+
+  <button fxFlexAlign="center" class="logo-container">
     <div class="logo"></div>
   </button>
   <div fxLayout="row" fxLayoutAlign="center" class="card-container">
@@ -8,26 +8,38 @@
       <md-card>
         <md-card-title>Registrar</md-card-title>
         <md-card-content>
-      
-          <form  [formGroup]="signupForm" novalidate>
+          <form [formGroup]="signupForm" #form="ngForm" (ngSubmit)="createUser(signupForm.value)" novalidate>
             <div fxLayout="column">
               <md-input-container>
-                <input mdInput required placeholder="Nombre" autocorrect="off" autocapitalize="off" spellcheck="off" formControlName="firstName">
+                <input mdInput required placeholder="Nombre" autocorrect="off" autocapitalize="off" spellcheck="off" formControlName="name">
               </md-input-container>
               <md-input-container>
                 <input mdInput required placeholder="Apellidos" autocorrect="off" autocapitalize="off" spellcheck="off" formControlName="lastName">
               </md-input-container>
               <md-input-container>
+                <input mdInput required placeholder="Nickname" autocorrect="off" autocapitalize="off" spellcheck="off" formControlName="nickname">
+              </md-input-container>
+              <md-input-container>
+                <input mdInput required placeholder="Edad" autocorrect="off" autocapitalize="off" spellcheck="off" formControlName="age">
+              </md-input-container>
+
+              <md-select placeholder="Género" required formControlName="gender">
+                <md-option>None</md-option>
+                <md-option *ngFor="let state of states" [value]="state.code">{{ state.name }}</md-option>
+              </md-select>
+              <br />
+              <!--md-input-container>
+                <!--input mdInput required placeholder="Género" autocorrect="off" autocapitalize="off" spellcheck="off" formControlName="gender"-->
+              <!--/md-input-container-->
+              <md-input-container>
                 <input mdInput required placeholder="Correo Electrónico" autocorrect="off" autocapitalize="off" spellcheck="off" formControlName="email">
               </md-input-container>
               <md-input-container>
-                <input mdInput required placeholder="Nick" autocorrect="off" autocapitalize="off" spellcheck="off" formControlName="nick">
-              </md-input-container>
-              <md-input-container>
-                <input mdInput required type="password" placeholder="Contraseña" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="off" formControlName="password">
+                <input mdInput required type="password" placeholder="Contraseña" autocomplete="off" autocorrect="off" autocapitalize="off"
+                  spellcheck="off" formControlName="password">
               </md-input-container>
               <button md-raised-button [disabled]="signupForm.invalid" type="submit" color="accent">Registrar</button>
-              <button md-raised-button  [routerLink]="['/login']" color="accent">Regresar</button>
+              <button md-raised-button [routerLink]="['/login']" color="accent">Regresar</button>
             </div>
           </form>
         </md-card-content>
@@ -35,3 +47,21 @@
     </div>
   </div>
 </div>
+
+<!--div id="right">
+  <div>
+      <form [formGroup]="newHeroForm" #form="ngForm" (ngSubmit)="createNewHero(newHeroForm.value)">
+          <md-input-container class="input-container">
+              <input mdInput type="text"
+                     placeholder="name"
+                     formControlName="name">
+          </md-input-container>
+
+          <md-input-container class="input-container">
+              <input mdInput type="text"
+                     placeholder="alter ego"
+                     formControlName="alterEgo">
+          </md-input-container>
+      </form>
+  </div>
+</div-->

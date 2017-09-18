@@ -146,6 +146,13 @@ asdasdas
             <md-icon>more_vert</md-icon>
           </button>
       </md-toolbar>
+      <section class="progress-bar">
+          <md-progress-bar mode="indeterminate" [color]="primary"></md-progress-bar>
+          <!--md-progress-bar
+              [color]="'primary'"
+              [mode]="progressBarMode">
+          </md-progress-bar-->
+      </section>
 
       <!-- menu -->
       <md-menu x-position="before" #menu="mdMenu">
@@ -155,7 +162,7 @@ asdasdas
         <button md-menu-item>Help</button>
       </md-menu>
 
-      
+
       <div fxLayout="row" fxLayoutAlign="center">
 
         <div fxLayout="column" class="card-container">
