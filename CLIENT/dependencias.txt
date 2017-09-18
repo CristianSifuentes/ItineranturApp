@@ -76,5 +76,4 @@ elementos de orientación dentro de la plantilla del componente).
 
 https://github.com/angular/flex-layout/wiki/Responsive-API
 http://brianflove.com/2017/05/03/responsive-angular/
-para el uso de ocultación del nav
-https://stackoverflow.com/questions/44816068/md-sidenav-responsive-with-flex-layout
+http://brianflove.com/2017/04/10/angular-reactive-authentication/

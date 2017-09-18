@@ -32,7 +32,7 @@ export class MyAccountComponent implements OnInit {
       } else if (this.observableMedia.isActive('sm') || this.observableMedia.isActive('md')) {
         this.cols = Observable.of(2);
       } else if (this.observableMedia.isActive('lg') || this.observableMedia.isActive('xl')) {
-        this.cols = Observable.of(3);
+        this.cols = Observable.of(4);
       } 
       // observe changes
       this.observableMedia.asObservable()
@@ -45,7 +45,7 @@ export class MyAccountComponent implements OnInit {
             return this.cols = Observable.of(2);
           case 'lg':
           case 'xl':
-            return this.cols = Observable.of(3);
+            return this.cols = Observable.of(4);
         }
       });
     }
