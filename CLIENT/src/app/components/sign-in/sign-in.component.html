@@ -12,7 +12,7 @@
       <md-card>
         <md-card-title>Login</md-card-title>
         <md-card-content>
-          <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+          <form [formGroup]="signinForm" #form="ngForm" (ngSubmit)="loginUser(signinForm.value)" novalidate>            
             <div fxLayout="column" >
               <md-input-container >
                 <input mdInput required placeholder="Correo Electrónico" autocorrect="off" autocapitalize="off" spellcheck="off" formControlName="email">

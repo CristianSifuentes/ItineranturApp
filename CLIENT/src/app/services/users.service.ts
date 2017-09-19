@@ -1,9 +1,9 @@
 
 import { User } from './../models/users';
-import {EventEmitter, Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
-import {MdSnackBar, MdSnackBarConfig} from '@angular/material';
+import { EventEmitter, Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
+import { MdSnackBar, MdSnackBarConfig } from '@angular/material';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
@@ -15,7 +15,7 @@ import { AppConfig } from './../config/app.config';
 export class UsersService {
   request$: EventEmitter<any>;
   private headers: HttpHeaders;
-  private heroesUrl: string;
+  private usersUrl: string;
   private translations: any;
 
   private handleError(error: any) {
@@ -30,17 +30,16 @@ export class UsersService {
     private http: HttpClient,
     private snackBar: MdSnackBar
   ) {
-        this.request$ = new EventEmitter();
-        this.heroesUrl = 'http://localhost:3977/api/user';
-        this.headers = new HttpHeaders({'Content-Type': 'application/json'});
-   }
+    this.request$ = new EventEmitter();
+    this.usersUrl = 'http://localhost:3977/api/user';
+    this.headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  }
 
 
   createUser(user: any): Observable<User> {
-    console.log('llego al servicio');
     this.request$.emit('starting');
     return this.http
-      .post(this.heroesUrl, JSON.stringify({
+      .post(this.usersUrl, JSON.stringify({
         name: user.name,
         lastname: user.lastname,
         nickname: user.nickname,
@@ -51,7 +50,7 @@ export class UsersService {
         image: user.image,
         /*role: user.role*/
         role: 'TRAVELER'
-      }), {headers: this.headers})
+      }), { headers: this.headers })
       .map(response => {
         this.request$.emit('finished');
         this.showSnackBar('heroCreated');
@@ -65,5 +64,22 @@ export class UsersService {
     config.duration = AppConfig.snackBarDuration;
     /*this.snackBar.open(this.translations[name], 'OK', config);*/
     this.snackBar.open(name, 'OK', config);
+  }
+
+
+  loginUser(user: any): Observable<User> {
+    this.request$.emit('starting');
+    return this.http
+      .post('http://localhost:3977/api/user/login' , JSON.stringify({
+        email: user.email,
+        password: user.password,
+        gethash : true
+      }), { headers: this.headers })
+      .map(response => {
+        this.request$.emit('finished');
+        this.showSnackBar('Welcome');
+        return response;
+      })
+      .catch(error => this.handleError(error));
   }
 }

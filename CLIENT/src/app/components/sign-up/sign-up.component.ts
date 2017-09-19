@@ -18,7 +18,7 @@ export class SignUpComponent implements OnInit {
   @ViewChild('form') myNgForm; // just to call resetForm method
 
   constructor(
-    private heroService: UsersService,
+    private userService: UsersService,
     private formBuilder: FormBuilder
   ) {
 
@@ -36,8 +36,11 @@ export class SignUpComponent implements OnInit {
     });
   }
 
+
+ 
+
   createUser(newUser: User) {
-    this.heroService.createUser(newUser).subscribe((newUserWithId) => {
+    this.userService.createUser(newUser).subscribe((newUserWithId) => {
       this.users.push(newUserWithId);
       this.myNgForm.resetForm();
     }, (response: Response) => {
