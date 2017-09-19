@@ -12,7 +12,7 @@
 12.- para crear componente del home> ng g component home home/ --style=scss
 13 .- Cree manual mente el modelo del usuarios en el cliente
 14 .- Cree el servicio de usuarios - ng g service users services/
-
+8.- para crear componente de mi cuenta> ng g component contact contact --style=scss
 
 Scaffold	Usage
 Component	ng g component my-new-component

@@ -64,11 +64,11 @@
       </md-toolbar>
 
       <md-menu x-position="before" #menu="mdMenu">
-          <button md-menu-item (click)="openDialog()">Settings</button>
-          <button md-menu-item (click)="isDarkTheme=!isDarkTheme">Toggle Theme</button>
-          <button md-menu-item>Free Hugs!</button>
-          <button md-menu-item>Help</button>
-        </md-menu>
+        <button md-menu-item (click)="openDialog()">Settings</button>
+        <button md-menu-item (click)="isDarkTheme=!isDarkTheme">Toggle Theme</button>
+        <button md-menu-item>Free Hugs!</button>
+        <button md-menu-item>Help</button>
+      </md-menu>
 
       <div fxLayout="column" fxLayoutAlign="center">
 
@@ -85,16 +85,7 @@
           </md-grid-tile>
         </md-grid-list>
       </div>
-      <div class="tab-action">
-          <div class="flex-container" fxLayout="column" fxLayoutAlign="space-between center">
-            <button md-mini-fab (click)="sidenav.close()" color="warning">
-              <md-icon>close</md-icon>
-            </button>
-            <button md-fab (click)="addMessage()" color="primary">
-              <md-icon>add</md-icon>
-            </button>
-          </div>
-        </div>
+
     </div>
   </md-sidenav-container>
 </div>

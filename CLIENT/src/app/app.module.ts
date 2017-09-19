@@ -18,10 +18,13 @@ import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { MyAccountComponent } from './components/my-account/my-account.component';
 import { HomeComponent } from './components/home/home.component';
+import { ContactComponent } from './components/contact/contact.component';
+
 
 /* servicios */
 import { PhotosService } from './services/photos.service';
 import { UsersService } from './services/users.service';
+
 
 
 @NgModule({
@@ -30,7 +33,8 @@ import { UsersService } from './services/users.service';
     SignInComponent,
     SignUpComponent,
     MyAccountComponent,
-    HomeComponent
+    HomeComponent,
+    ContactComponent
   ],
   imports: [
     HttpClientModule,
