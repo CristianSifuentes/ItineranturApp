@@ -1,11 +1,14 @@
 /* importaciones de dependecias para su uso */
+
+'use strict'
+
 var express = require('express');
 var bodyParser = require('body-parser');
 
 
 var app = express();
 var user_routes = require('./routers/router-user');
-
+var photos_routes = require('./routers/router-photo')
 
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -21,4 +24,5 @@ app.use((req, res, next) => {
 });
 
 app.use('/api', user_routes);
+app.use('/api', photos_routes);
 module.exports = app;

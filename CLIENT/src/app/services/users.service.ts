@@ -1,4 +1,3 @@
-
 import { User } from './../models/users';
 import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -8,7 +7,6 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 import { AppConfig } from './../config/app.config';
-/*import 'rxjs/Rx';*/
 
 
 @Injectable()
@@ -35,7 +33,10 @@ export class UsersService {
     this.headers = new HttpHeaders({ 'Content-Type': 'application/json' });
   }
 
-
+  /**
+   * Método que crea un usuario nuevo en la aplicación
+ * @param  objeto del tipo 'user'
+   */
   createUser(user: any): Observable<User> {
     this.request$.emit('starting');
     return this.http
@@ -66,14 +67,36 @@ export class UsersService {
     this.snackBar.open(name, 'OK', config);
   }
 
-
-  loginUser(user: any): Observable<User> {
+  /**
+   * Método que valida si existen los datos del usuario
+   * @param  objeto del tipo 'user'
+   */
+  validateUser(user: any): Observable<User> {
     this.request$.emit('starting');
     return this.http
-      .post('http://localhost:3977/api/user/login' , JSON.stringify({
+      .post('http://localhost:3977/api/user/login', JSON.stringify({
         email: user.email,
         password: user.password,
-        gethash : true
+        gethash: false
+      }), { headers: this.headers })
+      .map(response => {
+        this.request$.emit('finished');
+        return response;
+      })
+      .catch(error => this.handleError(error));
+  }
+
+  /**
+   * Método que valida si existen los datos del usuario
+   * @param  objeto del tipo 'user'
+   */
+  loginUser(user: any): Observable<string> {
+    this.request$.emit('starting');
+    return this.http
+      .post('http://localhost:3977/api/user/login', JSON.stringify({
+        email: user.email,
+        password: user.password,
+        gethash: true
       }), { headers: this.headers })
       .map(response => {
         this.request$.emit('finished');
@@ -82,4 +105,5 @@ export class UsersService {
       })
       .catch(error => this.handleError(error));
   }
+
 }

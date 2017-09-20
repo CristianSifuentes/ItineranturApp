@@ -1,3 +1,5 @@
+'user strict'
+
 var express = require('express');
 var UserController = require('../controllers/users');
 var MiddlewareAuth = require('../middlewares/authenticated');

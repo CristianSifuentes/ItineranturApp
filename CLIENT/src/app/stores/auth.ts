@@ -1,5 +1,5 @@
 export default class Auth {
-    static STORAGE_KEY: string = "token";
+    static STORAGE_KEY: string = 'token';
 
     static getToken() {
         return window.localStorage.getItem(Auth.STORAGE_KEY);
@@ -12,4 +12,5 @@ export default class Auth {
     static removeToken(): void {
         window.localStorage.removeItem(Auth.STORAGE_KEY);
     }
+
 }

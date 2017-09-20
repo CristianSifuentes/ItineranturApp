@@ -70,7 +70,8 @@ fxHide.xs="true" -> indica que los elementos se ocultarán cuando el contenedos m
 
 
 
-
+IMPORTANTE!!
+PARA LOS COLORES DE MATERIAL DESIGN -> https://www.materialpalette.com/
 
 
 Utilice el selector de pseudo-clase host para orientar los estilos en el 

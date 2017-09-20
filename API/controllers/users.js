@@ -1,4 +1,5 @@
 'user strict'
+
 var User = require('../models/user');
 var Status = require('../utils/http-status')
 var fs = require('fs');//para acceder a archivos del sistema
@@ -91,7 +92,6 @@ function loginUser(req, res){
                             //devolver un token de jwt
                             res.status(Status.OK).send({
                                token: jwt.createToken(user)
-
                             });
                         }else{
                                res.status(Status.OK).send(user);
@@ -115,12 +115,12 @@ function updateUser(req, res){
     User.findByIdAndUpdate(userId, update, (err, userUpdated) => 
     {
         if(err){
-             res.status(500).send({menssage: 'Error al actualizar el usuario'});
+             res.status(Status.INTERNAL_SERVER_ERROR).send({menssage: 'Error al actualizar el usuario'});
         }else{
             if(!userUpdated){
-                 res.status(404).send({menssage: 'No se ha podido actualizar el usuario'});
+                 res.status(Status.NOT_FOUND).send({menssage: 'No se ha podido actualizar el usuario'});
             }else{
-                res.status(200).send({user: userUpdated});
+                res.status(Status.OK).send({user: userUpdated});
             }
         }
 
@@ -144,17 +144,17 @@ function uploadImage(req,res){
      if(file_ext == 'png' || file_ext == 'jpg' || file_ext=='gif'){
         User.findByIdAndUpdate(userId, {image: file_name}, (err, userUpdated) =>{
            if(!userUpdated){
-               res.status(404).send({menssage: 'No se ha podido actualizar el usuario'});
+               res.status(Status.NOT_FOUND).send({menssage: 'No se ha podido actualizar el usuario'});
           }else{
-              res.status(200).send({image: file_name, user: userUpdated});
+              res.status(Status.OK).send({image: file_name, user: userUpdated});
           }
         });
      }else{
-       res.status(200).send({message:'Extensión de archivo no válida'});
+       res.status(Status.OK).send({message:'Extensión de archivo no válida'});
      }
 
   }else{
-      res.status(500).send({message : 'No ha subido ninguna imagen'});
+      res.status(Status.INTERNAL_SERVER_ERROR).send({message : 'No ha subido ninguna imagen'});
   }
 }
 
@@ -166,7 +166,7 @@ function getImageFile(req, res){
      if(exists){
          res.sendFile(path.resolve(path_file));
      }else{
-         res.status(200).send({ message : 'No existe la imagen'});
+         res.status(Status.OK).send({ message : 'No existe la imagen'});
      }
  });
 

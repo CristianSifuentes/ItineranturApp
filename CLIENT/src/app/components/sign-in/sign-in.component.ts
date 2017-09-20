@@ -3,7 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsersService } from './../../services/users.service';
 import { User } from './../../models/users';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
+import AuthStore from '../../stores/Auth';
+import IdentifiedUserStore from '../../stores/IdentifiedUser';
 
 @Component({
   selector: 'app-sign-in',
@@ -28,19 +30,28 @@ export class SignInComponent implements OnInit {
     );
   }
 
+  /**
+   * Método que valida si exite en usuario y crea un token
+   * @param user Objeto del tipo cliente
+   */
   loginUser(user: User) {
-    this.userService.loginUser(user).subscribe(
-      (newUserWithId) => {
-      console.log('logeado');
-      this.router.navigate(['home/']);
-      /*this.users.push(newUserWithId);
-      this.myNgForm.resetForm();*/
-    }, (response: Response) => {
-      console.log('no logeado');
-      if (response.status === 500) {
-        this.error = 'errorHasOcurred';
-      }
-    });
+    this.userService.validateUser(user).subscribe(
+      (userWithId) => {
+        this.userService.loginUser(user).subscribe(
+          (userWithToken) => {
+            IdentifiedUserStore.setUserIdentified(JSON.stringify(user));
+            AuthStore.setToken(userWithToken.toString());
+            this.router.navigate(['home/']);
+          }, (response: Response) => {
+            if (response.status === 500) {
+              this.error = 'errorHasOcurred';
+            }
+          });
+      }, (response: Response) => {
+        if (response.status === 500) {
+          this.error = 'errorHasOcurred';
+        }
+      });
   }
 
 }
