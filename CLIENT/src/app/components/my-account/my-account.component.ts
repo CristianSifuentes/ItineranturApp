@@ -22,7 +22,7 @@ export class MyAccountComponent implements OnInit {
     private iconRegistry: MdIconRegistry,
     private photosService: PhotosService
   ) { 
-      this.photos = this.photosService.getAll();
+      //this.photos = this.photosService.getAll();
     }
 
     ngOnInit() {

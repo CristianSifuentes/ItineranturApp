@@ -39,8 +39,8 @@ export class SignInComponent implements OnInit {
       (userWithId) => {
         this.userService.loginUser(user).subscribe(
           (userWithToken) => {
-            IdentifiedUserStore.setUserIdentified(JSON.stringify(user));
-            AuthStore.setToken(userWithToken.toString());
+            IdentifiedUserStore.setUserIdentified(JSON.stringify(userWithId));
+            AuthStore.setToken(JSON.stringify(userWithToken.token));
             this.router.navigate(['home/']);
           }, (response: Response) => {
             if (response.status === 500) {

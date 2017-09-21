@@ -1,3 +1,4 @@
+import { UserToken } from './../models/users_tokens';
 import { User } from './../models/users';
 import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -7,6 +8,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 import { AppConfig } from './../config/app.config';
+
 
 
 @Injectable()
@@ -90,7 +92,7 @@ export class UsersService {
    * Método que valida si existen los datos del usuario
    * @param  objeto del tipo 'user'
    */
-  loginUser(user: any): Observable<string> {
+  loginUser(user: any) {
     this.request$.emit('starting');
     return this.http
       .post('http://localhost:3977/api/user/login', JSON.stringify({

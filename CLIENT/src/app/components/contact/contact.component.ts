@@ -23,7 +23,7 @@ export class ContactComponent implements OnInit {
     private iconRegistry: MdIconRegistry,
     private photosService: PhotosService
   ) { 
-      this.photos = this.photosService.getAll();
+     //this.photos = this.photosService.getAll();
     }
 
     ngOnInit() {

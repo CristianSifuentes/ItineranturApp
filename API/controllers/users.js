@@ -70,105 +70,104 @@ function saveUser(req, res) {
   }
 }
 
-function loginUser(req, res){
+function loginUser(req, res) {
   var params = req.body;
 
-   var email = params.email;
-   var password = params.password;
-   User.findOne({
-       email: email.toLowerCase()
-   }, (err,user)=>{
-       if(err){
-             res.status(Status.INTERNAL_SERVER_ERROR).send({menssage: 'Error en el servidor, favor de procesar nuevamente.'});
-       }else{
-           if(!user){
-               res.status(Status.NOT_FOUND).send({menssage: 'El usuario no existe'});
-           }else{
-               //Compara las contraseñas
-               bcrypt.compare(password,user.password, function(err,check){
-                    if(check){
-                        //devolver  los datos del usuario logeado
-                        if(params.gethash){
-                            //devolver un token de jwt
-                            res.status(Status.OK).send({
-                               token: jwt.createToken(user)
-                            });
-                        }else{
-                               res.status(Status.OK).send(user);
-                        }
-                    }else{
-                         res.status(static.NOT_FOUND).send({menssage: 'El usuario no ha posido logearse', params: params});
-                    }
-               });
-           }
-       }
+  var email = params.email;
+  var password = params.password;
+  User.findOne({
+    email: email.toLowerCase()
+  }, (err, user) => {
+    if (err) {
+      res.status(Status.INTERNAL_SERVER_ERROR).send({ menssage: 'Error en el servidor, favor de procesar nuevamente.' });
+    } else {
+      if (!user) {
+        res.status(Status.NOT_FOUND).send({ menssage: 'El usuario no existe' });
+      } else {
+        //Compara las contraseñas
+        bcrypt.compare(password, user.password, function (err, check) {
+          if (check) {
+            //devolver  los datos del usuario logeado
+            if (params.gethash) {
+              //devolver un token de jwt
+              res.status(Status.OK).send({
+                token: jwt.createToken(user)
+              });
+            } else {
+              res.status(Status.OK).send(user);
+            }
+          } else {
+            res.status(static.NOT_FOUND).send({ menssage: 'El usuario no ha posido logearse', params: params });
+          }
+        });
+      }
+    }
 
-       
-   });
+
+  });
 }
 
 
-function updateUser(req, res){
-    var userId = req.params.id;
-    var update = req.body;
+function updateUser(req, res) {
+  var userId = req.params.id;
+  var update = req.body;
 
-    User.findByIdAndUpdate(userId, update, (err, userUpdated) => 
-    {
-        if(err){
-             res.status(Status.INTERNAL_SERVER_ERROR).send({menssage: 'Error al actualizar el usuario'});
-        }else{
-            if(!userUpdated){
-                 res.status(Status.NOT_FOUND).send({menssage: 'No se ha podido actualizar el usuario'});
-            }else{
-                res.status(Status.OK).send({user: userUpdated});
-            }
-        }
+  User.findByIdAndUpdate(userId, update, (err, userUpdated) => {
+    if (err) {
+      res.status(Status.INTERNAL_SERVER_ERROR).send({ menssage: 'Error al actualizar el usuario' });
+    } else {
+      if (!userUpdated) {
+        res.status(Status.NOT_FOUND).send({ menssage: 'No se ha podido actualizar el usuario' });
+      } else {
+        res.status(Status.OK).send({ user: userUpdated });
+      }
+    }
 
 
-    });
+  });
 
 }
 
 
 //Método que sube una imagen a una carpeta del servidor
-function uploadImage(req,res){
+function uploadImage(req, res) {
   var userId = req.params.id;
   var file_name = 'No subido...';
-  if(req.files){
-     var file_path = req.files.image.path;
-     var file_split = file_path.split('\\');
-     var file_name = file_split[2];
-     var ext_split = file_name.split('\.');
-     var file_ext = ext_split[1];
-     console.log(ext_split);
-     if(file_ext == 'png' || file_ext == 'jpg' || file_ext=='gif'){
-        User.findByIdAndUpdate(userId, {image: file_name}, (err, userUpdated) =>{
-           if(!userUpdated){
-               res.status(Status.NOT_FOUND).send({menssage: 'No se ha podido actualizar el usuario'});
-          }else{
-              res.status(Status.OK).send({image: file_name, user: userUpdated});
-          }
-        });
-     }else{
-       res.status(Status.OK).send({message:'Extensión de archivo no válida'});
-     }
+  if (req.files) {
+    var file_path = req.files.image.path;
+    var file_split = file_path.split('\\');
+    var file_name = file_split[2];
+    var ext_split = file_name.split('\.');
+    var file_ext = ext_split[1];
+    console.log(ext_split);
+    if (file_ext == 'png' || file_ext == 'jpg' || file_ext == 'gif') {
+      User.findByIdAndUpdate(userId, { image: file_name }, (err, userUpdated) => {
+        if (!userUpdated) {
+          res.status(Status.NOT_FOUND).send({ menssage: 'No se ha podido actualizar el usuario' });
+        } else {
+          res.status(Status.OK).send({ image: file_name, user: userUpdated });
+        }
+      });
+    } else {
+      res.status(Status.OK).send({ message: 'Extensión de archivo no válida' });
+    }
 
-  }else{
-      res.status(Status.INTERNAL_SERVER_ERROR).send({message : 'No ha subido ninguna imagen'});
+  } else {
+    res.status(Status.INTERNAL_SERVER_ERROR).send({ message: 'No ha subido ninguna imagen' });
   }
 }
 
 
-function getImageFile(req, res){
- var imageFile = req.params.imageFile;
- var path_file = './uploads/users/'+imageFile;
- fs.exists(path_file, function(exists){
-     if(exists){
-         res.sendFile(path.resolve(path_file));
-     }else{
-         res.status(Status.OK).send({ message : 'No existe la imagen'});
-     }
- });
+function getImageFile(req, res) {
+  var imageFile = req.params.imageFile;
+  var path_file = './uploads/users/' + imageFile;
+  fs.exists(path_file, function (exists) {
+    if (exists) {
+      res.sendFile(path.resolve(path_file));
+    } else {
+      res.status(Status.OK).send({ message: 'No existe la imagen' });
+    }
+  });
 
 }
 

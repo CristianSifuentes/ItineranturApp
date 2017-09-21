@@ -36,9 +36,6 @@ export class SignUpComponent implements OnInit {
     });
   }
 
-
- 
-
   createUser(newUser: User) {
     this.userService.createUser(newUser).subscribe((newUserWithId) => {
       this.users.push(newUserWithId);

@@ -12,9 +12,8 @@ import { Photo } from '././models/photos';
 })
 export class AppComponent implements OnInit {
   public photos: Photo[];
-  
   constructor(   private photosService: PhotosService) {
-    this.photos = this.photosService.getAll();
+    //this.photos = this.photosService.getAll();
 
    }
 

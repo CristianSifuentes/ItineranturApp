@@ -18,14 +18,22 @@ export class HomeComponent implements OnInit {
   public token;
   public identified_user;
   public photos: Photo[];
+  public url: string;
   constructor(
     private photosService: PhotosService,
     private userService: UsersService,
     private router: Router
   ) {
-    this.photos = this.photosService.getAll();
+    this.url = 'http://localhost:3977/api/photo/';
     this.token = AuthStore.getToken();
     this.identified_user = AuthIdentifiedUser.getUserIdentified();
+    if (this.token && this.identified_user) {
+      this.photosService.getAllPhotosForUser().subscribe((photos: Array<Photo>) => {
+        this.photos = photos;
+      });
+    }
+
+
   }
 
   ngOnInit() {
