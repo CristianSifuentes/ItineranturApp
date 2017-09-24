@@ -1,14 +1,18 @@
 <div *ngIf="identified_user;else no_logeado">
-
   <div class="flex-container" fxLayout="column">
     <md-sidenav-container>
       <md-sidenav #sidenav class="sidenav">
         <md-nav-list>
-          <div class="flex-container" fxLayout="row">
-            <md-card>
+          <div fxLayout="row">
+            <md-card id="user">
               <md-card-title>
                 <div fxLayout="row" fxLayoutAlign="center center">
-                  <img class="avatar-wrapper" fxLayoutAlign="center center" md-card-avatar src="../assets/Alexanya.png">
+                  <div *ngIf="contacts;else other_content">
+                    <img class="avatar-wrapper"  (click)="myAccount(contacts[0]);" fxLayoutAlign="center center" md-card-avatar src="{{url_user + 'getimageuser/' +contacts[0].user}}">
+                  </div>
+                  <ng-template #other_content>
+                    <md-icon>person</md-icon>
+                  </ng-template>
                 </div>
               </md-card-title>
               <md-card-content>
@@ -16,16 +20,11 @@
               </md-card-content>
               <md-card-actions class="mat-card-actions">
                 <md-icon>train</md-icon>
-                <!--button (click)="sidenav.close()" class="mat-button" md-button="">
-                                  <span class="mat-button-wrapper">CLOSE</span>
-                                  <div class="mat-button-ripple mat-ripple" md-ripple=""></div>
-                                  <div class="mat-button-focus-overlay"></div>
-                                 </button-->
               </md-card-actions>
             </md-card>
 
           </div>
-          <div class="flex-container" fxLayout="column">
+          <div fxLayout="column">
             <a md-list-item (click)="sidenav.close()" [routerLink]="['/home']">
               <md-icon md-list-icon>Home</md-icon>
               <span md-line>Home</span>
@@ -62,13 +61,6 @@
                   <md-icon>more_vert</md-icon>
                 </button>
         </md-toolbar>
-        <section class="progress-bar">
-          <md-progress-bar mode="indeterminate" [color]="primary"></md-progress-bar>
-          <!--md-progress-bar
-                    [color]="'primary'"
-                    [mode]="progressBarMode">
-                </md-progress-bar-->
-        </section>
 
         <!-- menu -->
         <md-menu x-position="before" #menu="mdMenu">
@@ -82,13 +74,15 @@
         <div fxLayout="row" fxLayoutAlign="center">
 
           <div fxLayout="column" class="card-container">
+            <md-progress-spinner *ngIf="!photos" class="progress-spinner" [color]="'primary'" [mode]="'indeterminate'">
+            </md-progress-spinner>
             <md-card *ngFor="let photo of dataList">
               <md-card-header>
-                <img md-card-avatar src="{{url_user + 'getimageuser/' + photo.user._id}}">
-                <md-card-title>{{ photo.user.name }}</md-card-title>
-                <md-card-subtitle>{{ photo.user.lastname }}</md-card-subtitle>
+                <img md-card-avatar (click)="seeAllPhotosUser(photo);" src="{{url_user + 'getimageuser/' + photo.user._id}}">
+                <md-card-title>{{ photo.user.name + ' ' + photo.user.lastname}}</md-card-title>
+                <md-card-subtitle>{{ photo.name }}</md-card-subtitle>
               </md-card-header>
-              <img md-card-image src="{{url + 'getimage/' + photo.image}}" alt="photo of the super model {{photo.name}}">
+              <img md-card-image src="{{url + 'getimage/' + photo.image}}" alt="{{photo.name}}">
               <md-card-content>
                 {{photo.description}}
               </md-card-content>

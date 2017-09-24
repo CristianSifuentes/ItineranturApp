@@ -1,54 +1,54 @@
-/* Cards */
-/*md-card {
-    margin: 10px;
-}*/
 
 
 :host{
 
-    .avatar-wrapper {
-        background: #fff;
-        border-radius: 50%;
-        box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.14);
-        height: 140px;
-        width: 140px;
-    
-        /*md-icon {
-          font-size: 100px;
-          height: 100px;
-          width: 100px;
-          color: #d1c4e9;
-        }*/
-      }
+  .flex-container{
 
-      md-sidenav-container, .my-content {
-        margin-top: 2px;
-          width: 100%;
-          height: 100%;
-        }
-        md-sidenav-layout {
-          background: rgba(0, 0, 0, .03);
-        }
-        .sidenav {
-          width: 300px;
-        }
-        .fill-remaining-space {
-          flex: 1 1 auto;
-        }
-      
+    .avatar-wrapper {
+      background: #fff;
+      border-radius: 50%;
+      box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.14);
+      height: 140px;
+      width: 140px;
+    }
+
+     md-sidenav-container, .my-content {
+      margin-top: 2px;
+        width: 100%;
+        height: 100%;
+    }
+
+    md-sidenav-layout {
+        background: rgba(0, 0, 0, .03);
+    }
+
+    .sidenav {
+        width: 300px;
+    }
+
+    .fill-remaining-space {
+        flex: 1 1 auto;
+    }
+
     md-card {
-        // background-color: #1257EC;//quitar
         background-color: #fff;                 
-         margin: 16px;
+         margin: 40px;
          cursor: pointer;
 
            md-card-content {
-            margin: 16px;
+            //margin: 16px;
             width: 50%;
-             //background-color: #19EC12;//quitar
            }
 
      }
+
+  }
+
+
+
+
+      
+
    } 
 
  

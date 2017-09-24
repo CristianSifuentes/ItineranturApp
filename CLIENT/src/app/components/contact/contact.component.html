@@ -5,37 +5,37 @@
         <md-card-title>
           <div fxLayout="row" fxLayoutAlign="center center">
             <div class="avatar-wrapper" fxLayoutAlign="center center">
-              <md-icon>person</md-icon>
+              <!--md-icon>person</md-icon-->
+              <div *ngIf="photos;else other_content">
+                <img class="avatar-wrapper" fxLayoutAlign="center center" md-card-avatar src="{{url_user + 'getimageuser/' + photos[0].user._id}}">
+              </div>
+              <ng-template #other_content><md-icon>person</md-icon></ng-template>
             </div>
           </div>
-          <button md-icon-button [mdMenuTriggerFor]="menu" disableRipple="true" class="menu-button">
-            <md-icon>more_vert</md-icon>
-          </button>
-          <md-menu #menu="mdMenu">
-            <button md-menu-item>Sign Out</button>
-          </md-menu>
         </md-card-title>
         <md-card-content>
-          <p>Hello</p>
+            <div *ngIf="photos;else other_content">
+                <p> {{ photos[0].user.name }}</p>
+              </div>
         </md-card-content>
       </md-card>
     </div>
   </div>
-  
+
   <div fxLayout="column" fxLayoutAlign="center">
-    
-            <md-grid-list [cols]="cols | async" gutterSize="15px" class="grid">
-              <md-grid-tile *ngFor="let photo of photos">
-                <img src="assets/{{photo.name}}.png" alt="photo of the super photo {{photo.name}}">
-                <md-grid-tile-footer>
-                  <h3 md-line>{{photo.name}}</h3>
-                  <span md-line>{{photo.status}}</span>
-                  <button md-icon-button>
+
+    <md-grid-list [cols]="cols | async" gutterSize="15px" class="grid">
+      <md-grid-tile *ngFor="let photo of photos">
+        <img src="{{url + 'getimage/' + photo.image}}" alt="photo of the super photo {{photo.name}}">
+        <md-grid-tile-footer>
+          <h3 md-line>{{photo.name}}</h3>
+          <span md-line>{{photo.status}}</span>
+          <button md-icon-button>
                                 <md-icon>info</md-icon>
                               </button>
-                </md-grid-tile-footer>
-              </md-grid-tile>
-            </md-grid-list>
-          </div>
-    
+        </md-grid-tile-footer>
+      </md-grid-tile>
+    </md-grid-list>
+  </div>
+
 </div>

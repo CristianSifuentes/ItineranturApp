@@ -5,10 +5,10 @@ import { MdIconRegistry } from '@angular/material';
 import { PhotosService } from '../../services/photos.service';
 import { UsersService } from '../../services/users.service';
 import { Photo } from './../../models/photos';
+import { User } from './../../models/users';
 import AuthStore from '../../stores/Auth';
 import AuthIdentifiedUser from '../../stores/IdentifiedUser';
-import { Router } from '@angular/router';
-import { Directive, Output, EventEmitter, Input, SimpleChange } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -18,7 +18,6 @@ import { Directive, Output, EventEmitter, Input, SimpleChange } from '@angular/c
 })
 export class HomeComponent implements OnInit {
 
-  @Output() onCreate: EventEmitter<any> = new EventEmitter<any>();
   public token;
   public identified_user;
   public photos: Photo[];
@@ -28,24 +27,15 @@ export class HomeComponent implements OnInit {
   public url_user: string;
 
   ngOnInit() {
-  }
-
-
-  constructor(
-    private photosService: PhotosService,
-    private userService: UsersService,
-    private router: Router,
-    private contactService: ContactsService
-  ) {
-    this.onCreate.emit('dummy');
-    this.url = 'http://localhost:3977/api/photo/';
-    this.url_user = 'http://localhost:3977/api/user/';
     this.token = AuthStore.getToken();
     this.identified_user = AuthIdentifiedUser.getUserIdentified();
+
     if (this.token && this.identified_user) {
-      this.contactService.getAllContactForUser('59b9717802d64c1188b71eb0')
+      var user = JSON.parse(this.identified_user);
+      this.contactService.getAllContactForUser(user._id)
         .subscribe(
         (contact: Array<Contact>) => {
+          this.contacts = contact;
           this.send_contacts(contact);
         },
         error => {
@@ -57,16 +47,31 @@ export class HomeComponent implements OnInit {
     }
   }
 
+
+  constructor(
+    private photosService: PhotosService,
+    private userService: UsersService,
+    private router: Router,
+    private contactService: ContactsService
+  ) {
+    this.url = 'http://localhost:3977/api/photo/';
+    this.url_user = 'http://localhost:3977/api/user/';
+
+  }
+
+  /**
+   * Método que obtiene las fotos por contacto
+   * @param contacts 
+   */
   send_contacts(contacts: any) {
     for (var i = 0; i < contacts.length; i++) {
-      this.photosService.getAllPhotosForUser(contacts[i]).subscribe((photos: Array<Photo>) => {
+      this.photosService.getAllPhotosForUser(contacts[i].user_contact).subscribe((photos: Array<Photo>) => {
         if (photos) {
           console.log('contacto');
           for (var i = 0; i < photos.length; i++) {
-
+            this.photos = photos;
             this.dataList.push(photos[i]);
           }
-          /*console.log('tiene ' + photos.length);*/
         }
       }, (error) => {
         console.log(error);
@@ -84,5 +89,24 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['login/']);
   }
 
+  /**
+   * Método que manda al detalle del contacto
+   * @param user
+   */
+  seeAllPhotosUser(user: any): void {
+    if (user) {
+      this.router.navigate(['contacto/' + user.user._id]);
+    }
+  }
+
+  /**
+   * Método que manda la cuenta principal del usuario logeado
+   * @param user
+   */
+  myAccount(user: any): void {
+    if (user) {
+      this.router.navigate(['mi-cuenta/' + user.user]);
+    }
+  }
 
 }

@@ -33,10 +33,10 @@ export class PhotosService {
     this.headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': AuthStore.getToken() });
   }
 
-  getAllPhotosForUser(user: any): Observable<Photo[]> {
+  getAllPhotosForUser(user: string): Observable<Photo[]> {
     this.request$.emit('starting');
     return this.http
-      .get(this.photosUrl + '/' + user.user_contact, { headers: this.headers })
+      .get(this.photosUrl + '/' + user, { headers: this.headers })
       .map(response => {
         this.request$.emit('finished');
         return response;

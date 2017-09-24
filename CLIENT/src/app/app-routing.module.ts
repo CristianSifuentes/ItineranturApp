@@ -10,9 +10,9 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: SignInComponent },
   { path: 'registrar', component: SignUpComponent },
-  { path: 'mi-cuenta', component: MyAccountComponent },
+  { path: 'mi-cuenta/:id', component: MyAccountComponent },
   { path: 'home', component: HomeComponent },
-  { path: 'contacto', component: ContactComponent }
+  { path: 'contacto/:id', component: ContactComponent }
 ];
 
 

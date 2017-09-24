@@ -6,6 +6,7 @@ import 'rxjs/add/observable/of';
 import { MdIconRegistry } from '@angular/material';
 import { PhotosService } from '../../services/photos.service';
 import { Photo } from './../../models/photos';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -20,22 +21,36 @@ export class MyAccountComponent implements OnInit {
   constructor(
     private observableMedia: ObservableMedia,
     private iconRegistry: MdIconRegistry,
-    private photosService: PhotosService
-  ) { 
-      //this.photos = this.photosService.getAll();
-    }
+    private photosService: PhotosService,
+    private route: ActivatedRoute
+  ) {
+    this.route.params.subscribe(params => {
+      if (params['id']) {
+        console.log(params['id']);
+        this.photosService.getAllPhotosForUser(params['id']).subscribe(
+          (photos: Array<Photo>) => {
+            if (photos) {
+              this.photos = photos;
+            }
+          }, (error) => {
+            console.log(error);
+          }, function () { console.log('uno mas'); }
+        );
+      }
+    });
+  }
 
-    ngOnInit() {
-      // set cols
-      if (this.observableMedia.isActive('xs')) {
-        this.cols = Observable.of(1);
-      } else if (this.observableMedia.isActive('sm') || this.observableMedia.isActive('md')) {
-        this.cols = Observable.of(2);
-      } else if (this.observableMedia.isActive('lg') || this.observableMedia.isActive('xl')) {
-        this.cols = Observable.of(4);
-      } 
-      // observe changes
-      this.observableMedia.asObservable()
+  ngOnInit() {
+    // set cols
+    if (this.observableMedia.isActive('xs')) {
+      this.cols = Observable.of(1);
+    } else if (this.observableMedia.isActive('sm') || this.observableMedia.isActive('md')) {
+      this.cols = Observable.of(2);
+    } else if (this.observableMedia.isActive('lg') || this.observableMedia.isActive('xl')) {
+      this.cols = Observable.of(4);
+    }
+    // observe changes
+    this.observableMedia.asObservable()
       .subscribe(change => {
         switch (change.mqAlias) {
           case 'xs':
@@ -48,6 +63,6 @@ export class MyAccountComponent implements OnInit {
             return this.cols = Observable.of(4);
         }
       });
-    }
+  }
 
 }
