@@ -1,4 +1,4 @@
-import { Photo } from '../models/photos';
+import { Contact } from './../models/contacts';
 import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
@@ -9,11 +9,11 @@ import { AppConfig } from './../config/app.config';
 import AuthStore from '../stores/Auth';
 
 @Injectable()
-export class PhotosService {
+export class ContactsService {
 
   request$: EventEmitter<any>;
   private headers: HttpHeaders;
-  private photosUrl: string;
+  private contactsUrl: string;
   private translations: any;
 
   private handleError(error: any) {
@@ -29,14 +29,14 @@ export class PhotosService {
   ) {
 
     this.request$ = new EventEmitter();
-    this.photosUrl = 'http://localhost:3977/api/photo';
+    this.contactsUrl = 'http://localhost:3977/api/contacts';
     this.headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': AuthStore.getToken() });
   }
 
-  getAllPhotosForUser(user: any): Observable<Photo[]> {
+  getAllContactForUser(userId: string): Observable<Contact[]> {
     this.request$.emit('starting');
     return this.http
-      .get(this.photosUrl + '/' + user.user_contact, { headers: this.headers })
+      .get(this.contactsUrl + '/' + userId, { headers: this.headers })
       .map(response => {
         this.request$.emit('finished');
         return response;

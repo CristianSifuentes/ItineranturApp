@@ -10,10 +10,11 @@ var md_upload = multipart({
 });
 
 var api = express.Router();
-api.get('/',UserController.prueba);
-api.post('/user',UserController.saveUser);
-api.post('/user/login',UserController.loginUser);
-api.put('/user/:id',MiddlewareAuth.ensureAuth, UserController.updateUser);
-api.post('/user/uploadimage/:id',[MiddlewareAuth.ensureAuth,md_upload],UserController.uploadImage);
-api.get('/user/getimage/:imageFile',UserController.getImageFile);
+api.get('/', UserController.prueba);
+api.post('/user', UserController.saveUser);
+api.post('/user/login', UserController.loginUser);
+api.put('/user/:id', MiddlewareAuth.ensureAuth, UserController.updateUser);
+api.post('/user/uploadimage/:id', [MiddlewareAuth.ensureAuth, md_upload], UserController.uploadImage);
+api.get('/user/getimage/:imageFile', UserController.getImageFile);
+api.get('/user/getimageuser/:id', UserController.getImageFileByUser);
 module.exports = api;

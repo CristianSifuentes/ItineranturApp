@@ -2,8 +2,8 @@
 
 var User = require('../models/user');
 var Status = require('../utils/http-status')
-var fs = require('fs');//para acceder a archivos del sistema
-var path = require('path');//para trabar con los path de los archivos y ficheros
+var fs = require('fs');
+var path = require('path');
 var bcrypt = require('bcrypt-nodejs');
 var jwt = require('../services/jwt');
 
@@ -15,6 +15,11 @@ function prueba(req, res) {
   });
 }
 
+/**
+ * Método que realiza el insert de un nuevo usuario a la aplicación
+ * @param {*} req 
+ * @param {*} res 
+ */
 function saveUser(req, res) {
   var user = new User();
   var params = req.body;
@@ -70,6 +75,11 @@ function saveUser(req, res) {
   }
 }
 
+/**
+ * Método que realiza el login de un usuario en la aplicación
+ * @param {*} req 
+ * @param {*} res 
+ */
 function loginUser(req, res) {
   var params = req.body;
 
@@ -108,6 +118,11 @@ function loginUser(req, res) {
 }
 
 
+/**
+ * Método que realiza la actualización de los datos de un usuario
+ * @param {*} req 
+ * @param {*} res 
+ */
 function updateUser(req, res) {
   var userId = req.params.id;
   var update = req.body;
@@ -129,7 +144,11 @@ function updateUser(req, res) {
 }
 
 
-//Método que sube una imagen a una carpeta del servidor
+/**
+ * Método que realiza la carga al servidor de una imagen para el usuario
+ * @param {*} req 
+ * @param {*} res 
+ */
 function uploadImage(req, res) {
   var userId = req.params.id;
   var file_name = 'No subido...';
@@ -158,6 +177,11 @@ function uploadImage(req, res) {
 }
 
 
+/**
+ * Método que realiza la obtención de la imagen de un usuario
+ * @param {*} req 
+ * @param {*} res 
+ */
 function getImageFile(req, res) {
   var imageFile = req.params.imageFile;
   var path_file = './uploads/users/' + imageFile;
@@ -171,6 +195,33 @@ function getImageFile(req, res) {
 
 }
 
+/**
+ * Método que 
+ * @param {*} req 
+ * @param {*} res 
+ */
+function getImageFileByUser(req, res) {
+  var userId = req.params.id;
+  User.findById(userId).exec((err, user) => {
+    if (err) {
+      res.status(Status.INTERNAL_SERVER_ERROR).send({ message: 'Error en la petición' });
+    } else {
+      if (!user) {
+        res.status(Status.NOT_FOUND).send({ message: 'El Album no existe' });
+      } else {
+        var path_file = './uploads/users/' + user.image;
+        fs.exists(path_file, function (exists) {
+          if (exists) {
+            res.sendFile(path.resolve(path_file));
+          } else {
+            res.status(Status.OK).send({ message: 'No existe la imagen' });
+          }
+        });
+      }
+    }
+  });
+
+}
 
 
 
@@ -180,5 +231,6 @@ module.exports = {
   loginUser,
   updateUser,
   uploadImage,
-  getImageFile
+  getImageFile,
+  getImageFileByUser
 }

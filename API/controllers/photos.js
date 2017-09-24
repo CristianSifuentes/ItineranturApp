@@ -1,9 +1,9 @@
 'use strict'
 
 var Photo = require('../models/photos');
-var Status = require('../utils/http-status')
-var fs = require('fs');//para acceder a archivos del sistema
-var path = require('path');//para trabar con los path de los archivos y ficheros
+var Status = require('../utils/http-status');
+var fs = require('fs');
+var path = require('path');
 
 function prueba(req, res) {
     res.status(Status.OK).send({
@@ -73,39 +73,28 @@ function uploadPhoto(req, res) {
 }
 
 /**
- * 
+ * Mètodo que obtiene las fotos de los contactos de un usuario
  * @param {*} req 
  * @param {*} res 
  */
 function getPhotos(req, res) {
 
-    /*var artistId = req.params.user;
+    var userId = req.params.user;
 
-    if (!artistId) {
-        //sacar todos los albums de la bbdd
+    if (!userId) {
         var find = Photo.find({}).sort('name');
     } else {
         //sacar los albums de un artista concreto de la bbdd
-        var find = Photo.find({ user: artistId }).sort('name');
+        var find = Photo.find({ user: userId }).sort('name');
     }
 
-    find.populate({ path: 'photo' }).exec((err, albums) => {
+    find.populate({ path: 'user' }).exec((err, albums) => {
         if (err) {
             res.status(500).send({ message: 'Error en la patición' });
         } else {
-            res.status(404).send({ albums });
+            res.status(200).send(albums);
         }
-    });*/
-
-    Photo.find({}, function (err, photos) {
-        if (err) {
-            res.status(500).send({ message: 'Error en la patición' });
-        } else {
-            res.status(200).send(photos);
-        }
-
     });
-
 }
 
 /**

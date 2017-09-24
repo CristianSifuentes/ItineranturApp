@@ -13,6 +13,6 @@ var api = express.Router();
 /*api.get('/photo/',PhotoController.prueba);*/
 api.post('/photo/',MiddlewareAuth.ensureAuth, PhotoController.savePhoto);
 api.post('/photo/uploadPhoto/:id',[MiddlewareAuth.ensureAuth,md_upload],PhotoController.uploadPhoto);
-api.get('/photo/', MiddlewareAuth.ensureAuth, PhotoController.getPhotos);
+api.get('/photo/:user', MiddlewareAuth.ensureAuth, PhotoController.getPhotos);
 api.get('/photo/getimage/:imageFile',PhotoController.getPhotoFile);
 module.exports = api;

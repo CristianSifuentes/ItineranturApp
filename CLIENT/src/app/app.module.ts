@@ -1,4 +1,5 @@
 
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { MaterialModule, MdSnackBar } from '@angular/material';
@@ -24,7 +25,7 @@ import { ContactComponent } from './components/contact/contact.component';
 /* servicios */
 import { PhotosService } from './services/photos.service';
 import { UsersService } from './services/users.service';
-
+import { ContactsService } from './services/contacts.service';
 
 
 @NgModule({
@@ -53,7 +54,7 @@ import { UsersService } from './services/users.service';
     AppRoutingModule,
     MdSnackBarModule
   ],
-  providers: [PhotosService, UsersService],
+  providers: [PhotosService, UsersService, ContactsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

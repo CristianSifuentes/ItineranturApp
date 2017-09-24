@@ -12,7 +12,8 @@
 12.- para crear componente del home> ng g component home home/ --style=scss
 13 .- Cree manual mente el modelo del usuarios en el cliente
 14 .- Cree el servicio de usuarios - ng g service users services/
-8.- para crear componente de mi cuenta> ng g component contact contact --style=scss
+15.- para crear componente de mi cuenta> ng g component contact contact --style=scss
+16.- crear el servicio de contacts- ng g service contacts- services/
 
 Scaffold	Usage
 Component	ng g component my-new-component
@@ -83,3 +84,7 @@ http://brianflove.com/2017/05/03/responsive-angular/
 http://brianflove.com/2017/04/10/angular-reactive-authentication/
 
 investigar la diferencia entre http y comom
+
+this.contactsService.getAllContactForUser('59b9717802d64c1188b71eb0').subscribe((contacts: Array<Contact>) => {
+        this.contacts = contacts;
+      });
