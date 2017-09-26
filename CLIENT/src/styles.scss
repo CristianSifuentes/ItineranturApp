@@ -14,4 +14,11 @@ html, body {
   height: 100vh; // view port height units
 }
 
-  
+
+  /* Tooblar */
+md-toolbar{
+  z-index: 10;
+}
+md-toolbar-row {
+  justify-content: space-between; // this is based on flex
+}

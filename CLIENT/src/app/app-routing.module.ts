@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: 'login', component: SignInComponent },
   { path: 'registrar', component: SignUpComponent },
   { path: 'mi-cuenta/:id', component: MyAccountComponent },
-  { path: 'home', component: HomeComponent },
+  { path: 'home/:id', component: HomeComponent },
   { path: 'contacto/:id', component: ContactComponent }
 ];
 

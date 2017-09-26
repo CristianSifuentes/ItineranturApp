@@ -27,20 +27,23 @@ export class HomeComponent implements OnInit {
   public contacts: Contact[];
   public url: string;
   public url_user: string;
-  public cols: Observable<boolean>;
+  public open: Observable<boolean>;
+  public open_profile: Observable<boolean>;
 
 
   ngOnInit() {
 
-    this.token = AuthStore.getToken();
-    this.identified_user = AuthIdentifiedUser.getUserIdentified();
+
 
     if (this.observableMedia.isActive('xs')) {
-      this.cols = Observable.of(false);
+      this.open = Observable.of(false);
+      this.open_profile = Observable.of(true);
     } else if (this.observableMedia.isActive('sm') || this.observableMedia.isActive('md')) {
-      this.cols = Observable.of(false);
+      this.open = Observable.of(false);
+      this.open_profile = Observable.of(true);
     } else if (this.observableMedia.isActive('lg') || this.observableMedia.isActive('xl')) {
-      this.cols = Observable.of(true);
+      this.open = Observable.of(true);
+      this.open_profile = Observable.of(false);
     }
 
 
@@ -49,17 +52,53 @@ export class HomeComponent implements OnInit {
       .subscribe(change => {
         switch (change.mqAlias) {
           case 'xs':
-            return this.cols = Observable.of(false);
+            return this.open = Observable.of(false);
           case 'sm':
           case 'md':
-            return this.cols = Observable.of(false);
+            return this.open = Observable.of(false);
           case 'lg':
           case 'xl':
-            return this.cols = Observable.of(true);
+            return this.open = Observable.of(true);
+        }
+      });
+
+      this.observableMedia.asObservable()
+      .subscribe(change => {
+        switch (change.mqAlias) {
+          case 'xs':
+            return this.open_profile = Observable.of(true);
+          case 'sm':
+          case 'md':
+            return this.open_profile = Observable.of(true);
+          case 'lg':
+          case 'xl':
+            return this.open_profile = Observable.of(false);
         }
       });
 
 
+
+
+  }
+
+
+  constructor(
+    private observableMedia: ObservableMedia,
+    private photosService: PhotosService,
+    private userService: UsersService,
+    private router: Router,
+    private contactService: ContactsService,
+    private route: ActivatedRoute
+
+  ) {
+    this.url = 'http://localhost:3977/api/photo/';
+    this.url_user = 'http://localhost:3977/api/user/';
+
+
+    
+
+    this.token = AuthStore.getToken();
+    this.identified_user = AuthIdentifiedUser.getUserIdentified();
 
     if (this.token && this.identified_user) {
       var user = JSON.parse(this.identified_user);
@@ -76,18 +115,10 @@ export class HomeComponent implements OnInit {
         });
 
     }
-  }
 
 
-  constructor(
-    private observableMedia: ObservableMedia,
-    private photosService: PhotosService,
-    private userService: UsersService,
-    private router: Router,
-    private contactService: ContactsService
-  ) {
-    this.url = 'http://localhost:3977/api/photo/';
-    this.url_user = 'http://localhost:3977/api/user/';
+
+    
 
   }
 

@@ -1,9 +1,10 @@
 
 :host {
+
   .flex-container {
 
     .grid{
-        margin-top: 20px;
+        margin: 20px;
     }
 
     background-color:#f5f5f5;
@@ -20,7 +21,7 @@
       height: 200px;
       left: 0;
       right: 0;
-      background-color:#3f51b5;//cambiar
+      background-color:#673ab7;//cambiar
       content: "";
       box-shadow: 0 2px 4px 1px rgba(0,0,0,.14);
       z-index: 0;
@@ -39,7 +40,7 @@
           .avatar-wrapper {
             background: #fff;
             border-radius: 50%;
-            box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.14);
+            //box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.14);
             height: 140px;
             width: 140px;
 

@@ -1,1 +1,98 @@
-<p>mi cuenta</p>
+<section class="app flex-container" fxLayout="column" fxLayoutAlign="start stretch">
+
+
+    <!-- toolbar -->
+    <md-toolbar color="primary" class="mat-elevation-z16">
+        <button md-icon-button (click)="sidenav.toggle()">
+                            <md-icon>menu</md-icon>
+                          </button>
+        <span>{{title}}</span>
+        <span class="fill-remaining-space"></span>
+        <button md-icon-button [md-menu-trigger-for]="menu">
+                              <md-icon>more_vert</md-icon>
+                            </button>
+    </md-toolbar>
+
+
+
+    <!-- menu -->
+    <md-menu x-position="before" #menu="mdMenu">
+        <button md-menu-item (click)="signOut()">Salir</button>
+        <button md-menu-item (click)="isDarkTheme=!isDarkTheme">Cambiar Tema</button>
+        <button md-menu-item>Free Hugs!</button>
+        <button md-menu-item>Acerda de</button>
+    </md-menu>
+
+    <md-sidenav-container fxFlex>
+        <!-- sidenav -->
+        <md-sidenav mode="side" [opened]="open | async" #sidenav class="mat-elevation-z6">
+            <md-nav-list>
+                <div fxLayout="row">
+                    <md-card id="user">
+                        <md-card-title>
+                            <div fxLayout="row" fxLayoutAlign="center center">
+                                <div *ngIf="contacts;else other_content">
+                                    <img class="avatar-wrapper" (click)="myAccount(contacts[0]);" fxLayoutAlign="center center" md-card-avatar src="{{url_user + 'getimageuser/' +contacts[0].user}}">
+                                </div>
+                                <ng-template #other_content>
+                                    <md-icon>person</md-icon>
+                                </ng-template>
+                            </div>
+                        </md-card-title>
+                        <md-card-content>
+                            <p>Hello, Cristian Sifuentes Covarrubias </p>
+                        </md-card-content>
+                        <md-card-actions class="mat-card-actions">
+                            <md-icon>train</md-icon>
+                        </md-card-actions>
+                    </md-card>
+
+                </div>
+                <div fxLayout="column">
+                    <a md-list-item (click)="sidenav.close()" [routerLink]="['/home']">
+                        <md-icon md-list-icon>Home</md-icon>
+                        <span md-line>Home</span>
+                        <span md-line class="secondary">Home</span>
+                    </a>
+                    <a md-list-item (click)="sidenav.close()" [routerLink]="['/categories']">
+                        <md-icon md-list-icon>list</md-icon>
+                        <span md-line>Viajeros</span>
+                        <span md-line class="secondary">Ver a otros viajeros</span>
+                    </a>
+                    <a md-list-item (click)="sidenav.close()" [routerLink]="['/tags']">
+                        <md-icon md-list-icon>bookmark</md-icon>
+                        <span md-line>Tags</span>
+                        <span md-line class="secondary">Tags</span>
+                    </a>
+                    <a md-list-item (click)="sidenav.close()" [routerLink]="['/questions']">
+                        <md-icon md-list-icon>question_answer</md-icon>
+                        <span md-line>Questions</span>
+                        <span md-line class="secondary">Questions</span>
+                    </a>
+
+                </div>
+
+            </md-nav-list>
+        </md-sidenav>
+        <div fxLayout="row" fxLayoutAlign="center" class="card-container">
+            <div fxFlex="100%" fxFlex.md="100%" fxFlex.lg="100%">
+                <md-progress-spinner *ngIf="!photos" class="progress-spinner" [color]="'primary'" [mode]="'indeterminate'">
+                </md-progress-spinner>
+                <md-grid-list [cols]="cols | async" gutterSize="15px" class="grid">
+                    <md-grid-tile *ngFor="let photo of photos">
+                        <img src="{{url + 'getimage/' + photo.image}}" alt="photo of the super photo {{photo.name}}">
+                        <md-grid-tile-footer>
+                            <h3 md-line>{{photo.name}}</h3>
+                            <span md-line>{{photo.status}}</span>
+                            <button md-icon-button>
+                                                  <md-icon>info</md-icon>
+                                                </button>
+                        </md-grid-tile-footer>
+                    </md-grid-tile>
+                </md-grid-list>
+            </div>
+        </div>
+    </md-sidenav-container>
+
+
+</section>

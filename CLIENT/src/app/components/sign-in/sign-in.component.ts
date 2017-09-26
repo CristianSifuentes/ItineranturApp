@@ -39,10 +39,13 @@ export class SignInComponent implements OnInit {
       (userWithId) => {
         this.userService.loginUser(user).subscribe(
           (userWithToken) => {
-            //IdentifiedUserStore.setUserIdentified(JSON.stringify(userWithId));
             IdentifiedUserStore.setUserIdentified(JSON.stringify(userWithId));
             AuthStore.setToken(JSON.stringify(userWithToken.token));
-            this.router.navigate(['home/']);
+            if (user) {
+              this.router.navigate(['home/' + '59b9717802d64c1188b71eb0']);
+            }
+
+            //this.router.navigate(['home/']);
           }, (response: Response) => {
             if (response.status === 500) {
               this.error = 'errorHasOcurred';
