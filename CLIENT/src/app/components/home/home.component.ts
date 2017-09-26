@@ -9,7 +9,9 @@ import { User } from './../../models/users';
 import AuthStore from '../../stores/Auth';
 import AuthIdentifiedUser from '../../stores/IdentifiedUser';
 import { Router, ActivatedRoute } from '@angular/router';
-
+import { ObservableMedia } from '@angular/flex-layout';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
 
 @Component({
   selector: 'app-home',
@@ -25,10 +27,39 @@ export class HomeComponent implements OnInit {
   public contacts: Contact[];
   public url: string;
   public url_user: string;
+  public cols: Observable<boolean>;
+
 
   ngOnInit() {
+
     this.token = AuthStore.getToken();
     this.identified_user = AuthIdentifiedUser.getUserIdentified();
+
+    if (this.observableMedia.isActive('xs')) {
+      this.cols = Observable.of(false);
+    } else if (this.observableMedia.isActive('sm') || this.observableMedia.isActive('md')) {
+      this.cols = Observable.of(false);
+    } else if (this.observableMedia.isActive('lg') || this.observableMedia.isActive('xl')) {
+      this.cols = Observable.of(true);
+    }
+
+
+    // observe changes
+    this.observableMedia.asObservable()
+      .subscribe(change => {
+        switch (change.mqAlias) {
+          case 'xs':
+            return this.cols = Observable.of(false);
+          case 'sm':
+          case 'md':
+            return this.cols = Observable.of(false);
+          case 'lg':
+          case 'xl':
+            return this.cols = Observable.of(true);
+        }
+      });
+
+
 
     if (this.token && this.identified_user) {
       var user = JSON.parse(this.identified_user);
@@ -49,6 +80,7 @@ export class HomeComponent implements OnInit {
 
 
   constructor(
+    private observableMedia: ObservableMedia,
     private photosService: PhotosService,
     private userService: UsersService,
     private router: Router,

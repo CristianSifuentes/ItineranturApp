@@ -1,14 +1,40 @@
 <div *ngIf="identified_user;else no_logeado">
-  <div class="flex-container" fxLayout="column">
-    <md-sidenav-container>
-      <md-sidenav #sidenav class="sidenav">
+
+  <section class="app flex-container" fxLayout="column" fxLayoutAlign="start stretch">
+
+
+    <!-- toolbar -->
+    <md-toolbar color="primary" class="mat-elevation-z16">
+      <button md-icon-button (click)="sidenav.toggle()">
+                    <md-icon>menu</md-icon>
+                  </button>
+      <span>{{title}}</span>
+      <span class="fill-remaining-space"></span>
+      <button md-icon-button [md-menu-trigger-for]="menu">
+                      <md-icon>more_vert</md-icon>
+                    </button>
+    </md-toolbar>
+
+
+
+    <!-- menu -->
+    <md-menu x-position="before" #menu="mdMenu">
+      <button md-menu-item (click)="signOut()">Salir</button>
+      <button md-menu-item (click)="isDarkTheme=!isDarkTheme">Cambiar Tema</button>
+      <button md-menu-item>Free Hugs!</button>
+      <button md-menu-item>Acerda de</button>
+    </md-menu>
+
+    <md-sidenav-container fxFlex>
+      <!-- sidenav -->
+      <md-sidenav mode="side" [opened]="cols | async" #sidenav class="mat-elevation-z6">
         <md-nav-list>
           <div fxLayout="row">
             <md-card id="user">
               <md-card-title>
                 <div fxLayout="row" fxLayoutAlign="center center">
                   <div *ngIf="contacts;else other_content">
-                    <img class="avatar-wrapper"  (click)="myAccount(contacts[0]);" fxLayoutAlign="center center" md-card-avatar src="{{url_user + 'getimageuser/' +contacts[0].user}}">
+                    <img class="avatar-wrapper" (click)="myAccount(contacts[0]);" fxLayoutAlign="center center" md-card-avatar src="{{url_user + 'getimageuser/' +contacts[0].user}}">
                   </div>
                   <ng-template #other_content>
                     <md-icon>person</md-icon>
@@ -50,52 +76,32 @@
 
         </md-nav-list>
       </md-sidenav>
-      <div class="my-content">
-        <md-toolbar color="primary" class="mat-elevation-z10">
-          <button md-icon-button (click)="sidenav.open()">
-                <md-icon>menu</md-icon>
-              </button>
-          <span>{{title}}</span>
-          <span class="fill-remaining-space"></span>
-          <button md-icon-button [md-menu-trigger-for]="menu">
-                  <md-icon>more_vert</md-icon>
-                </button>
-        </md-toolbar>
-
-        <!-- menu -->
-        <md-menu x-position="before" #menu="mdMenu">
-          <button md-menu-item (click)="signOut()">Salir</button>
-          <button md-menu-item (click)="isDarkTheme=!isDarkTheme">Cambiar Tema</button>
-          <button md-menu-item>Free Hugs!</button>
-          <button md-menu-item>Acerda de</button>
-        </md-menu>
-
-
-        <div fxLayout="row" fxLayoutAlign="center">
-
-          <div fxLayout="column" class="card-container">
-            <md-progress-spinner *ngIf="!photos" class="progress-spinner" [color]="'primary'" [mode]="'indeterminate'">
-            </md-progress-spinner>
-            <md-card *ngFor="let photo of dataList">
-              <md-card-header>
-                <img md-card-avatar (click)="seeAllPhotosUser(photo);" src="{{url_user + 'getimageuser/' + photo.user._id}}">
-                <md-card-title>{{ photo.user.name + ' ' + photo.user.lastname}}</md-card-title>
-                <md-card-subtitle>{{ photo.name }}</md-card-subtitle>
-              </md-card-header>
-              <img md-card-image src="{{url + 'getimage/' + photo.image}}" alt="{{photo.name}}">
-              <md-card-content>
-                {{photo.description}}
-              </md-card-content>
-              <md-card-actions>
-                <button md-button>LIKE</button>
-                <button md-button>SHARE</button>
-              </md-card-actions>
-            </md-card>
-          </div>
+      <div fxLayout="row" fxLayoutAlign="center" class="card-container">
+        <div fxFlex="100%" fxFlex.md="100%" fxFlex.lg="100%">
+          <md-progress-spinner *ngIf="!photos" class="progress-spinner" [color]="'primary'" [mode]="'indeterminate'">
+          </md-progress-spinner>
+          <md-card *ngFor="let photo of dataList">
+            <md-card-header>
+              <img md-card-avatar (click)="seeAllPhotosUser(photo);" src="{{url_user + 'getimageuser/' + photo.user._id}}">
+              <md-card-title>{{ photo.user.name + ' ' + photo.user.lastname}}</md-card-title>
+              <md-card-subtitle>{{ photo.name }}</md-card-subtitle>
+            </md-card-header>
+            <img md-card-image src="{{url + 'getimage/' + photo.image}}" alt="{{photo.name}}">
+            <md-card-content>
+              {{photo.description}}
+            </md-card-content>
+            <md-card-actions>
+              <button md-button>LIKE</button>
+              <button md-button>SHARE</button>
+            </md-card-actions>
+          </md-card>
         </div>
       </div>
     </md-sidenav-container>
-  </div>
+
+
+  </section>
+
 </div>
 <ng-template #no_logeado>
   <app-sign-in></app-sign-in>
