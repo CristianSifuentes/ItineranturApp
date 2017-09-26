@@ -12,6 +12,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ObservableMedia } from '@angular/flex-layout';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
+import { ProgressBarService } from '../../services/progress-bar.service';
 
 @Component({
   selector: 'app-home',
@@ -29,11 +30,9 @@ export class HomeComponent implements OnInit {
   public url_user: string;
   public open: Observable<boolean>;
   public open_profile: Observable<boolean>;
-
+  public progressBarMode: string;
 
   ngOnInit() {
-
-
 
     if (this.observableMedia.isActive('xs')) {
       this.open = Observable.of(false);
@@ -62,7 +61,7 @@ export class HomeComponent implements OnInit {
         }
       });
 
-      this.observableMedia.asObservable()
+    this.observableMedia.asObservable()
       .subscribe(change => {
         switch (change.mqAlias) {
           case 'xs':
@@ -88,14 +87,17 @@ export class HomeComponent implements OnInit {
     private userService: UsersService,
     private router: Router,
     private contactService: ContactsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private progressBarService: ProgressBarService
 
   ) {
     this.url = 'http://localhost:3977/api/photo/';
     this.url_user = 'http://localhost:3977/api/user/';
 
+    this.progressBarService.updateProgressBar$.subscribe((mode: string) => {
+      this.progressBarMode = mode;
+    });
 
-    
 
     this.token = AuthStore.getToken();
     this.identified_user = AuthIdentifiedUser.getUserIdentified();
@@ -118,7 +120,7 @@ export class HomeComponent implements OnInit {
 
 
 
-    
+
 
   }
 

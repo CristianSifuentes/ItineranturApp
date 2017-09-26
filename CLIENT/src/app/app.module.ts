@@ -26,6 +26,7 @@ import { ContactComponent } from './components/contact/contact.component';
 import { PhotosService } from './services/photos.service';
 import { UsersService } from './services/users.service';
 import { ContactsService } from './services/contacts.service';
+import { ProgressBarService } from './services/progress-bar.service';
 
 
 @NgModule({
@@ -54,7 +55,7 @@ import { ContactsService } from './services/contacts.service';
     AppRoutingModule,
     MdSnackBarModule
   ],
-  providers: [PhotosService, UsersService, ContactsService],
+  providers: [PhotosService, UsersService, ContactsService, ProgressBarService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

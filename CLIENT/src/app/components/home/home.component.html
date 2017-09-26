@@ -10,10 +10,14 @@
                     <md-icon>menu</md-icon>
                   </button>
       <span>{{title}}</span>
-      <span class="fill-remaining-space"></span>     
+      <span class="fill-remaining-space"></span>
       <button *ngIf="open_profile | async" md-icon-button [md-menu-trigger-for]="menuprofile"><md-icon>account_circle</md-icon></button>
       <button md-icon-button [md-menu-trigger-for]="menu"><md-icon>more_vert</md-icon></button>
     </md-toolbar>
+    <section class="progress-bar">
+      <md-progress-bar [color]="'primary'" [mode]="progressBarMode">
+      </md-progress-bar>
+    </section>
 
 
 
@@ -27,22 +31,22 @@
 
     <!-- menu -->
     <md-menu x-position="before" #menuprofile="mdMenu">
-        <md-card>
-            <md-card-header>
-                  <img md-card-avatar src="../assets/Alexanya.png">
-                            <md-card-title>Titulo</md-card-title>
-                            <md-card-subtitle>Titlo</md-card-subtitle>
-              </md-card-header>
-            <md-card-actions  class="mat-card-actions">
-                <button md-menu-item>Toggle Theme</button>
-                <button md-menu-item>Free Hugs!</button>
-                <button md-menu-item>Help</button>
-            </md-card-actions>
-        </md-card>
+      <md-card>
+        <md-card-header>
+          <img md-card-avatar src="../assets/Alexanya.png">
+          <md-card-title>Titulo</md-card-title>
+          <md-card-subtitle>Titlo</md-card-subtitle>
+        </md-card-header>
+        <md-card-actions class="mat-card-actions">
+          <button md-menu-item>Toggle Theme</button>
+          <button md-menu-item>Free Hugs!</button>
+          <button md-menu-item>Help</button>
+        </md-card-actions>
+      </md-card>
 
     </md-menu>
 
-    
+
 
     <md-sidenav-container fxFlex>
       <!-- sidenav -->
@@ -95,7 +99,7 @@
 
         </md-nav-list>
       </md-sidenav>
-      
+
       <div fxLayout="row" fxLayoutAlign="center" class="card-container">
         <div fxFlex="100%" fxFlex.md="100%" fxFlex.lg="100%">
           <md-progress-spinner *ngIf="!photos" class="progress-spinner" [color]="'primary'" [mode]="'indeterminate'">
