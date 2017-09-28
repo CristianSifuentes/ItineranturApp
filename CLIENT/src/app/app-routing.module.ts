@@ -1,19 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { MyAccountComponent } from './components/my-account/my-account.component';
 import { HomeComponent } from './components/home/home.component';
 import { ContactComponent } from './components/contact/contact.component';
-import { AppComponent } from './app.component';
+import { UploadPhotoComponent } from './components/upload-photo/upload-photo.component';
+
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'login', component: HomeComponent },
   { path: 'registrar', component: SignUpComponent },
-  { path: 'mi-cuenta/:id', component: MyAccountComponent },
-  /*{ path: 'home', component: HomeComponent },*/
-  { path: 'contacto/:id', component: ContactComponent }
+  { path: 'mi-cuenta', component: MyAccountComponent },
+  { path: 'contacto', component: ContactComponent },
+  { path: 'subir-foto', component: UploadPhotoComponent }
 ];
 
 

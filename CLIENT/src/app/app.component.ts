@@ -57,6 +57,8 @@ export class AppComponent implements OnInit {
       this.progressBarMode = mode;
     });
 
+    this.token = AuthStore.getToken();
+    this.identified_user = AuthIdentifiedUserStore.getUserIdentified();
 
   }
 
@@ -151,30 +153,6 @@ export class AppComponent implements OnInit {
 
   }
 
-
-
-
-  /**
-   * Método que obtiene las fotos por contacto
-   * @param contacts 
-   */
-  send_contacts(contacts: any) {
-    for (var i = 0; i < contacts.length; i++) {
-      this.photosService.getAllPhotosForUser(contacts[i].user_contact).subscribe((photos: Array<Photo>) => {
-        if (photos) {
-          console.log('contacto');
-          for (var i = 0; i < photos.length; i++) {
-            this.photos = photos;
-            this.dataList.push(photos[i]);
-          }
-        }
-      }, (error) => {
-        console.log(error);
-      }, function () { console.log('uno mas'); });
-    }
-  }
-
-
   /**
    * Método cerrar sesión
    */
@@ -228,22 +206,8 @@ export class AppComponent implements OnInit {
 
               if (this.token && this.identified_user) {
                 var user = JSON.parse(this.identified_user);
-                this.contactService.getAllContactForUser(user._id)
-                  .subscribe(
-                  (contact: Array<Contact>) => {
-                    this.contacts = contact;
-                    this.send_contacts(contact);
-                  },
-                  error => {
-                    console.log(error);
-                  }, function () {
 
-                  });
               }
-
-
-
-
               /* */
               /*this.router.navigate(['home/' + '59b9717802d64c1188b71eb0']);*/
               //this.router.navigate(['home/'], { queryParams: { id: '59b9717802d64c1188b71eb0' } });

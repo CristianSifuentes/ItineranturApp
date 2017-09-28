@@ -22,22 +22,29 @@
       <button md-menu-item>Acerda de</button>
     </md-menu>
     <md-menu x-position="before" #menuprofile="mdMenu">
-      <md-card>
-        <md-card-header>
-          <img md-card-avatar src="../assets/Alexanya.png">
-          <md-card-title>Titulo</md-card-title>
-          <md-card-subtitle>Titlo</md-card-subtitle>
-        </md-card-header>
-        <md-card-actions class="mat-card-actions">
-          <button md-menu-item>Toggle Theme</button>
-          <button md-menu-item>Free Hugs!</button>
-          <button md-menu-item>Help</button>
-        </md-card-actions>
-      </md-card>
+      <div fxLayout="row">
+        <md-card id="user">
+          <md-card-title>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <div *ngIf="contacts;else other_content">
+                <img class="avatar-wrapper" (click)="myAccount(contacts[0]);" fxLayoutAlign="center center" md-card-avatar src="{{url_user + 'getimageuser/' +contacts[0].user}}">
+              </div>
+              <ng-template #other_content>
+                <md-icon>person</md-icon>
+              </ng-template>
+            </div>
+          </md-card-title>
+          <md-card-content>
+            <p>Hello, Cristian Sifuentes Covarrubias </p>
+          </md-card-content>
+          <md-card-actions class="mat-card-actions">
+            <md-icon>train</md-icon>
+          </md-card-actions>
+        </md-card>
+
+      </div>
 
     </md-menu>
-
-
 
     <md-sidenav-container fxFlex>
       <md-sidenav mode="side" [opened]="open | async" #sidenav class="mat-elevation-z6">
@@ -85,37 +92,10 @@
       <div class="app-body">
         <router-outlet (activate)="onActivate($event)"></router-outlet>
       </div>
-      <!--div fxLayout="row" fxLayoutAlign="center" class="card-container">
-        <div fxFlex="100%" fxFlex.md="100%" fxFlex.lg="100%">
-          <md-progress-spinner *ngIf="!photos" class="progress-spinner" [color]="'primary'" [mode]="'indeterminate'">
-          </md-progress-spinner>
-          <router-outlet>
-          </router-outlet>
-          <md-card *ngFor="let photo of dataList">
-            <md-card-header>
-              <img md-card-avatar (click)="seeAllPhotosUser(photo);" src="{{url_user + 'getimageuser/' + photo.user._id}}">
-              <md-card-title>{{ photo.user.name + ' ' + photo.user.lastname}}</md-card-title>
-              <md-card-subtitle>{{ photo.name }}</md-card-subtitle>
-            </md-card-header>
-            <img md-card-image src="{{url + 'getimage/' + photo.image}}" alt="{{photo.name}}">
-            <md-card-content>
-              {{photo.description}}
-            </md-card-content>
-            <md-card-actions>
-              <button md-button>LIKE</button>
-              <button md-button>SHARE</button>
-            </md-card-actions>
-          </md-card>
-        </div>
-      </div-->
     </md-sidenav-container>
-
-
   </section>
-
 </div>
 <ng-template #no_logeado>
-  <!--app-sign-in></app-sign-in-->
   <!-- todos los hijos del div serán desplegados en columnas  centrados -->
   <div class="login-flex-container" fxLayout="column">
 

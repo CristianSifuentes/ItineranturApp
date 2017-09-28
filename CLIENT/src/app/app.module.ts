@@ -15,12 +15,11 @@ import { HttpClient, HttpClientModule} from '@angular/common/http';
 
 /** Componentes */
 import { AppComponent } from './app.component';
-import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { MyAccountComponent } from './components/my-account/my-account.component';
 import { HomeComponent } from './components/home/home.component';
 import { ContactComponent } from './components/contact/contact.component';
-
+import { UploadPhotoComponent } from './components/upload-photo/upload-photo.component';
 
 /* servicios */
 import { PhotosService } from './services/photos.service';
@@ -29,14 +28,15 @@ import { ContactsService } from './services/contacts.service';
 import { ProgressBarService } from './services/progress-bar.service';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
-    SignInComponent,
     SignUpComponent,
     MyAccountComponent,
     HomeComponent,
-    ContactComponent
+    ContactComponent,
+    UploadPhotoComponent
   ],
   imports: [
     HttpClientModule,

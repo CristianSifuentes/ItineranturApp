@@ -1,0 +1,66 @@
+<section class="app flex-container" fxLayout="column" fxLayoutAlign="start stretch">
+  <div fxLayout="row" fxLayoutAlign="center" class="card-container">
+    <div fxFlex="100%" fxFlex.md="100%" fxFlex.lg="100%">
+      <!--md-card>
+        <md-card-header>
+          <md-card-title>titulo</md-card-title>
+          <md-card-subtitle>subtitulo</md-card-subtitle>
+        </md-card-header>
+        <img md-card-image src="{{url + 'getimage/' + photo.image}}" alt="{{photo.name}}">
+        <md-card-content>
+          contenido
+        </md-card-content>
+        <md-card-actions>
+          <button md-button>LIKE</button>
+          <button md-button>SHARE</button>
+        </md-card-actions>
+      </md-card>
+    </div-->
+      <md-card>
+        <md-card-content>
+          <h2 class="example-h2">Subir nueva foto</h2>
+          <form class="example-form">
+            <table class="example-full-width" cellspacing="0">
+              <tr>
+                <md-input-container class="example-full-width">
+                  <input mdInput placeholder="Nombre">
+                </md-input-container>
+              </tr>
+              <tr>
+                <br />
+              </tr>
+              <tr>
+                <md-input-container class="example-full-width">
+                  <input mdInput placeholder="Descripción">
+                </md-input-container>
+              </tr>
+              <tr>
+                <br />
+              </tr>
+              <tr>
+
+                <span>
+                  <input [accept]="accept" type="file" (change)="onNativeInputFileSelect($event)" #inputFile hidden />
+                  <button type="button" md-raised-button (click)="selectFile()">
+                      <md-icon>file_upload</md-icon>
+                      <ng-content *ngIf="!fileCount" select=".nofiles"></ng-content>
+                      <span *ngIf="fileCount">
+                          <span>{{fileCount}}</span>
+                <ng-content select=".selected"></ng-content>
+                </span>
+                </button>
+                </span>
+              </tr>
+            </table>
+          </form>
+        </md-card-content>
+      </md-card>
+    </div>
+  </div>
+</section>
+
+
+
+<!--button type="button" md-button (click)="imgFileInput.click()">Seleccionar</button>
+                <input hidden type="file" #imgFileInput (change)="fileChangeEvent($event)"/-->
+<!--input type="file" placeholder="subir image..." (change)="fileChangeEvent($event)" /-->

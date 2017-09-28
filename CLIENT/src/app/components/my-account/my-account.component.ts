@@ -7,7 +7,8 @@ import { MdIconRegistry } from '@angular/material';
 import { PhotosService } from '../../services/photos.service';
 import { Photo } from './../../models/photos';
 import { Router, ActivatedRoute } from '@angular/router';
-
+import AuthStore from '../../stores/Auth';
+import AuthIdentifiedUserStore from '../../stores/IdentifiedUser';
 
 @Component({
   selector: 'app-my-account',
@@ -19,6 +20,8 @@ export class MyAccountComponent implements OnInit {
   public hideSidebar;
   public cols: Observable<number>;
   public url: string;
+  private identified_user: any;
+  private token: any;
   constructor(
     private observableMedia: ObservableMedia,
     private iconRegistry: MdIconRegistry,
@@ -27,9 +30,13 @@ export class MyAccountComponent implements OnInit {
   ) {
     this.url = 'http://localhost:3977/api/photo/';
     this.route.params.subscribe(params => {
-      if (params['id']) {
-        console.log(params['id']);
-        this.photosService.getAllPhotosForUser(params['id']).subscribe(
+
+      this.token = AuthStore.getToken();
+      this.identified_user = AuthIdentifiedUserStore.getUserIdentified();
+
+      if (this.token && this.identified_user) {
+        var user = JSON.parse(this.identified_user);
+        this.photosService.getAllPhotosForUser(user._id).subscribe(
           (photos: Array<Photo>) => {
             if (photos) {
               this.photos = photos;
@@ -39,6 +46,7 @@ export class MyAccountComponent implements OnInit {
           }, function () { console.log('uno mas'); }
         );
       }
+
     });
   }
 
