@@ -1,4 +1,4 @@
-<div *ngIf="identified_user;else no_logeado">
+<!--div *ngIf="identified_user;else no_logeado">
 
   <section class="app flex-container" fxLayout="column" fxLayoutAlign="start stretch">
     <md-toolbar color="primary" class="mat-elevation-z16">
@@ -69,7 +69,7 @@
               <span md-line>Inicio</span>
               <span md-line class="secondary">Mis fotos</span>
             </a>
-            <a md-list-item [routerLink]="['/mi-cuenta/59b9717802d64c1188b71eb0']">
+            <a md-list-item (click)="myAccount(123123123)">
               <md-icon md-list-icon>camera_enhance</md-icon>
               <span md-line>Fotos</span>
               <span md-line class="secondary">Mis fotos</span>
@@ -82,8 +82,7 @@
           </div>
         </md-nav-list>
       </md-sidenav>
-      <router-outlet>
-      </router-outlet>
+
       <div fxLayout="row" fxLayoutAlign="center" class="card-container">
         <div fxFlex="100%" fxFlex.md="100%" fxFlex.lg="100%">
           <md-progress-spinner *ngIf="!photos" class="progress-spinner" [color]="'primary'" [mode]="'indeterminate'">
@@ -115,8 +114,12 @@
 </div>
 <ng-template #no_logeado>
   <app-sign-in></app-sign-in>
-</ng-template>
-<!--section class="app flex-container" fxLayout="column" fxLayoutAlign="start stretch">
+</ng-template-->
+
+<!--router-outlet>
+      </router-outlet-->
+
+<section class="app flex-container" fxLayout="column" fxLayoutAlign="start stretch">
   <div fxLayout="row" fxLayoutAlign="center" class="card-container">
     <div fxFlex="100%" fxFlex.md="100%" fxFlex.lg="100%">
       <md-card *ngFor="let photo of dataList">
@@ -136,4 +139,4 @@
       </md-card>
     </div>
   </div>
-</section-->
+</section>

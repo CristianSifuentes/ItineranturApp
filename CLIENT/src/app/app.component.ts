@@ -1,35 +1,12 @@
-/*import { Component, OnInit } from '@angular/core';
-import { MdIconRegistry } from '@angular/material';
-import { PhotosService } from './services/photos.service';
-import { Photo } from '././models/photos';
-
-
-
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
-})
-export class AppComponent implements OnInit {
-  public photos: Photo[];
-  constructor(   private photosService: PhotosService) {
-
-   }
-
-  ngOnInit() {
-  }
-}*/
-
-
 import { Contact } from './models/contacts';
 import { ContactsService } from './services/contacts.service';
 import { Component, OnInit } from '@angular/core';
 import { MdIconRegistry } from '@angular/material';
-
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Photo } from './models/photos';
 import { User } from './models/users';
 import AuthStore from './stores/Auth';
-import AuthIdentifiedUser from './stores/IdentifiedUser';
+import AuthIdentifiedUserStore from './stores/IdentifiedUser';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ObservableMedia } from '@angular/flex-layout';
 import { Observable } from 'rxjs/Observable';
@@ -57,6 +34,8 @@ export class AppComponent implements OnInit {
   public open: Observable<boolean>;
   public open_profile: Observable<boolean>;
   public progressBarMode: string;
+  public signinForm: FormGroup;
+  public error: string;
 
 
   constructor(
@@ -66,7 +45,8 @@ export class AppComponent implements OnInit {
     private router: Router,
     private contactService: ContactsService,
     private route: ActivatedRoute,
-    private progressBarService: ProgressBarService
+    private progressBarService: ProgressBarService,
+    private formBuilder: FormBuilder,
 
   ) {
     this.url = 'http://localhost:3977/api/photo/';
@@ -78,33 +58,20 @@ export class AppComponent implements OnInit {
     });
 
 
-    this.token = AuthStore.getToken();
-    this.identified_user = AuthIdentifiedUser.getUserIdentified();
-
-    if (this.token && this.identified_user) {
-      var user = JSON.parse(this.identified_user);
-      this.contactService.getAllContactForUser(user._id)
-        .subscribe(
-        (contact: Array<Contact>) => {
-          this.contacts = contact;
-          this.send_contacts(contact);
-        },
-        error => {
-          console.log(error);
-        }, function () {
-          /*console.log('correcto');*/
-        });
-
-    }
-
   }
-
-
 
 
   public sub: any;
   public id: any;
   ngOnInit() {
+
+
+    this.signinForm = this.formBuilder.group({
+      email: ['', Validators.required],
+      password: ['', Validators.required]
+    }
+
+    );
 
     this.sub = this.route
       .queryParams
@@ -116,8 +83,9 @@ export class AppComponent implements OnInit {
 
 
 
-    this.token = AuthStore.getToken();
-    this.identified_user = AuthIdentifiedUser.getUserIdentified();
+
+    /*this.token = AuthStore.getToken();
+    this.identified_user = AuthIdentifiedUserStore.getUserIdentified();
 
     if (this.token && this.identified_user) {
       var user = JSON.parse(this.identified_user);
@@ -130,11 +98,9 @@ export class AppComponent implements OnInit {
         error => {
           console.log(error);
         }, function () {
-          /*console.log('correcto');*/
+
         });
-
-    }
-
+    }*/
 
 
 
@@ -214,8 +180,11 @@ export class AppComponent implements OnInit {
    */
   signOut(): void {
     AuthStore.removeToken();
-    AuthIdentifiedUser.removeUserIdentified();
-    this.router.navigate(['login/']);
+    AuthIdentifiedUserStore.removeUserIdentified();
+    localStorage.clear();
+    this.identified_user = null;
+    this.token = null;
+    this.router.navigate(['/']);
   }
 
   /**
@@ -238,9 +207,61 @@ export class AppComponent implements OnInit {
     }
   }
 
+  onActivate(e, mainContainer) {
+    //document.querySelector('div.mat-sidenav-content').scrollTop = 0;
+  }
+
+  /**
+   * Método que valida si exite en usuario y crea un token
+   * @param user Objeto del tipo cliente
+   */
+  loginUser(user: User) {
+    this.userService.validateUser(user).subscribe(
+      (userWithId) => {
+        this.userService.loginUser(user).subscribe(
+          (userWithToken) => {
+            AuthIdentifiedUserStore.setUserIdentified(JSON.stringify(userWithId));
+            AuthStore.setToken(JSON.stringify(userWithToken.token));
+            if (userWithId) {
+              this.token = AuthStore.getToken();
+              this.identified_user = AuthIdentifiedUserStore.getUserIdentified();
+
+              if (this.token && this.identified_user) {
+                var user = JSON.parse(this.identified_user);
+                this.contactService.getAllContactForUser(user._id)
+                  .subscribe(
+                  (contact: Array<Contact>) => {
+                    this.contacts = contact;
+                    this.send_contacts(contact);
+                  },
+                  error => {
+                    console.log(error);
+                  }, function () {
+
+                  });
+              }
+
+
+
+
+              /* */
+              /*this.router.navigate(['home/' + '59b9717802d64c1188b71eb0']);*/
+              //this.router.navigate(['home/'], { queryParams: { id: '59b9717802d64c1188b71eb0' } });
+            }
+
+            //this.router.navigate(['home/']);
+          }, (response: Response) => {
+            if (response.status === 500) {
+              this.error = 'errorHasOcurred';
+            }
+          });
+      }, (response: Response) => {
+        if (response.status === 500) {
+          this.error = 'errorHasOcurred';
+        }
+      });
+  }
+
 }
-
-
-
 
 

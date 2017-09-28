@@ -7,11 +7,12 @@ import { HomeComponent } from './components/home/home.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { AppComponent } from './app.component';
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'login', component: SignInComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
+  { path: 'login', component: HomeComponent },
   { path: 'registrar', component: SignUpComponent },
   { path: 'mi-cuenta/:id', component: MyAccountComponent },
-  { path: 'home', component: HomeComponent },
+  /*{ path: 'home', component: HomeComponent },*/
   { path: 'contacto/:id', component: ContactComponent }
 ];
 

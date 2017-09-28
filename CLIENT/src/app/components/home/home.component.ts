@@ -55,7 +55,7 @@ export class HomeComponent implements OnInit {
     });
 
 
-    this.token = AuthStore.getToken();
+    /*this.token = AuthStore.getToken();
     this.identified_user = AuthIdentifiedUser.getUserIdentified();
 
     if (this.token && this.identified_user) {
@@ -69,27 +69,27 @@ export class HomeComponent implements OnInit {
         error => {
           console.log(error);
         }, function () {
-          /*console.log('correcto');*/
+          
         });
 
-    }
+    }*/
 
   }
 
 
 
 
-  public sub: any;
-  public id: any;
+  /*public sub: any;
+  public id: any;*/
   ngOnInit() {
 
-    this.sub = this.route
+    /*this.sub = this.route
       .queryParams
       .subscribe(params => {
         // Defaults to 0 if no query param provided.
         this.id = params['id'] || 0;
         console.log(this.id);
-      });
+      });*/
     if (this.observableMedia.isActive('xs')) {
       this.open = Observable.of(false);
       this.open_profile = Observable.of(true);
@@ -130,63 +130,5 @@ export class HomeComponent implements OnInit {
             return this.open_profile = Observable.of(false);
         }
       });
-
-
-
-
   }
-
-
-
-
-  /**
-   * Método que obtiene las fotos por contacto
-   * @param contacts 
-   */
-  send_contacts(contacts: any) {
-    for (var i = 0; i < contacts.length; i++) {
-      this.photosService.getAllPhotosForUser(contacts[i].user_contact).subscribe((photos: Array<Photo>) => {
-        if (photos) {
-          console.log('contacto');
-          for (var i = 0; i < photos.length; i++) {
-            this.photos = photos;
-            this.dataList.push(photos[i]);
-          }
-        }
-      }, (error) => {
-        console.log(error);
-      }, function () { console.log('uno mas'); });
-    }
-  }
-
-
-  /**
-   * Método cerrar sesión
-   */
-  signOut(): void {
-    AuthStore.removeToken();
-    AuthIdentifiedUser.removeUserIdentified();
-    this.router.navigate(['login/']);
-  }
-
-  /**
-   * Método que manda al detalle del contacto
-   * @param user
-   */
-  seeAllPhotosUser(user: any): void {
-    if (user) {
-      this.router.navigate(['contacto/' + user.user._id]);
-    }
-  }
-
-  /**
-   * Método que manda la cuenta principal del usuario logeado
-   * @param user
-   */
-  myAccount(user: any): void {
-    if (user) {
-      this.router.navigate(['mi-cuenta/' + user.user]);
-    }
-  }
-
 }
