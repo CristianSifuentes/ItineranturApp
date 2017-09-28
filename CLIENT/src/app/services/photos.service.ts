@@ -2,11 +2,13 @@ import { Photo } from '../models/photos';
 import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { MdSnackBar, MdSnackBarConfig } from '@angular/material';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
-import { AppConfig } from './../config/app.config';
 import AuthStore from '../stores/Auth';
+import { AppConfig } from './../config/app.config';
+
 
 @Injectable()
 export class PhotosService {
@@ -25,7 +27,8 @@ export class PhotosService {
   }
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private snackBar: MdSnackBar
   ) {
 
     this.request$ = new EventEmitter();
@@ -42,6 +45,31 @@ export class PhotosService {
         return response;
       })
       .catch(error => this.handleError(error));
+  }
+
+  
+  createPhoto(photo: any): Observable<Photo> {
+    this.request$.emit('starting');
+    return this.http
+      .post(this.photosUrl, JSON.stringify({
+        name: photo.name,
+        description: photo.description,
+        user: photo.user,
+        image: null
+      }), { headers: this.headers })
+      .map(response => {
+        this.request$.emit('finished');
+        this.showSnackBar('heroCreated');
+        return response;
+      })
+      .catch(error => this.handleError(error));
+  }
+
+  showSnackBar(name): void {
+    const config: any = new MdSnackBarConfig();
+    config.duration = AppConfig.snackBarDuration;
+    /*this.snackBar.open(this.translations[name], 'OK', config);*/
+    this.snackBar.open(name, 'OK', config);
   }
 
 }

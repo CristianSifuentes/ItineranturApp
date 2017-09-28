@@ -69,7 +69,7 @@ export class HomeComponent implements OnInit {
         error => {
           console.log(error);
         }, function () {
-          
+
         });
 
     }
@@ -97,7 +97,6 @@ export class HomeComponent implements OnInit {
       this.open = Observable.of(true);
       this.open_profile = Observable.of(false);
     }
-
 
     // observe changes
     this.observableMedia.asObservable()
@@ -127,10 +126,6 @@ export class HomeComponent implements OnInit {
             return this.open_profile = Observable.of(false);
         }
       });
-
-
-
-
   }
 
 

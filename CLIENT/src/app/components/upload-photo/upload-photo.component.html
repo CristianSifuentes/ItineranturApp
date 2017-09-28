@@ -1,6 +1,6 @@
 <section class="app flex-container" fxLayout="column" fxLayoutAlign="start stretch">
   <div fxLayout="row" fxLayoutAlign="center" class="card-container">
-    <div fxFlex="100%" fxFlex.md="100%" fxFlex.lg="100%">
+    <div fxFlex="100%" fxFlex.md="100%" fxFlex.lg="80%">
       <!--md-card>
         <md-card-header>
           <md-card-title>titulo</md-card-title>
@@ -19,11 +19,12 @@
       <md-card>
         <md-card-content>
           <h2 class="example-h2">Subir nueva foto</h2>
-          <form class="example-form">
+          <form class="example-form" [formGroup]="newPhotoForm" #form="ngForm" (ngSubmit)="createNewPhoto(newPhotoForm.value)">
             <table class="example-full-width" cellspacing="0">
               <tr>
                 <md-input-container class="example-full-width">
-                  <input mdInput placeholder="Nombre">
+                  <!--input mdInput placeholder="Nombre"-->
+                  <input mdInput type="text" placeholder="Nombre" formControlName="name">
                 </md-input-container>
               </tr>
               <tr>
@@ -31,7 +32,8 @@
               </tr>
               <tr>
                 <md-input-container class="example-full-width">
-                  <input mdInput placeholder="Descripción">
+                  <!--input mdInput placeholder="Descripción"-->
+                  <input mdInput type="text" placeholder="Descripción" formControlName="description">
                 </md-input-container>
               </tr>
               <tr>
@@ -50,6 +52,13 @@
                 </span>
                 </button>
                 </span>
+              </tr>
+              <tr>
+                <br />
+              </tr>
+              <tr>
+                <button type="submit" md-raised-button color="primary">Subir</button>
+                <!--input type="submit" value="Actualizar mis datos" class="btn btn-primary" /-->
               </tr>
             </table>
           </form>
