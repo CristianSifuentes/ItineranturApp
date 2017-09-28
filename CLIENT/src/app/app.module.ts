@@ -12,7 +12,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { HttpClient, HttpClientModule} from '@angular/common/http';
 
-
 /** Componentes */
 import { AppComponent } from './app.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';

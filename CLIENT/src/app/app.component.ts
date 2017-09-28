@@ -11,8 +11,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ObservableMedia } from '@angular/flex-layout';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
-
-
 import { ProgressBarService } from './services/progress-bar.service';
 import { PhotosService } from './services/photos.service';
 import { UsersService } from './services/users.service';

@@ -2,7 +2,6 @@ import { Contact } from './../../models/contacts';
 import { ContactsService } from './../../services/contacts.service';
 import { Component, OnInit } from '@angular/core';
 import { MdIconRegistry } from '@angular/material';
-
 import { Photo } from './../../models/photos';
 import { User } from './../../models/users';
 import AuthStore from '../../stores/Auth';

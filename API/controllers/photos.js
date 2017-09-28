@@ -27,12 +27,16 @@ function savePhoto(req, res) {
 
     photo.save((err, photoStored) => {
         if (err) {
-            res.status(Status.INTERNAL_SERVER_ERROR).send({ message: 'Error en el servidor' });
+            res.status(Status.INTERNAL_SERVER_ERROR).send({
+                message: 'Error en el servidor'
+            });
         } else {
             if (!photoStored) {
-                res.status(Status.NOT_FOUND).send({ message: 'Nom se ha guardado en photo' });
+                res.status(Status.NOT_FOUND).send({
+                    message: 'Nom se ha guardado en photo'
+                });
             } else {
-                res.status(Status.OK).send({ photo: photoStored });
+                res.status(Status.OK).send(photoStored);
             }
         }
 
@@ -56,19 +60,30 @@ function uploadPhoto(req, res) {
         var file_ext = ext_split[1];
         console.log(ext_split);
         if (file_ext == 'png' || file_ext == 'jpg' || file_ext == 'gif') {
-            Photo.findByIdAndUpdate(userId, { image: file_name }, (err, userUpdated) => {
+            Photo.findByIdAndUpdate(userId, {
+                image: file_name
+            }, (err, userUpdated) => {
                 if (!userUpdated) {
-                    res.status(Status.NOT_FOUND).send({ menssage: 'No se ha podido actualizar la fotografìa' });
+                    res.status(Status.NOT_FOUND).send({
+                        menssage: 'No se ha podido actualizar la fotografìa'
+                    });
                 } else {
-                    res.status(Status.OK).send({ image: file_name, user: userUpdated });
+                    res.status(Status.OK).send({
+                        image: file_name,
+                        user: userUpdated
+                    });
                 }
             });
         } else {
-            res.status(Status.OK).send({ message: 'Extensión de archivo no válida' });
+            res.status(Status.OK).send({
+                message: 'Extensión de archivo no válida'
+            });
         }
 
     } else {
-        res.status(Status.INTERNAL_SERVER_ERROR).send({ message: 'No ha subido ninguna imagen' });
+        res.status(Status.INTERNAL_SERVER_ERROR).send({
+            message: 'No ha subido ninguna imagen'
+        });
     }
 }
 
@@ -85,12 +100,18 @@ function getPhotos(req, res) {
         var find = Photo.find({}).sort('name');
     } else {
         //sacar los albums de un artista concreto de la bbdd
-        var find = Photo.find({ user: userId }).sort('name');
+        var find = Photo.find({
+            user: userId
+        }).sort('name');
     }
 
-    find.populate({ path: 'user' }).exec((err, albums) => {
+    find.populate({
+        path: 'user'
+    }).exec((err, albums) => {
         if (err) {
-            res.status(500).send({ message: 'Error en la patición' });
+            res.status(500).send({
+                message: 'Error en la patición'
+            });
         } else {
             res.status(200).send(albums);
         }
@@ -109,7 +130,9 @@ function getPhotoFile(req, res) {
         if (exists) {
             res.sendFile(path.resolve(path_file));
         } else {
-            res.status(Status.OK).send({ message: 'No existe la imagen' });
+            res.status(Status.OK).send({
+                message: 'No existe la imagen'
+            });
         }
     });
 
