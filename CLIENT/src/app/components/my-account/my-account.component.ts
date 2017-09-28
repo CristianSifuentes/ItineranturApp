@@ -18,12 +18,14 @@ export class MyAccountComponent implements OnInit {
   public photos: Photo[];
   public hideSidebar;
   public cols: Observable<number>;
+  public url: string;
   constructor(
     private observableMedia: ObservableMedia,
     private iconRegistry: MdIconRegistry,
     private photosService: PhotosService,
     private route: ActivatedRoute
   ) {
+    this.url = 'http://localhost:3977/api/photo/';
     this.route.params.subscribe(params => {
       if (params['id']) {
         console.log(params['id']);

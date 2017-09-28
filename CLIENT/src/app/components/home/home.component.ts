@@ -2,8 +2,7 @@ import { Contact } from './../../models/contacts';
 import { ContactsService } from './../../services/contacts.service';
 import { Component, OnInit } from '@angular/core';
 import { MdIconRegistry } from '@angular/material';
-import { PhotosService } from '../../services/photos.service';
-import { UsersService } from '../../services/users.service';
+
 import { Photo } from './../../models/photos';
 import { User } from './../../models/users';
 import AuthStore from '../../stores/Auth';
@@ -12,7 +11,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ObservableMedia } from '@angular/flex-layout';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
+
+
 import { ProgressBarService } from '../../services/progress-bar.service';
+import { PhotosService } from '../../services/photos.service';
+import { UsersService } from '../../services/users.service';
 
 @Component({
   selector: 'app-home',
@@ -32,8 +35,61 @@ export class HomeComponent implements OnInit {
   public open_profile: Observable<boolean>;
   public progressBarMode: string;
 
+
+  constructor(
+    private observableMedia: ObservableMedia,
+    private photosService: PhotosService,
+    private userService: UsersService,
+    private router: Router,
+    private contactService: ContactsService,
+    private route: ActivatedRoute,
+    private progressBarService: ProgressBarService
+
+  ) {
+    this.url = 'http://localhost:3977/api/photo/';
+    this.url_user = 'http://localhost:3977/api/user/';
+    console.log(this.router.url);
+    console.log(this.route.url);
+    this.progressBarService.updateProgressBar$.subscribe((mode: string) => {
+      this.progressBarMode = mode;
+    });
+
+
+    this.token = AuthStore.getToken();
+    this.identified_user = AuthIdentifiedUser.getUserIdentified();
+
+    if (this.token && this.identified_user) {
+      var user = JSON.parse(this.identified_user);
+      this.contactService.getAllContactForUser(user._id)
+        .subscribe(
+        (contact: Array<Contact>) => {
+          this.contacts = contact;
+          this.send_contacts(contact);
+        },
+        error => {
+          console.log(error);
+        }, function () {
+          /*console.log('correcto');*/
+        });
+
+    }
+
+  }
+
+
+
+
+  public sub: any;
+  public id: any;
   ngOnInit() {
 
+    this.sub = this.route
+      .queryParams
+      .subscribe(params => {
+        // Defaults to 0 if no query param provided.
+        this.id = params['id'] || 0;
+        console.log(this.id);
+      });
     if (this.observableMedia.isActive('xs')) {
       this.open = Observable.of(false);
       this.open_profile = Observable.of(true);
@@ -81,48 +137,7 @@ export class HomeComponent implements OnInit {
   }
 
 
-  constructor(
-    private observableMedia: ObservableMedia,
-    private photosService: PhotosService,
-    private userService: UsersService,
-    private router: Router,
-    private contactService: ContactsService,
-    private route: ActivatedRoute,
-    private progressBarService: ProgressBarService
 
-  ) {
-    this.url = 'http://localhost:3977/api/photo/';
-    this.url_user = 'http://localhost:3977/api/user/';
-
-    this.progressBarService.updateProgressBar$.subscribe((mode: string) => {
-      this.progressBarMode = mode;
-    });
-
-
-    this.token = AuthStore.getToken();
-    this.identified_user = AuthIdentifiedUser.getUserIdentified();
-
-    if (this.token && this.identified_user) {
-      var user = JSON.parse(this.identified_user);
-      this.contactService.getAllContactForUser(user._id)
-        .subscribe(
-        (contact: Array<Contact>) => {
-          this.contacts = contact;
-          this.send_contacts(contact);
-        },
-        error => {
-          console.log(error);
-        }, function () {
-          console.log('correcto');
-        });
-
-    }
-
-
-
-
-
-  }
 
   /**
    * Método que obtiene las fotos por contacto

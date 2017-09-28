@@ -42,7 +42,9 @@ export class SignInComponent implements OnInit {
             IdentifiedUserStore.setUserIdentified(JSON.stringify(userWithId));
             AuthStore.setToken(JSON.stringify(userWithToken.token));
             if (user) {
-              this.router.navigate(['home/' + '59b9717802d64c1188b71eb0']);
+             /* */
+             /*this.router.navigate(['home/' + '59b9717802d64c1188b71eb0']);*/
+             this.router.navigate(['home/'], { queryParams: { id: '59b9717802d64c1188b71eb0' } });
             }
 
             //this.router.navigate(['home/']);

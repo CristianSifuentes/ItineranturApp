@@ -1,7 +1,5 @@
-<section class="app flex-container" fxLayout="column" fxLayoutAlign="start stretch">
+<!--section class="app flex-container" fxLayout="column" fxLayoutAlign="start stretch">
 
-
-    <!-- toolbar -->
     <md-toolbar color="primary" class="mat-elevation-z16">
         <button md-icon-button (click)="sidenav.toggle()">
                             <md-icon>menu</md-icon>
@@ -12,10 +10,6 @@
                               <md-icon>more_vert</md-icon>
                             </button>
     </md-toolbar>
-
-
-
-    <!-- menu -->
     <md-menu x-position="before" #menu="mdMenu">
         <button md-menu-item (click)="signOut()">Salir</button>
         <button md-menu-item (click)="isDarkTheme=!isDarkTheme">Cambiar Tema</button>
@@ -24,7 +18,6 @@
     </md-menu>
 
     <md-sidenav-container fxFlex>
-        <!-- sidenav -->
         <md-sidenav mode="side" [opened]="open | async" #sidenav class="mat-elevation-z6">
             <md-nav-list>
                 <div fxLayout="row">
@@ -49,29 +42,22 @@
 
                 </div>
                 <div fxLayout="column">
-                    <a md-list-item (click)="sidenav.close()" [routerLink]="['/home']">
-                        <md-icon md-list-icon>Home</md-icon>
-                        <span md-line>Home</span>
-                        <span md-line class="secondary">Home</span>
+                    <a md-list-item  [routerLink]="['/login']">
+                            <md-icon md-list-icon>dashboard</md-icon>
+                            <span md-line>Inicio</span>
+                            <span md-line class="secondary">Mis fotos</span>
+                     </a>
+                    <a md-list-item  [routerLink]="['/login']">
+                        <md-icon md-list-icon>camera_enhance</md-icon>
+                        <span md-line>Fotos</span>
+                        <span md-line class="secondary">Mis fotos</span>
                     </a>
-                    <a md-list-item (click)="sidenav.close()" [routerLink]="['/categories']">
-                        <md-icon md-list-icon>list</md-icon>
-                        <span md-line>Viajeros</span>
-                        <span md-line class="secondary">Ver a otros viajeros</span>
+                    <a md-list-item [routerLink]="['/login']">
+                        <md-icon md-list-icon>backup</md-icon>
+                        <span md-line>Subir</span>
+                        <span md-line class="secondary">Añadir nuevas fotos</span>
                     </a>
-                    <a md-list-item (click)="sidenav.close()" [routerLink]="['/tags']">
-                        <md-icon md-list-icon>bookmark</md-icon>
-                        <span md-line>Tags</span>
-                        <span md-line class="secondary">Tags</span>
-                    </a>
-                    <a md-list-item (click)="sidenav.close()" [routerLink]="['/questions']">
-                        <md-icon md-list-icon>question_answer</md-icon>
-                        <span md-line>Questions</span>
-                        <span md-line class="secondary">Questions</span>
-                    </a>
-
                 </div>
-
             </md-nav-list>
         </md-sidenav>
         <div fxLayout="row" fxLayoutAlign="center" class="card-container">
@@ -93,6 +79,21 @@
             </div>
         </div>
     </md-sidenav-container>
+</section-->
 
-
-</section>
+<div fxLayout="row" fxLayoutAlign="center" class="card-container">
+        <div fxFlex="100%" fxFlex.md="100%" fxFlex.lg="100%">
+            <md-grid-list [cols]="cols | async" gutterSize="15px" class="grid">
+                <md-grid-tile *ngFor="let photo of photos">
+                    <img src="{{url + 'getimage/' + photo.image}}" alt="photo of the super photo {{photo.name}}">
+                    <md-grid-tile-footer>
+                        <h3 md-line>{{photo.name}}</h3>
+                        <span md-line>{{photo.status}}</span>
+                        <button md-icon-button>
+                                              <md-icon>info</md-icon>
+                                            </button>
+                    </md-grid-tile-footer>
+                </md-grid-tile>
+            </md-grid-list>
+        </div>
+    </div>

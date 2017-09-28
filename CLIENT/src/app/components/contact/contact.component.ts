@@ -24,10 +24,13 @@ export class ContactComponent implements OnInit {
     private observableMedia: ObservableMedia,
     private iconRegistry: MdIconRegistry,
     private photosService: PhotosService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.url = 'http://localhost:3977/api/photo/';
     this.url_user = 'http://localhost:3977/api/user/';
+    console.log(this.router.url);
+    console.log(this.route.url);
     this.route.params.subscribe(params => {
       if (params['id']) {
         console.log(params['id']);
