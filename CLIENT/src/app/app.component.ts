@@ -207,7 +207,7 @@ export class AppComponent implements OnInit {
       });
   }
 
-  signUp() {
+  register() {
     this.loginOrRegister = true;
   }
 
@@ -222,47 +222,8 @@ export class AppComponent implements OnInit {
     });
   }
 
-}
-
-
-
-/*
-
-import { UsersService } from './../../services/users.service';
-import { User } from './../../models/users';
-import { Component, OnInit, ViewChild} from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
-
-@Component({
-  selector: 'app-sign-up',
-  templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.scss']
-})
-export class SignUpComponent implements OnInit {
-  public signupForm: FormGroup;
-  public users: User[];
-  public error: string;
-  myState = 'M';
-  states = [{code: 'M', name: 'Masculino'}, {code: 'F', name: 'Femenino'}, {code: 'I', name: 'Indefinido'}];
-  @ViewChild('form') myNgForm; // just to call resetForm method
-
-  constructor(
-    private userService: UsersService,
-    private formBuilder: FormBuilder
-  ) {
-
+  login() {
+    this.loginOrRegister = false;
   }
 
-  ngOnInit() {
-   
-  }
-
-  
-
 }
-
-
-*/
-
-

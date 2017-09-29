@@ -13,7 +13,6 @@ const routes: Routes = [
   { path: 'subir-foto', component: UploadPhotoComponent }
 ];
 
-
 @NgModule({
   imports: [
     RouterModule.forRoot(routes)

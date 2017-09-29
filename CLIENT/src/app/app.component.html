@@ -122,7 +122,7 @@
                       spellcheck="off" formControlName="password">
                   </md-input-container>
                   <button md-raised-button color="accent" [disabled]="form.invalid" type="submit">Ingresar</button>
-                  <a md-button (click)="signUp()">Sign Up with Email</a>
+                  <a md-button (click)="register()">Registrar</a>
                 </div>
               </form>
             </md-card-content>
@@ -134,7 +134,7 @@
 
     </div>
   </div>
-  
+
   <ng-template #registrar>
 
     <div class="register-flex-container" fxLayout="column">
@@ -178,7 +178,7 @@
                       spellcheck="off" formControlName="password">
                   </md-input-container>
                   <button md-raised-button [disabled]="signupForm.invalid" type="submit" color="accent">Registrar</button>
-                  <button md-raised-button [routerLink]="['/login']" color="accent">Regresar</button>
+                  <button md-raised-button (click)="login()" color="accent">Regresar</button>
                 </div>
               </form>
             </md-card-content>
