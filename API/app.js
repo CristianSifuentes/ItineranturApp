@@ -10,9 +10,11 @@ var app = express();
 var user_routes = require('./routers/router-user');
 var photos_routes = require('./routers/router-photo');
 var contact_routes = require('./routers/router-contact');
+var traveller_router = require('./routers/router-travellers');
 
-
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
 app.use(bodyParser.json());
 
 // configurar cabeceras http
@@ -27,4 +29,5 @@ app.use((req, res, next) => {
 app.use('/api', user_routes);
 app.use('/api', photos_routes);
 app.use('/api', contact_routes);
+app.use('/api', traveller_router);
 module.exports = app;
