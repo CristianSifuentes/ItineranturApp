@@ -10,7 +10,6 @@ var app = express();
 var user_routes = require('./routers/router-user');
 var photos_routes = require('./routers/router-photo');
 var contact_routes = require('./routers/router-contact');
-var test_router = require('./routers/test-router');
 
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -28,5 +27,4 @@ app.use((req, res, next) => {
 app.use('/api', user_routes);
 app.use('/api', photos_routes);
 app.use('/api', contact_routes);
-app.use('/api', test_router);
 module.exports = app;
