@@ -158,73 +158,70 @@
             <md-card-title>Registrar</md-card-title>
             <md-card-content>
               <form [formGroup]="signupForm" #form="ngForm" (ngSubmit)="createUser(signupForm.value)" novalidate>
-                <table class="example-full-width" cellspacing="0">
-                  <tr>
-                    <td>
-                      <md-input-container>
-                        <input mdInput required placeholder="Nombre" autocorrect="off" autocapitalize="off" spellcheck="off" formControlName="name">
-                      </md-input-container>
-                    </td>
-                    <td>
-                      <md-input-container>
-                        <input mdInput required placeholder="Apellidos" autocorrect="off" autocapitalize="off" spellcheck="off" formControlName="lastName">
-                      </md-input-container>
-                    </td>
-                  </tr>
-                </table>
-                <div>
-                  <md-input-container class="example-full-width">
-                    <input mdInput required placeholder="Correo Electrónico" autocorrect="off" autocapitalize="off" spellcheck="off" formControlName="email">
-                  </md-input-container>
+                <div fxLayout="column">
+                  <table class="example-full-width" cellspacing="0">
+                    <tr>
+                      <td>
+                        <md-input-container>
+                          <input mdInput required placeholder="Nombre" autocorrect="off" autocapitalize="off" spellcheck="off" formControlName="name">
+                        </md-input-container>
+                      </td>
+                      <td>
+                        <md-input-container>
+                          <input mdInput required placeholder="Apellidos" autocorrect="off" autocapitalize="off" spellcheck="off" formControlName="lastName">
+                        </md-input-container>
+                      </td>
+                    </tr>
+                  </table>
+                  <div>
+                    <md-input-container class="example-full-width">
+                      <input mdInput required placeholder="Correo Electrónico" autocorrect="off" autocapitalize="off" spellcheck="off" formControlName="email">
+                    </md-input-container>
+                  </div>
+                  <div>
+                    <md-input-container class="example-full-width">
+                      <input mdInput required type="password" placeholder="Contraseña" autocomplete="off" autocorrect="off" autocapitalize="off"
+                        spellcheck="off" formControlName="password">
+                    </md-input-container>
+                  </div>
+                  <table class="example-full-width" cellspacing="0">
+                    <tr>
+                      <td>
+                        <md-input-container>
+                          <input mdInput required placeholder="Nickname" autocorrect="off" autocapitalize="off" spellcheck="off" formControlName="nickname">
+                        </md-input-container>
+                      </td>
+                      <td>
+                        <md-input-container>
+                          <input mdInput required placeholder="Edad" autocorrect="off" autocapitalize="off" spellcheck="off" formControlName="age">
+                        </md-input-container>
+                      </td>
+                    </tr>
+                  </table>
+                  <div>
+
+                    <md-select placeholder="Género" required formControlName="gender" class="example-full-width">
+                      <md-option>None</md-option>
+                      <md-option *ngFor="let state of states" [value]="state.code">{{ state.name }}</md-option>
+                    </md-select>
+
+                  </div>
+                  <br />
+                  <button md-raised-button [disabled]="signupForm.invalid" type="submit" color="accent">Registrar</button>
+                  <button md-raised-button (click)="login()" color="accent">Regresar</button>
                 </div>
-                <div>
-                  <md-input-container class="example-full-width">
-                    <input mdInput required type="password" placeholder="Contraseña" autocomplete="off" autocorrect="off" autocapitalize="off"
-                      spellcheck="off" formControlName="password">
-                  </md-input-container>
-                </div>
-                <table class="example-full-width" cellspacing="0">
-                  <tr>
-                    <td>
-                      <md-input-container>
-                        <input mdInput required placeholder="Nickname" autocorrect="off" autocapitalize="off" spellcheck="off" formControlName="nickname">
-                      </md-input-container>
-                    </td>
-                    <td>
-                      <md-input-container>
-                        <input mdInput required placeholder="Edad" autocorrect="off" autocapitalize="off" spellcheck="off" formControlName="age">
-                      </md-input-container>
-                    </td>
-                  </tr>
-                </table>
+
               </form>
               <!--form [formGroup]="signupForm" #form="ngForm" (ngSubmit)="createUser(signupForm.value)" novalidate>
                 <div fxLayout="column">
-                  <md-input-container>
-                    <input mdInput required placeholder="Nombre" autocorrect="off" autocapitalize="off" spellcheck="off" formControlName="name">
-                  </md-input-container>
-                  <md-input-container>
-                    <input mdInput required placeholder="Apellidos" autocorrect="off" autocapitalize="off" spellcheck="off" formControlName="lastName">
-                  </md-input-container>
-                  <md-input-container>
-                    <input mdInput required placeholder="Nickname" autocorrect="off" autocapitalize="off" spellcheck="off" formControlName="nickname">
-                  </md-input-container>
-                  <md-input-container>
-                    <input mdInput required placeholder="Edad" autocorrect="off" autocapitalize="off" spellcheck="off" formControlName="age">
-                  </md-input-container>
+                  
+                  
+                  
+                  
 
-                  <md-select placeholder="Género" required formControlName="gender">
-                    <md-option>None</md-option>
-                    <md-option *ngFor="let state of states" [value]="state.code">{{ state.name }}</md-option>
-                  </md-select>
+                  
                   <br />
-                  <md-input-container>
-                    <input mdInput required placeholder="Correo Electrónico" autocorrect="off" autocapitalize="off" spellcheck="off" formControlName="email">
-                  </md-input-container>
-                  <md-input-container>
-                    <input mdInput required type="password" placeholder="Contraseña" autocomplete="off" autocorrect="off" autocapitalize="off"
-                      spellcheck="off" formControlName="password">
-                  </md-input-container>
+                  
                   <button md-raised-button [disabled]="signupForm.invalid" type="submit" color="accent">Registrar</button>
                   <button md-raised-button (click)="login()" color="accent">Regresar</button>
                 </div>
