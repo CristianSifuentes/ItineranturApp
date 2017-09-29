@@ -15,4 +15,5 @@ api.post('/photo/',MiddlewareAuth.ensureAuth, PhotoController.savePhoto);
 api.post('/photo/uploadPhoto/:id',[MiddlewareAuth.ensureAuth,md_upload],PhotoController.uploadPhoto);
 api.get('/photo/:user', MiddlewareAuth.ensureAuth, PhotoController.getPhotos);
 api.get('/photo/getimage/:imageFile',PhotoController.getPhotoFile);
+api.get('/photo-test/:user', MiddlewareAuth.ensureAuth, PhotoController.getPhotosTest);
 module.exports = api;

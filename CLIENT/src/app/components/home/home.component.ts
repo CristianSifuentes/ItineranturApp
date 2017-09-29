@@ -149,6 +149,21 @@ export class HomeComponent implements OnInit {
   }
 
 
+  seeAllPhotosUser(user: any) {
+    /*this.photosService.getAllPhotosForUser(user.user._id).subscribe((photos: Array<Photo>) => {
+      if (photos) {
+        console.log('contacto');
+        for (var i = 0; i < photos.length; i++) {
+          this.photos = photos;
+          this.dataList.push(photos[i]);
+        }
+      }
+    }, (error) => {
+      console.log(error);
+    }, function () { console.log('uno mas'); });*/
+  }
+
+
 
 
 

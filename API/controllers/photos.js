@@ -138,10 +138,47 @@ function getPhotoFile(req, res) {
 
 }
 
+
+
+
+
+/**
+ * Mètodo que obtiene las fotos de los contactos de un usuario
+ * @param {*} req 
+ * @param {*} res 
+ */
+function getPhotosTest(req, res) {
+    
+        var userId = req.params.user;
+    
+        if (!userId) {
+            var find = Photo.find({}).sort('name');
+        } else {
+            //sacar los albums de un artista concreto de la bbdd
+            var find = Photo.find({
+                user: userId
+            }).sort('name');
+        }
+    
+        find.populate({
+            path: 'user'
+        }).exec((err, albums) => {
+            if (err) {
+                res.status(500).send({
+                    message: 'Error en la patición'
+                });
+            } else {
+                res.status(200).send(albums);
+            }
+        });
+    }
+
+
 module.exports = {
     prueba,
     savePhoto,
     uploadPhoto,
     getPhotos,
-    getPhotoFile
+    getPhotoFile,
+    getPhotosTest
 }

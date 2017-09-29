@@ -3,14 +3,14 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-module.exports = mongoose.model('Photo',
+module.exports = mongoose.model('Person',
     new Schema({
+        _id: Schema.Types.ObjectId,
         name: String,
-        description: String,
+        age: Number,
         user: {
             type: Schema.ObjectId,
-            ref: 'User'
-        },
-        image: String
+            ref: 'Story'
+        }
 
     }));

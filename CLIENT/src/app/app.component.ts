@@ -1,6 +1,6 @@
 import { Contact } from './models/contacts';
 import { ContactsService } from './services/contacts.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild} from '@angular/core';
 import { MdIconRegistry } from '@angular/material';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Photo } from './models/photos';
@@ -34,7 +34,12 @@ export class AppComponent implements OnInit {
   public progressBarMode: string;
   public signinForm: FormGroup;
   public error: string;
-
+  private loginOrRegister: boolean;
+  public signupForm: FormGroup;
+  public users: User[];
+  myState = 'M';
+  states = [{code: 'M', name: 'Masculino'}, {code: 'F', name: 'Femenino'}, {code: 'I', name: 'Indefinido'}];
+  @ViewChild('form') myNgForm; // just to call resetForm method
 
   constructor(
     private observableMedia: ObservableMedia,
@@ -54,7 +59,6 @@ export class AppComponent implements OnInit {
     this.progressBarService.updateProgressBar$.subscribe((mode: string) => {
       this.progressBarMode = mode;
     });
-
     this.token = AuthStore.getToken();
     this.identified_user = AuthIdentifiedUserStore.getUserIdentified();
 
@@ -65,7 +69,7 @@ export class AppComponent implements OnInit {
   public id: any;
   ngOnInit() {
 
-
+    this.loginOrRegister = false;
     this.signinForm = this.formBuilder.group({
       email: ['', Validators.required],
       password: ['', Validators.required]
@@ -73,37 +77,16 @@ export class AppComponent implements OnInit {
 
     );
 
-    this.sub = this.route
-      .queryParams
-      .subscribe(params => {
-        // Defaults to 0 if no query param provided.
-        this.id = params['id'] || 0;
-        console.log(this.id);
-      });
 
-
-
-
-    /*this.token = AuthStore.getToken();
-    this.identified_user = AuthIdentifiedUserStore.getUserIdentified();
-
-    if (this.token && this.identified_user) {
-      var user = JSON.parse(this.identified_user);
-      this.contactService.getAllContactForUser(user._id)
-        .subscribe(
-        (contact: Array<Contact>) => {
-          this.contacts = contact;
-          this.send_contacts(contact);
-        },
-        error => {
-          console.log(error);
-        }, function () {
-
-        });
-    }*/
-
-
-
+    this.signupForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      lastName: ['', Validators.required],
+      nickname: ['', Validators.required],
+      age: ['', Validators.required],
+      gender: ['', Validators.required],
+      email: ['', Validators.required],
+      password: ['', Validators.required]
+    });
 
     if (this.observableMedia.isActive('xs')) {
       this.open = Observable.of(false);
@@ -224,6 +207,62 @@ export class AppComponent implements OnInit {
       });
   }
 
+  signUp() {
+    this.loginOrRegister = true;
+  }
+
+  createUser(newUser: User) {
+    this.userService.createUser(newUser).subscribe((newUserWithId) => {
+      this.users.push(newUserWithId);
+      this.myNgForm.resetForm();
+    }, (response: Response) => {
+      if (response.status === 500) {
+        this.error = 'errorHasOcurred';
+      }
+    });
+  }
+
 }
+
+
+
+/*
+
+import { UsersService } from './../../services/users.service';
+import { User } from './../../models/users';
+import { Component, OnInit, ViewChild} from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+
+@Component({
+  selector: 'app-sign-up',
+  templateUrl: './sign-up.component.html',
+  styleUrls: ['./sign-up.component.scss']
+})
+export class SignUpComponent implements OnInit {
+  public signupForm: FormGroup;
+  public users: User[];
+  public error: string;
+  myState = 'M';
+  states = [{code: 'M', name: 'Masculino'}, {code: 'F', name: 'Femenino'}, {code: 'I', name: 'Indefinido'}];
+  @ViewChild('form') myNgForm; // just to call resetForm method
+
+  constructor(
+    private userService: UsersService,
+    private formBuilder: FormBuilder
+  ) {
+
+  }
+
+  ngOnInit() {
+   
+  }
+
+  
+
+}
+
+
+*/
 
 

@@ -14,7 +14,6 @@ import { HttpClient, HttpClientModule} from '@angular/common/http';
 
 /** Componentes */
 import { AppComponent } from './app.component';
-import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { MyAccountComponent } from './components/my-account/my-account.component';
 import { HomeComponent } from './components/home/home.component';
 import { ContactComponent } from './components/contact/contact.component';
@@ -31,7 +30,6 @@ import { ProgressBarService } from './services/progress-bar.service';
 @NgModule({
   declarations: [
     AppComponent,
-    SignUpComponent,
     MyAccountComponent,
     HomeComponent,
     ContactComponent,

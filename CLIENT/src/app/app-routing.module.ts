@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { MyAccountComponent } from './components/my-account/my-account.component';
 import { HomeComponent } from './components/home/home.component';
 import { ContactComponent } from './components/contact/contact.component';
@@ -9,7 +8,6 @@ import { UploadPhotoComponent } from './components/upload-photo/upload-photo.com
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'registrar', component: SignUpComponent },
   { path: 'mi-cuenta', component: MyAccountComponent },
   { path: 'contacto', component: ContactComponent },
   { path: 'subir-foto', component: UploadPhotoComponent }
