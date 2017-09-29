@@ -18,6 +18,9 @@ import { MyAccountComponent } from './components/my-account/my-account.component
 import { HomeComponent } from './components/home/home.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { UploadPhotoComponent } from './components/upload-photo/upload-photo.component';
+import { TravellersComponent } from './components/travellers/travellers.component';
+import { RequestsComponent } from './components/requests/requests.component';
+
 
 /* servicios */
 import { PhotosService } from './services/photos.service';
@@ -33,7 +36,9 @@ import { ProgressBarService } from './services/progress-bar.service';
     MyAccountComponent,
     HomeComponent,
     ContactComponent,
-    UploadPhotoComponent
+    UploadPhotoComponent,
+    TravellersComponent,
+    RequestsComponent
   ],
   imports: [
     HttpClientModule,

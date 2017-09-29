@@ -6,7 +6,7 @@ var fs = require('fs');
 var path = require('path');
 var bcrypt = require('bcrypt-nodejs');
 var jwt = require('../services/jwt');
-
+var mongoose = require('mongoose');
 
 function prueba(req, res) {
   res.status(Status.OK).send({
@@ -23,7 +23,8 @@ function prueba(req, res) {
 function saveUser(req, res) {
   var user = new User();
   var params = req.body;
-
+  
+  user._id = new mongoose.Types.ObjectId;
   user.name = params.name;
   user.lastname = params.lastname;
   user.nickname = params.nickname;
