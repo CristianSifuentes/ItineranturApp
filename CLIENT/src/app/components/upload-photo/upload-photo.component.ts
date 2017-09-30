@@ -4,6 +4,8 @@ import { PhotosService } from '../../services/photos.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import AuthStore from '../../stores/Auth';
 import AuthIdentifiedUserStore from '../../stores/IdentifiedUser';
+declare var jQuery: any;
+declare var $: any;
 
 @Component({
   selector: 'app-upload-photo',
@@ -32,18 +34,25 @@ export class UploadPhotoComponent implements OnInit {
   }
 
 
-
-  onNativeInputFileSelect($event) {
-    this._files = $event.srcElement.files;
-    this.onFileSelect.emit(this._files);
-  }
-
   selectFile() {
     this.nativeInputFile.nativeElement.click();
   }
 
 
-
+  onNativeInputFileSelect($event) {
+    this._files = $event.srcElement.files;
+    /*this.onFileSelect.emit(this._files);*/
+    this.readThis($event.target);
+  }
+  readThis(inputValue: any): void {
+    var file: File = inputValue.files[0];
+    var myReader: FileReader = new FileReader();
+    myReader.onloadend = function (e) {
+      console.log(myReader.result);
+      $('#image').attr('src', myReader.result);
+    }
+    myReader.readAsDataURL(inputValue.files[0]);
+  }
 
 
   ngOnInit() {
@@ -54,10 +63,6 @@ export class UploadPhotoComponent implements OnInit {
 
     );
   }
-
-  /*public fileChangeEvent(fileInput: any) {
-    this.filesToUpload = <Array<File>>fileInput.target.files;
-  }*/
 
   upload() {
     console.log('upload');

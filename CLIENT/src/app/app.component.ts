@@ -1,6 +1,6 @@
 import { Contact } from './models/contacts';
 import { ContactsService } from './services/contacts.service';
-import { Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MdIconRegistry } from '@angular/material';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Photo } from './models/photos';
@@ -14,6 +14,7 @@ import 'rxjs/add/observable/of';
 import { ProgressBarService } from './services/progress-bar.service';
 import { PhotosService } from './services/photos.service';
 import { UsersService } from './services/users.service';
+
 
 @Component({
   selector: 'app-root',
@@ -38,8 +39,9 @@ export class AppComponent implements OnInit {
   public signupForm: FormGroup;
   public users: User[];
   myState = 'M';
-  states = [{code: 'M', name: 'Masculino'}, {code: 'F', name: 'Femenino'}, {code: 'I', name: 'Indefinido'}];
+  states = [{ code: 'M', name: 'Masculino' }, { code: 'F', name: 'Femenino' }, { code: 'I', name: 'Indefinido' }];
   @ViewChild('form') myNgForm; // just to call resetForm method
+  // Declaramos las variables para jQuery
 
   constructor(
     private observableMedia: ObservableMedia,
@@ -64,9 +66,6 @@ export class AppComponent implements OnInit {
 
   }
 
-
-  public sub: any;
-  public id: any;
   ngOnInit() {
 
     this.loginOrRegister = false;

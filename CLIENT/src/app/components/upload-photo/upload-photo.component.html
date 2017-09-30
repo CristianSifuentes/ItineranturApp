@@ -18,6 +18,8 @@
     </div-->
       <md-card>
         <md-card-content>
+          <img id="image" src="assets/Alexanya.png" alt="Mountain View" style="width:304px;height:228px;">
+
           <h2 class="example-h2">Subir nueva foto</h2>
           <form class="example-form" [formGroup]="newPhotoForm" #form="ngForm" (ngSubmit)="createNewPhoto(newPhotoForm.value)">
             <table class="example-full-width" cellspacing="0">
