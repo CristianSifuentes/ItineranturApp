@@ -189,5 +189,17 @@
     .example-full-width {
       width: 100%;
     }
+    .avatar-wrapper {
+      background: #fff;
+      border-radius: 50%; //box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.14);
+      height: 140px;
+      width: 140px;
+      margin-bottom: 10px;
+      md-icon {
+        font-size: 100px;
+        height: 100px;
+        width: 100px;
+      }
+    }
   }
 }
