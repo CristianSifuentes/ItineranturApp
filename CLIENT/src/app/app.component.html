@@ -152,9 +152,9 @@
       <button fxFlexAlign="center" class="logo-container">
               <!--div class="logo"></div-->
               <div fxLayout="row" fxLayoutAlign="center center">
-                  <div class="avatar-wrapper" fxLayoutAlign="center center">
-                    <md-icon>person</md-icon>
-                  </div>
+                  <!--div *ngIf="image-selected"-->
+                      <img id="image" class="avatar-wrapper"  fxLayoutAlign="center center" md-card-avatar src="">
+                    <!--/div-->
                 </div>
             </button>
       <div fxLayout="row" fxLayoutAlign="center" class="card-container">
@@ -211,6 +211,21 @@
                     </md-select>
 
                   </div>
+
+                  <div>
+                    <span>
+                          <input  [accept]="accept" type="file" (change)="onNativeInputFileSelect($event)" #inputFile hidden />
+                           <button class="example-full-width" type="button" md-raised-button (click)="selectFile()">
+                                            <md-icon>file_upload</md-icon>
+                                            <ng-content *ngIf="!fileCount" select=".nofiles"></ng-content>
+                                            <span *ngIf="fileCount">
+                                                <span>{{fileCount}}</span>
+                    <ng-content select=".selected"></ng-content>
+                    </span>
+                    </button>
+                    </span>
+                  </div>
+                  <br />
                   <br />
                   <button md-raised-button [disabled]="signupForm.invalid" type="submit" color="accent">Registrar</button>
                   <button md-raised-button (click)="login()" color="accent">Regresar</button>

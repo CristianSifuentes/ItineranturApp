@@ -1,6 +1,6 @@
 import { Contact } from './models/contacts';
 import { ContactsService } from './services/contacts.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter, ElementRef, Input } from '@angular/core';
 import { MdIconRegistry } from '@angular/material';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Photo } from './models/photos';
@@ -14,6 +14,8 @@ import 'rxjs/add/observable/of';
 import { ProgressBarService } from './services/progress-bar.service';
 import { PhotosService } from './services/photos.service';
 import { UsersService } from './services/users.service';
+declare var jQuery: any;
+declare var $: any;
 
 
 @Component({
@@ -38,10 +40,16 @@ export class AppComponent implements OnInit {
   private loginOrRegister: boolean;
   public signupForm: FormGroup;
   public users: User[];
+  private _files: File[];
+  private image_selected: boolean = false;
   myState = 'M';
   states = [{ code: 'M', name: 'Masculino' }, { code: 'F', name: 'Femenino' }, { code: 'I', name: 'Indefinido' }];
-  @ViewChild('form') myNgForm; // just to call resetForm method
-  // Declaramos las variables para jQuery
+  @ViewChild('form') myNgForm;
+  @Input() accept: string;
+  @Output() onFileSelect: EventEmitter<File[]> = new EventEmitter();
+  @ViewChild('inputFile') nativeInputFile: ElementRef;
+
+
 
   constructor(
     private observableMedia: ObservableMedia,
@@ -64,6 +72,30 @@ export class AppComponent implements OnInit {
     this.token = AuthStore.getToken();
     this.identified_user = AuthIdentifiedUserStore.getUserIdentified();
 
+  }
+
+
+  selectFile() {
+    this.nativeInputFile.nativeElement.click();
+  }
+
+
+  onNativeInputFileSelect($event) {
+    this._files = $event.srcElement.files;
+    /*this.onFileSelect.emit(this._files);*/
+    this.readThis($event.target);
+  }
+  readThis(inputValue: any): void {
+    var file: File = inputValue.files[0];
+    var myReader: FileReader = new FileReader();
+
+    myReader.onloadend = function (e) {
+      console.log(myReader.result);
+      $('#image').attr('src', myReader.result);
+
+    }
+    this.image_selected = true;
+    myReader.readAsDataURL(inputValue.files[0]);
   }
 
   ngOnInit() {

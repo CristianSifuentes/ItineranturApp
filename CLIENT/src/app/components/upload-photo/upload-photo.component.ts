@@ -13,7 +13,7 @@ declare var $: any;
   styleUrls: ['./upload-photo.component.scss']
 })
 export class UploadPhotoComponent implements OnInit {
-  /*public filesToUpload: Array<File>;*/
+
   @Input() accept: string;
   @Output() onFileSelect: EventEmitter<File[]> = new EventEmitter();
   @ViewChild('inputFile') nativeInputFile: ElementRef;
