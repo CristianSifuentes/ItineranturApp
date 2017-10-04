@@ -24,7 +24,6 @@ exports.ensureAuth = function(req, res, next){
             menssage: 'token no válido'
         });
     }
-
     req.user = payload;
     next();
 };

@@ -40,6 +40,7 @@ export class AppComponent implements OnInit {
   private loginOrRegister: boolean;
   public signupForm: FormGroup;
   public users: User[];
+  public user: User;
   private _files: File[];
   private image_selected: boolean = false;
   myState = 'M';
@@ -90,7 +91,6 @@ export class AppComponent implements OnInit {
     var myReader: FileReader = new FileReader();
 
     myReader.onloadend = function (e) {
-      console.log(myReader.result);
       $('#image').attr('src', myReader.result);
 
     }
@@ -243,18 +243,140 @@ export class AppComponent implements OnInit {
   }
 
   createUser(newUser: User) {
-    this.userService.createUser(newUser).subscribe((newUserWithId) => {
-      this.users.push(newUserWithId);
-      this.myNgForm.resetForm();
-    }, (response: Response) => {
-      if (response.status === 500) {
-        this.error = 'errorHasOcurred';
-      }
-    });
+    this.userService.createUser(newUser).subscribe(
+      (user: User) => {
+        this.user = user;
+        this.userService.loginUser(newUser).subscribe(
+          (userWithToken) => {
+            if (userWithToken) {
+              console.log(userWithToken);
+              if (this.user) {
+                this.fileRequest(
+                  this.url_user + 'uploadimage/' + this.user._id,
+                  userWithToken,
+                  [],
+                  this._files).then(
+                  (result: any) => {
+                    console.log(result);
+                  }
+                  );
+              }
+            }
+          }, (response: Response) => {
+            if (response.status === 500) {
+              this.error = 'errorHasOcurred';
+            }
+          });
+        //this.myNgForm.resetForm();
+      }, (response: Response) => {
+        if (response.status === 500) {
+          this.error = 'errorHasOcurred';
+        }
+      });
   }
+
+
+  public fileRequest(url: string, token: string, params: Array<string>, files: Array<File>) {
+    return new Promise(function (resolve, reject) {
+      var formData: any = new FormData();
+      var xhr = new XMLHttpRequest();
+      for (var i = 0; i < files.length; i++) {
+        formData.append('image', files[i], files[i].name)
+      }
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+          if (xhr.status == 200) {
+            resolve(JSON.parse(xhr.response));
+          } else {
+            reject(xhr.response);
+          }
+
+        }
+      }
+      xhr.open('POST', url, true);
+      xhr.setRequestHeader('Authorization', token);
+      xhr.send(formData);
+
+    });
+
+  }
+
+
 
   login() {
     this.loginOrRegister = false;
   }
 
+
+
+
 }
+
+
+
+
+
+
+/*
+
+  createNewPhoto(newPhoto: Photo) {
+    this.token = AuthStore.getToken();
+    this.identified_user = AuthIdentifiedUserStore.getUserIdentified();
+    if (this.token && this.identified_user) {
+      let user = JSON.parse(this.identified_user);
+      newPhoto.user = user._id;
+      this.photosService.createPhoto(newPhoto).subscribe(
+        (photo: Photo) => {
+          this.photo = photo;
+          if (this.photo) {
+            this.fileRequest(
+              this.url + 'uploadPhoto/' + this.photo._id,
+              this.token,
+              [],
+              this._files).then(
+              (result: any) => {
+                this.user.image = result.image;
+                localStorage.setItem('identity', JSON.stringify(this.user));
+                let imagePath = this.url + 'obtenerImagenUsuario/' + this.user.image;
+                document.getElementById('image-logged').setAttribute('src', imagePath);
+                console.log(this.user);
+                console.log(result);
+              }
+              );
+          }
+        }, (response: Response) => {
+          if (response.status === 500) {
+            //this.error = 'errorHasOcurred';
+          }
+        });
+    }
+
+  }
+
+  public fileRequest(url: string, token: string, params: Array<string>, files: Array<File>) {
+    return new Promise(function (resolve, reject) {
+      var formData: any = new FormData();
+      var xhr = new XMLHttpRequest();
+      for (var i = 0; i < files.length; i++) {
+        formData.append('image', files[i], files[i].name)
+      }
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+          if (xhr.status == 200) {
+            resolve(JSON.parse(xhr.response));
+          } else {
+            reject(xhr.response);
+          }
+
+        }
+      }
+      xhr.open('POST', url, true);
+      xhr.setRequestHeader('Authorization', token);
+      xhr.send(formData);
+
+    });
+
+  }
+
+
+*/

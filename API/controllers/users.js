@@ -23,7 +23,7 @@ function prueba(req, res) {
 function saveUser(req, res) {
   var user = new User();
   var params = req.body;
-  
+
   user._id = new mongoose.Types.ObjectId;
   user.name = params.name;
   user.lastname = params.lastname;
@@ -33,7 +33,7 @@ function saveUser(req, res) {
   user.email = params.email;
   user.image = params.image;
   user.role = params.role;
-
+  user.image = null;
   if (params.password) {
     bcrypt.hash(params.password, null, null, function (err, hash) {
       user.password = hash;
@@ -41,17 +41,17 @@ function saveUser(req, res) {
         //Guardar el usuario
         user.save((err, userStored) => {
           if (err) {
-            res.status(Status.INTERNAL_SERVER_ERROR).send(
-              { menssage: 'Error al guardar el usuario' }
-            );
+            res.status(Status.INTERNAL_SERVER_ERROR).send({
+              menssage: 'Error al guardar el usuario'
+            });
           } else {
             if (!userStored) {
-              res.status(Status.NOT_FOUND).send(
-                { message: 'No se ha registrado usuario' }
-              );
+              res.status(Status.NOT_FOUND).send({
+                message: 'No se ha registrado usuario'
+              });
             } else {
               res.status(Status.CREATED).send(
-                { message: userStored }
+                userStored
               );
             }
           }
@@ -67,8 +67,7 @@ function saveUser(req, res) {
 
     });
   } else {
-    res.status(Status.ACCEPTED).send(
-      {
+    res.status(Status.ACCEPTED).send({
         menssage: 'Introduce la contraseña'
       }
 
@@ -90,10 +89,14 @@ function loginUser(req, res) {
     email: email.toLowerCase()
   }, (err, user) => {
     if (err) {
-      res.status(Status.INTERNAL_SERVER_ERROR).send({ menssage: 'Error en el servidor, favor de procesar nuevamente.' });
+      res.status(Status.INTERNAL_SERVER_ERROR).send({
+        menssage: 'Error en el servidor, favor de procesar nuevamente.'
+      });
     } else {
       if (!user) {
-        res.status(Status.NOT_FOUND).send({ menssage: 'El usuario no existe' });
+        res.status(Status.NOT_FOUND).send({
+          menssage: 'El usuario no existe'
+        });
       } else {
         //Compara las contraseñas
         bcrypt.compare(password, user.password, function (err, check) {
@@ -101,14 +104,17 @@ function loginUser(req, res) {
             //devolver  los datos del usuario logeado
             if (params.gethash) {
               //devolver un token de jwt
-              res.status(Status.OK).send({
-                token: jwt.createToken(user)
-              });
+              res.status(Status.OK).send(
+                 jwt.createToken(user)
+              );
             } else {
               res.status(Status.OK).send(user);
             }
           } else {
-            res.status(static.NOT_FOUND).send({ menssage: 'El usuario no ha posido logearse', params: params });
+            res.status(static.NOT_FOUND).send({
+              menssage: 'El usuario no ha posido logearse',
+              params: params
+            });
           }
         });
       }
@@ -130,12 +136,18 @@ function updateUser(req, res) {
 
   User.findByIdAndUpdate(userId, update, (err, userUpdated) => {
     if (err) {
-      res.status(Status.INTERNAL_SERVER_ERROR).send({ menssage: 'Error al actualizar el usuario' });
+      res.status(Status.INTERNAL_SERVER_ERROR).send({
+        menssage: 'Error al actualizar el usuario'
+      });
     } else {
       if (!userUpdated) {
-        res.status(Status.NOT_FOUND).send({ menssage: 'No se ha podido actualizar el usuario' });
+        res.status(Status.NOT_FOUND).send({
+          menssage: 'No se ha podido actualizar el usuario'
+        });
       } else {
-        res.status(Status.OK).send({ user: userUpdated });
+        res.status(Status.OK).send({
+          user: userUpdated
+        });
       }
     }
 
@@ -161,19 +173,30 @@ function uploadImage(req, res) {
     var file_ext = ext_split[1];
     console.log(ext_split);
     if (file_ext == 'png' || file_ext == 'jpg' || file_ext == 'gif') {
-      User.findByIdAndUpdate(userId, { image: file_name }, (err, userUpdated) => {
+      User.findByIdAndUpdate(userId, {
+        image: file_name
+      }, (err, userUpdated) => {
         if (!userUpdated) {
-          res.status(Status.NOT_FOUND).send({ menssage: 'No se ha podido actualizar el usuario' });
+          res.status(Status.NOT_FOUND).send({
+            menssage: 'No se ha podido actualizar el usuario'
+          });
         } else {
-          res.status(Status.OK).send({ image: file_name, user: userUpdated });
+          res.status(Status.OK).send({
+            image: file_name,
+            user: userUpdated
+          });
         }
       });
     } else {
-      res.status(Status.OK).send({ message: 'Extensión de archivo no válida' });
+      res.status(Status.OK).send({
+        message: 'Extensión de archivo no válida'
+      });
     }
 
   } else {
-    res.status(Status.INTERNAL_SERVER_ERROR).send({ message: 'No ha subido ninguna imagen' });
+    res.status(Status.INTERNAL_SERVER_ERROR).send({
+      message: 'No ha subido ninguna imagen'
+    });
   }
 }
 
@@ -190,7 +213,9 @@ function getImageFile(req, res) {
     if (exists) {
       res.sendFile(path.resolve(path_file));
     } else {
-      res.status(Status.OK).send({ message: 'No existe la imagen' });
+      res.status(Status.OK).send({
+        message: 'No existe la imagen'
+      });
     }
   });
 
@@ -205,17 +230,23 @@ function getImageFileByUser(req, res) {
   var userId = req.params.id;
   User.findById(userId).exec((err, user) => {
     if (err) {
-      res.status(Status.INTERNAL_SERVER_ERROR).send({ message: 'Error en la petición' });
+      res.status(Status.INTERNAL_SERVER_ERROR).send({
+        message: 'Error en la petición'
+      });
     } else {
       if (!user) {
-        res.status(Status.NOT_FOUND).send({ message: 'El Album no existe' });
+        res.status(Status.NOT_FOUND).send({
+          message: 'El Album no existe'
+        });
       } else {
         var path_file = './uploads/users/' + user.image;
         fs.exists(path_file, function (exists) {
           if (exists) {
             res.sendFile(path.resolve(path_file));
           } else {
-            res.status(Status.OK).send({ message: 'No existe la imagen' });
+            res.status(Status.OK).send({
+              message: 'No existe la imagen'
+            });
           }
         });
       }
