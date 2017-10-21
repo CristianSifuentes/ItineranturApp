@@ -92,7 +92,7 @@ export class UsersService {
    * Método que valida si existen los datos del usuario
    * @param  objeto del tipo 'user'
    */
-  loginUser(user: any) {
+  loginUser(user: any): Observable<User> {
     this.request$.emit('starting');
     return this.http
       .post('http://localhost:3977/api/user/login', JSON.stringify({
@@ -102,7 +102,6 @@ export class UsersService {
       }), { headers: this.headers })
       .map(response => {
         this.request$.emit('finished');
-        this.showSnackBar('Welcome');
         return response;
       })
       .catch(error => this.handleError(error));

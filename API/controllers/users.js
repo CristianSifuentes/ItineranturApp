@@ -26,7 +26,7 @@ function saveUser(req, res) {
 
   user._id = new mongoose.Types.ObjectId;
   user.name = params.name;
-  user.lastname = params.lastname;
+  user.lastname = params.lastName;
   user.nickname = params.nickname;
   user.age = params.age;
   user.gender = params.gender;
@@ -80,7 +80,8 @@ function saveUser(req, res) {
  * @param {*} req 
  * @param {*} res 
  */
-function loginUser(req, res) {
+/*function loginUser(req, res) {
+
   var params = req.body;
 
   var email = params.email;
@@ -123,6 +124,47 @@ function loginUser(req, res) {
 
   });
 }
+*/
+
+function loginUser(req, res){
+  var params = req.body;
+   var email = params.email;
+   var password = params.password;
+   User.findOne({
+       email: email.toLowerCase()
+   }, (err,user)=>{
+       if(err){
+             res.status(500).send({menssage: 'Error en la petición'});
+       }else{
+           if(!user){
+               res.status(404).send({menssage: 'El usuario no existe'});
+           }else{
+               //Compara las contraseñas
+               bcrypt.compare(password,user.password, function(err,check){
+                    if(check){
+                        //devolver  los datos del usuario logeado
+                        if(params.gethash){
+                            //devolver un token de jwt
+                            res.status(200).send({
+                               token: jwt.createToken(user)
+
+                            });
+                        }else{
+                               res.status(200).send(user);
+                        }
+                    }else{
+                         res.status(404).send({menssage: 'El usuario no ha posido logearse', params: params});
+                    }
+               });
+           }
+       }
+
+       
+   });
+}
+
+
+
 
 
 /**

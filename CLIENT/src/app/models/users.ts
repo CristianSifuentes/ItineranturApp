@@ -3,7 +3,7 @@ export class User {
   constructor(
     public _id: string,
     public name: string,
-    public lastname: string,
+    public lastName: string,
     public nickname: string,
     public age: number,
     public gender: string,

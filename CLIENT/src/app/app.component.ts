@@ -211,7 +211,7 @@ export class AppComponent implements OnInit {
         this.userService.loginUser(user).subscribe(
           (userWithToken) => {
             AuthIdentifiedUserStore.setUserIdentified(JSON.stringify(userWithId));
-            AuthStore.setToken(JSON.stringify(userWithToken.token));
+            AuthStore.setToken(JSON.stringify(userWithToken));
             if (userWithId) {
               this.token = AuthStore.getToken();
               this.identified_user = AuthIdentifiedUserStore.getUserIdentified();
@@ -253,7 +253,7 @@ export class AppComponent implements OnInit {
               if (this.user) {
                 this.fileRequest(
                   this.url_user + 'uploadimage/' + this.user._id,
-                  userWithToken,
+                  userWithToken.email,
                   [],
                   this._files).then(
                   (result: any) => {
