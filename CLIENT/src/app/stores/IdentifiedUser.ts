@@ -5,8 +5,8 @@ export default class IdentifiedUser {
         return window.localStorage.getItem(IdentifiedUser.IDENTIFIED_USER);
     }
 
-    static setUserIdentified(user: string) {
-        window.localStorage.setItem(IdentifiedUser.IDENTIFIED_USER, user);
+    static setUserIdentified(user: any) {
+        window.localStorage.setItem(IdentifiedUser.IDENTIFIED_USER, JSON.stringify(user));
     }
 
     static removeUserIdentified(): void {

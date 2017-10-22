@@ -4,11 +4,16 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { MdSnackBar, MdSnackBarConfig } from '@angular/material';
+import AuthStore from '../stores/Auth';
+import AuthIdentifiedUserStore from '../stores/IdentifiedUser';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 import { AppConfig } from './../config/app.config';
-
+interface Response {
+  token: string;
+  user: string;
+}
 
 
 @Injectable()
@@ -76,33 +81,46 @@ export class UsersService {
   validateUser(user: any): Observable<User> {
     this.request$.emit('starting');
     return this.http
-      .post('http://localhost:3977/api/user/login', JSON.stringify({
+      .post<Response>('http://localhost:3977/api/user/login', JSON.stringify({
         email: user.email,
         password: user.password,
         gethash: false
       }), { headers: this.headers })
       .map(response => {
         this.request$.emit('finished');
-        return response;
+        let user = response.user;
+        if (user) {        
+          AuthIdentifiedUserStore.setUserIdentified(user);
+          return response.user;
+        } else {
+          return null;
+        }
       })
       .catch(error => this.handleError(error));
   }
+
 
   /**
    * Método que valida si existen los datos del usuario
    * @param  objeto del tipo 'user'
    */
-  loginUser(user: any): Observable<User> {
+  loginUser(user: any): Observable<boolean> {
     this.request$.emit('starting');
     return this.http
-      .post('http://localhost:3977/api/user/login', JSON.stringify({
+      .post<Response>('http://localhost:3977/api/user/login', JSON.stringify({
         email: user.email,
         password: user.password,
         gethash: true
       }), { headers: this.headers })
       .map(response => {
         this.request$.emit('finished');
-        return response;
+        let token = response.token;
+        if (token) {
+          AuthStore.setToken(token);
+          return true;
+        } else {
+          return false;
+        }
       })
       .catch(error => this.handleError(error));
   }

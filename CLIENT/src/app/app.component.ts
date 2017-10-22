@@ -25,7 +25,7 @@ declare var $: any;
 })
 export class AppComponent implements OnInit {
 
-  public token;
+  public token: string;
   public identified_user;
   public photos: Photo[];
   private dataList: Photo[] = [];
@@ -210,7 +210,15 @@ export class AppComponent implements OnInit {
       (userWithId) => {
         this.userService.loginUser(user).subscribe(
           (userWithToken) => {
-            AuthIdentifiedUserStore.setUserIdentified(JSON.stringify(userWithId));
+            if (userWithToken === true) {
+              this.token = AuthStore.getToken();
+              this.identified_user = AuthIdentifiedUserStore.getUserIdentified();
+              /*this.router.navigate(['/']);*/
+          } else {
+              // login failed
+              this.error = 'Username or password is incorrect';
+          }
+            /*AuthIdentifiedUserStore.setUserIdentified(JSON.stringify(userWithId));
             AuthStore.setToken(JSON.stringify(userWithToken));
             if (userWithId) {
               this.token = AuthStore.getToken();
@@ -220,10 +228,10 @@ export class AppComponent implements OnInit {
                 var user = JSON.parse(this.identified_user);
 
               }
-              /* */
-              /*this.router.navigate(['home/' + '59b9717802d64c1188b71eb0']);*/
+
+              /*this.router.navigate(['home/' + '59b9717802d64c1188b71eb0']);
               //this.router.navigate(['home/'], { queryParams: { id: '59b9717802d64c1188b71eb0' } });
-            }
+            }*/
 
             //this.router.navigate(['home/']);
           }, (response: Response) => {
@@ -249,17 +257,18 @@ export class AppComponent implements OnInit {
         this.userService.loginUser(newUser).subscribe(
           (userWithToken) => {
             if (userWithToken) {
-              console.log(userWithToken);
               if (this.user) {
+                this.token = AuthStore.getToken();
                 this.fileRequest(
                   this.url_user + 'uploadimage/' + this.user._id,
-                  userWithToken.email,
-                  [],
+                  this.token,
                   this._files).then(
                   (result: any) => {
                     console.log(result);
+                    this.router.navigate(['home/']);
                   }
                   );
+
               }
             }
           }, (response: Response) => {
@@ -276,7 +285,7 @@ export class AppComponent implements OnInit {
   }
 
 
-  public fileRequest(url: string, token: string, params: Array<string>, files: Array<File>) {
+  public fileRequest(url: string, token: string, files: Array<File>) {
     return new Promise(function (resolve, reject) {
       var formData: any = new FormData();
       var xhr = new XMLHttpRequest();

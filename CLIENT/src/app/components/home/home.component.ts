@@ -58,7 +58,7 @@ export class HomeComponent implements OnInit {
     this.identified_user = AuthIdentifiedUser.getUserIdentified();
 
     if (this.token && this.identified_user) {
-      var user = JSON.parse(this.identified_user);
+      /*var user = JSON.parse(this.identified_user);
       this.contactService.getAllContactForUser(user._id)
         .subscribe(
         (contact: Array<Contact>) => {
@@ -69,7 +69,7 @@ export class HomeComponent implements OnInit {
           console.log(error);
         }, function () {
 
-        });
+        });*/
 
     }
   }
