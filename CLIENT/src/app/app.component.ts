@@ -104,7 +104,10 @@ export class AppComponent implements OnInit {
   ngOnInit() {
 
     let user_image = JSON.parse(this.identified_user);
-    this.id_user = user_image._id;
+    if (user_image) {
+      this.id_user = user_image._id;
+    }
+
 
 
     this.loginOrRegister = false;
