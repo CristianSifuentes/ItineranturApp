@@ -26,7 +26,7 @@ function saveUser(req, res) {
 
   user._id = new mongoose.Types.ObjectId;
   user.name = params.name;
-  user.lastname = params.lastName;
+  user.lastname = params.lastname;
   user.nickname = params.nickname;
   user.age = params.age;
   user.gender = params.gender;

@@ -111,7 +111,7 @@ export class AppComponent implements OnInit {
 
     this.signupForm = this.formBuilder.group({
       name: ['', Validators.required],
-      lastName: ['', Validators.required],
+      lastname: ['', Validators.required],
       nickname: ['', Validators.required],
       age: ['', Validators.required],
       gender: ['', Validators.required],
@@ -214,26 +214,10 @@ export class AppComponent implements OnInit {
               this.token = AuthStore.getToken();
               this.identified_user = AuthIdentifiedUserStore.getUserIdentified();
               /*this.router.navigate(['/']);*/
-          } else {
+            } else {
               // login failed
               this.error = 'Username or password is incorrect';
-          }
-            /*AuthIdentifiedUserStore.setUserIdentified(JSON.stringify(userWithId));
-            AuthStore.setToken(JSON.stringify(userWithToken));
-            if (userWithId) {
-              this.token = AuthStore.getToken();
-              this.identified_user = AuthIdentifiedUserStore.getUserIdentified();
-
-              if (this.token && this.identified_user) {
-                var user = JSON.parse(this.identified_user);
-
-              }
-
-              /*this.router.navigate(['home/' + '59b9717802d64c1188b71eb0']);
-              //this.router.navigate(['home/'], { queryParams: { id: '59b9717802d64c1188b71eb0' } });
-            }*/
-
-            //this.router.navigate(['home/']);
+            }
           }, (response: Response) => {
             if (response.status === 500) {
               this.error = 'errorHasOcurred';
