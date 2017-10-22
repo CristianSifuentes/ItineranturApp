@@ -1,5 +1,4 @@
-import { Contact } from './models/contacts';
-import { ContactsService } from './services/contacts.service';
+
 import { Component, OnInit, ViewChild, Output, EventEmitter, ElementRef, Input } from '@angular/core';
 import { MdIconRegistry } from '@angular/material';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -29,7 +28,6 @@ export class AppComponent implements OnInit {
   public identified_user;
   public photos: Photo[];
   private dataList: Photo[] = [];
-  public contacts: Contact[];
   public url: string;
   public url_user: string;
   public open: Observable<boolean>;
@@ -43,6 +41,7 @@ export class AppComponent implements OnInit {
   public user: User;
   private _files: File[];
   private image_selected: boolean = false;
+  public id_user: string;
   myState = 'M';
   states = [{ code: 'M', name: 'Masculino' }, { code: 'F', name: 'Femenino' }, { code: 'I', name: 'Indefinido' }];
   @ViewChild('form') myNgForm;
@@ -57,7 +56,6 @@ export class AppComponent implements OnInit {
     private photosService: PhotosService,
     private userService: UsersService,
     private router: Router,
-    private contactService: ContactsService,
     private route: ActivatedRoute,
     private progressBarService: ProgressBarService,
     private formBuilder: FormBuilder,
@@ -81,6 +79,11 @@ export class AppComponent implements OnInit {
   }
 
 
+  login() {
+    this.loginOrRegister = false;
+  }
+
+
   onNativeInputFileSelect($event) {
     this._files = $event.srcElement.files;
     /*this.onFileSelect.emit(this._files);*/
@@ -99,6 +102,10 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    let user_image = JSON.parse(this.identified_user);
+    this.id_user = user_image._id;
+
 
     this.loginOrRegister = false;
     this.signinForm = this.formBuilder.group({
@@ -213,9 +220,7 @@ export class AppComponent implements OnInit {
             if (userWithToken === true) {
               this.token = AuthStore.getToken();
               this.identified_user = AuthIdentifiedUserStore.getUserIdentified();
-              /*this.router.navigate(['/']);*/
             } else {
-              // login failed
               this.error = 'Username or password is incorrect';
             }
           }, (response: Response) => {
@@ -296,80 +301,9 @@ export class AppComponent implements OnInit {
 
 
 
-  login() {
-    this.loginOrRegister = false;
-  }
 
 
 
 
 }
 
-
-
-
-
-
-/*
-
-  createNewPhoto(newPhoto: Photo) {
-    this.token = AuthStore.getToken();
-    this.identified_user = AuthIdentifiedUserStore.getUserIdentified();
-    if (this.token && this.identified_user) {
-      let user = JSON.parse(this.identified_user);
-      newPhoto.user = user._id;
-      this.photosService.createPhoto(newPhoto).subscribe(
-        (photo: Photo) => {
-          this.photo = photo;
-          if (this.photo) {
-            this.fileRequest(
-              this.url + 'uploadPhoto/' + this.photo._id,
-              this.token,
-              [],
-              this._files).then(
-              (result: any) => {
-                this.user.image = result.image;
-                localStorage.setItem('identity', JSON.stringify(this.user));
-                let imagePath = this.url + 'obtenerImagenUsuario/' + this.user.image;
-                document.getElementById('image-logged').setAttribute('src', imagePath);
-                console.log(this.user);
-                console.log(result);
-              }
-              );
-          }
-        }, (response: Response) => {
-          if (response.status === 500) {
-            //this.error = 'errorHasOcurred';
-          }
-        });
-    }
-
-  }
-
-  public fileRequest(url: string, token: string, params: Array<string>, files: Array<File>) {
-    return new Promise(function (resolve, reject) {
-      var formData: any = new FormData();
-      var xhr = new XMLHttpRequest();
-      for (var i = 0; i < files.length; i++) {
-        formData.append('image', files[i], files[i].name)
-      }
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4) {
-          if (xhr.status == 200) {
-            resolve(JSON.parse(xhr.response));
-          } else {
-            reject(xhr.response);
-          }
-
-        }
-      }
-      xhr.open('POST', url, true);
-      xhr.setRequestHeader('Authorization', token);
-      xhr.send(formData);
-
-    });
-
-  }
-
-
-*/

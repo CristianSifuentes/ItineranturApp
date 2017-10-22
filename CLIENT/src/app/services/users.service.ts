@@ -21,6 +21,7 @@ export class UsersService {
   request$: EventEmitter<any>;
   private headers: HttpHeaders;
   private usersUrl: string;
+  private travellersUrl: string;
   private translations: any;
 
   private handleError(error: any) {
@@ -37,7 +38,8 @@ export class UsersService {
   ) {
     this.request$ = new EventEmitter();
     this.usersUrl = 'http://localhost:3977/api/user';
-    this.headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    this.travellersUrl = 'http://localhost:3977/api/travellers';
+    /*this.headers = new HttpHeaders({ 'Content-Type': 'application/json' });*/
   }
 
   /**
@@ -89,7 +91,7 @@ export class UsersService {
       .map(response => {
         this.request$.emit('finished');
         let user = response.user;
-        if (user) {        
+        if (user) {
           AuthIdentifiedUserStore.setUserIdentified(user);
           return response.user;
         } else {
@@ -124,5 +126,22 @@ export class UsersService {
       })
       .catch(error => this.handleError(error));
   }
+
+  /**
+   * Método que obtiene todos los usuarios
+   * @param userId 
+   */
+  getAllTravellers(userId: string): Observable<User[]> {
+    this.request$.emit('starting');
+    return this.http
+      .get(this.travellersUrl)
+      .map(response => {
+        this.request$.emit('finished');
+        return response;
+      })
+      .catch(error => this.handleError(error));
+  }
+
+
 
 }

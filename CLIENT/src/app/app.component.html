@@ -4,12 +4,16 @@
     <md-toolbar color="primary" class="mat-elevation-z16">
 
       <button *ngIf="open | async" md-icon-button (click)="sidenav.toggle()">
-                    <md-icon>menu</md-icon>
-                  </button>
+        <md-icon>menu</md-icon>
+      </button>
       <span>{{title}}</span>
       <span class="fill-remaining-space"></span>
-      <button *ngIf="open_profile | async" md-icon-button [md-menu-trigger-for]="menuprofile"><md-icon>face</md-icon></button>
-      <button md-icon-button [md-menu-trigger-for]="menu"><md-icon>more_vert</md-icon></button>
+      <button *ngIf="open_profile | async" md-icon-button [md-menu-trigger-for]="menuprofile">
+        <md-icon>face</md-icon>
+      </button>
+      <button md-icon-button [md-menu-trigger-for]="menu">
+        <md-icon>more_vert</md-icon>
+      </button>
     </md-toolbar>
     <section class="progress-bar">
       <md-progress-bar [color]="'primary'" [mode]="progressBarMode">
@@ -53,8 +57,8 @@
             <md-card id="user">
               <md-card-title>
                 <div fxLayout="row" fxLayoutAlign="center center">
-                  <div *ngIf="contacts;else other_content">
-                    <img class="avatar-wrapper" (click)="myAccount(contacts[0]);" fxLayoutAlign="center center" md-card-avatar src="{{url_user + 'getimageuser/' +contacts[0].user}}">
+                  <div *ngIf="id_user;else other_content">
+                    <img class="avatar-wrapper" fxLayoutAlign="center center" md-card-avatar src="{{url_user + 'getimageuser/' + id_user}}">
                   </div>
                   <ng-template #other_content>
                     <md-icon>person</md-icon>
@@ -112,8 +116,8 @@
     <div class="login-flex-container" fxLayout="column">
 
       <button fxFlexAlign="center" class="logo-container">
-           <div class="logo"></div>
-         </button>
+        <div class="logo"></div>
+      </button>
       <!-- todos los hijos del div serán desplegados en renglores 1 centrados -->
       <div fxLayout="row" fxLayoutAlign="center" class="card-container">
 
@@ -150,13 +154,13 @@
     <div class="register-flex-container" fxLayout="column">
 
       <button fxFlexAlign="center" class="logo-container">
-              <!--div class="logo"></div-->
-              <div fxLayout="row" fxLayoutAlign="center center">
-                  <!--div *ngIf="image-selected"-->
-                      <img id="image" class="avatar-wrapper"  fxLayoutAlign="center center" md-card-avatar src="">
-                    <!--/div-->
-                </div>
-            </button>
+        <!--div class="logo"></div-->
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <!--div *ngIf="image-selected"-->
+          <img id="image" class="avatar-wrapper" fxLayoutAlign="center center" md-card-avatar src="">
+          <!--/div-->
+        </div>
+      </button>
       <div fxLayout="row" fxLayoutAlign="center" class="card-container">
         <div fxFlex="90%" fxFlex.md="50%" fxFlex.lg="40%">
           <md-card>
@@ -214,15 +218,15 @@
 
                   <div>
                     <span>
-                          <input  [accept]="accept" type="file" (change)="onNativeInputFileSelect($event)" #inputFile hidden />
-                           <button class="example-full-width" type="button" md-raised-button (click)="selectFile()">
-                                            <md-icon>file_upload</md-icon>
-                                            <ng-content *ngIf="!fileCount" select=".nofiles"></ng-content>
-                                            <span *ngIf="fileCount">
-                                                <span>{{fileCount}}</span>
-                    <ng-content select=".selected"></ng-content>
-                    </span>
-                    </button>
+                      <input [accept]="accept" type="file" (change)="onNativeInputFileSelect($event)" #inputFile hidden />
+                      <button class="example-full-width" type="button" md-raised-button (click)="selectFile()">
+                        <md-icon>file_upload</md-icon>
+                        <ng-content *ngIf="!fileCount" select=".nofiles"></ng-content>
+                        <span *ngIf="fileCount">
+                          <span>{{fileCount}}</span>
+                          <ng-content select=".selected"></ng-content>
+                        </span>
+                      </button>
                     </span>
                   </div>
                   <br />

@@ -10,7 +10,6 @@ var Status = require('../utils/http-status');
  */
 function getAllUser(req, res) {
 
-
     User.find({}, function (err, users) {
         if (err) {
             res.status(500).send({

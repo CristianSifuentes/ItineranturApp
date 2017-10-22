@@ -129,10 +129,6 @@ function loginUser(req, res) {
 }
 
 
-
-
-
-
 /**
  * Método que realiza la actualización de los datos de un usuario
  * @param {*} req 

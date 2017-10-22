@@ -5,12 +5,12 @@ import { NgModule } from '@angular/core';
 import { MaterialModule, MdSnackBar } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MdButtonModule, MdCardModule, MdMenuModule, MdToolbarModule, MdIconModule, MdProgressBarModule} from '@angular/material';
+import { MdButtonModule, MdCardModule, MdMenuModule, MdToolbarModule, MdIconModule, MdProgressBarModule } from '@angular/material';
 import { MdSnackBarModule, MdSnackBarConfig } from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
 
-import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
-import { HttpClient, HttpClientModule} from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 /** Componentes */
 import { AppComponent } from './app.component';
@@ -27,6 +27,10 @@ import { PhotosService } from './services/photos.service';
 import { UsersService } from './services/users.service';
 import { ContactsService } from './services/contacts.service';
 import { ProgressBarService } from './services/progress-bar.service';
+
+/* Interceptores */
+
+import { application } from './interceptor/application.interceptor';
 
 
 
@@ -57,7 +61,11 @@ import { ProgressBarService } from './services/progress-bar.service';
     AppRoutingModule,
     MdSnackBarModule
   ],
-  providers: [PhotosService, UsersService, ContactsService, ProgressBarService],
+  providers: [PhotosService, UsersService, ContactsService, ProgressBarService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: application,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
