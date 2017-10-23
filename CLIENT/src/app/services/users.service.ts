@@ -80,7 +80,7 @@ export class UsersService {
    * Método que valida si existen los datos del usuario
    * @param  objeto del tipo 'user'
    */
-  validateUser(user: any): Observable<User> {
+  /*validateUser(user: any): Observable<User> {
     this.request$.emit('starting');
     return this.http
       .post<Response>('http://localhost:3977/api/user/login', JSON.stringify({
@@ -99,14 +99,35 @@ export class UsersService {
         }
       })
       .catch(error => this.handleError(error));
-  }
+  }*/
 
+
+  validateUser(user: any): Observable<User> {
+    this.request$.emit('starting');
+    return this.http
+      .post<Response>('http://localhost:3977/api/user/login', JSON.stringify({
+        email: user.email,
+        password: user.password,
+        gethash: false
+      }))
+      .map(response => {
+        this.request$.emit('finished');
+        let user = response.user;
+        if (user) {
+          AuthIdentifiedUserStore.setUserIdentified(user);
+          return response.user;
+        } else {
+          return null;
+        }
+      })
+      .catch(error => this.handleError(error));
+  }
 
   /**
    * Método que valida si existen los datos del usuario
    * @param  objeto del tipo 'user'
    */
-  loginUser(user: any): Observable<boolean> {
+  /*loginUser(user: any): Observable<boolean> {
     this.request$.emit('starting');
     return this.http
       .post<Response>('http://localhost:3977/api/user/login', JSON.stringify({
@@ -125,7 +146,28 @@ export class UsersService {
         }
       })
       .catch(error => this.handleError(error));
+  }*/
+
+
+  loginUser(user: any): Observable<boolean> {
+    this.request$.emit('starting');
+    return this.http.post<Response>('http://localhost:3977/api/user/login', JSON.stringify({
+      email: user.email,
+      password: user.password,
+      gethash: true
+    })).map(response => {
+      this.request$.emit('finished');
+      let token = response.token;
+      if (token) {
+        AuthStore.setToken(token);
+        return true;
+      } else {
+        return false;
+      }
+    })
+      .catch(error => this.handleError(error));
   }
+
 
   /**
    * Método que obtiene todos los usuarios
