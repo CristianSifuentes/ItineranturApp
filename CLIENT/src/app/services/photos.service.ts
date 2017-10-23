@@ -1,6 +1,6 @@
 import { Photo } from '../models/photos';
 import { EventEmitter, Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { MdSnackBar, MdSnackBarConfig } from '@angular/material';
 import 'rxjs/add/operator/catch';
@@ -14,7 +14,6 @@ import { AppConfig } from './../config/app.config';
 export class PhotosService {
 
   request$: EventEmitter<any>;
-  private headers: HttpHeaders;
   private photosUrl: string;
   private translations: any;
 
@@ -33,13 +32,12 @@ export class PhotosService {
 
     this.request$ = new EventEmitter();
     this.photosUrl = 'http://localhost:3977/api/photo';
-    this.headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': AuthStore.getToken() });
   }
 
   getAllPhotosForUser(user: string): Observable<Photo[]> {
     this.request$.emit('starting');
     return this.http
-      .get(this.photosUrl + '/' + user, { headers: this.headers })
+      .get(this.photosUrl + '/' + user)
       .map(response => {
         this.request$.emit('finished');
         return response;
@@ -57,7 +55,7 @@ export class PhotosService {
         description: photo.description,
         user: photo.user,
         image: null
-      }), { headers: this.headers })
+      }))
       .map(response => {
         this.request$.emit('finished');
         this.showSnackBar('heroCreated');

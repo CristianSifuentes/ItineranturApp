@@ -39,7 +39,6 @@ export class UsersService {
     this.request$ = new EventEmitter();
     this.usersUrl = 'http://localhost:3977/api/user';
     this.travellersUrl = 'http://localhost:3977/api/travellers';
-    /*this.headers = new HttpHeaders({ 'Content-Type': 'application/json' });*/
   }
 
   /**

@@ -25,9 +25,7 @@ export class application implements HttpInterceptor {
 
         // setting the accept header
         req = req.clone({ headers: req.headers.set('Accept', 'application/json') });
-        return next.handle(req);
-
-        /*return next.handle(req).do((event: HttpEvent<any>) => {
+        return next.handle(req).do((event: HttpEvent<any>) => {
             if (event instanceof HttpResponse) {
                 console.log(event);
                 // do stuff with response if you want
@@ -40,43 +38,9 @@ export class application implements HttpInterceptor {
                     // or show a modal
                 }
             }
-        });*/
-
-        /*const authHeader = AuthStore.getToken();
-        const started = Date.now();
-
-        const authReq = req.clone({
-            headers: req.headers.set('Authorization', authHeader)
-
         });
-
-
-        return next
-            .handle(authReq)
-            .do(event => {
-                if (event instanceof HttpResponse) {
-                    const elapsed = Date.now() - started;
-                    console.log(`Request for ${req.urlWithParams} took ${elapsed} ms.`);
-                }
-            });*/
 
     }
 
 }
 
-
-/**
-
-return next.handle(req).do((event: HttpEvent<any>) => {
-      if (event instanceof HttpResponse) {
-        // do stuff with response if you want
-      }
-    }, (err: any) => {
-      if (err instanceof HttpErrorResponse) {
-        if (err.status === 401) {
-          // redirect to the login route
-          // or show a modal
-        }
-      }
-    });
- */
