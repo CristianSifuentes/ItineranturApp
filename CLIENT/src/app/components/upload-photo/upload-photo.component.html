@@ -1,22 +1,10 @@
 <section class="app flex-container" fxLayout="column" fxLayoutAlign="start stretch">
   <div fxLayout="row" fxLayoutAlign="center" class="card-container">
     <div fxFlex="100%" fxFlex.md="100%" fxFlex.lg="80%">
-      <!--md-card>
-        <md-card-header>
-          <md-card-title>titulo</md-card-title>
-          <md-card-subtitle>subtitulo</md-card-subtitle>
-        </md-card-header>
-        <img md-card-image src="{{url + 'getimage/' + photo.image}}" alt="{{photo.name}}">
-        <md-card-content>
-          contenido
-        </md-card-content>
-        <md-card-actions>
-          <button md-button>LIKE</button>
-          <button md-button>SHARE</button>
-        </md-card-actions>
-      </md-card>
-    </div-->
+
       <md-card>
+      </md-card>
+      <!--md-card>
         <md-card-content>
           <img id="image" src="assets/Alexanya.png" alt="Mountain View" style="width:304px;height:228px;">
 
@@ -25,7 +13,6 @@
             <table class="example-full-width" cellspacing="0">
               <tr>
                 <md-input-container class="example-full-width">
-                  <!--input mdInput placeholder="Nombre"-->
                   <input mdInput type="text" placeholder="Nombre" formControlName="name">
                 </md-input-container>
               </tr>
@@ -34,7 +21,6 @@
               </tr>
               <tr>
                 <md-input-container class="example-full-width">
-                  <!--input mdInput placeholder="Descripción"-->
                   <input mdInput type="text" placeholder="Descripción" formControlName="description">
                 </md-input-container>
               </tr>
@@ -60,18 +46,11 @@
               </tr>
               <tr>
                 <button type="submit" md-raised-button color="primary">Subir</button>
-                <!--input type="submit" value="Actualizar mis datos" class="btn btn-primary" /-->
               </tr>
             </table>
           </form>
         </md-card-content>
-      </md-card>
+      </md-card-->
     </div>
   </div>
 </section>
-
-
-
-<!--button type="button" md-button (click)="imgFileInput.click()">Seleccionar</button>
-                <input hidden type="file" #imgFileInput (change)="fileChangeEvent($event)"/-->
-<!--input type="file" placeholder="subir image..." (change)="fileChangeEvent($event)" /-->

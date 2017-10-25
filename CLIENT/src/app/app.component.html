@@ -51,6 +51,7 @@
     </md-menu>
 
     <md-sidenav-container fxFlex>
+
       <md-sidenav mode="side" [opened]="open | async" #sidenav class="mat-elevation-z6">
         <md-nav-list>
           <div fxLayout="row">
@@ -103,6 +104,7 @@
           </div>
         </md-nav-list>
       </md-sidenav>
+      
       <div class="app-body">
         <router-outlet (activate)="onActivate($event)"></router-outlet>
       </div>
