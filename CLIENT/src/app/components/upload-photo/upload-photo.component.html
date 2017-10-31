@@ -1,10 +1,7 @@
-<section class="app flex-container" fxLayout="column" fxLayoutAlign="start stretch">
+<!--section class="app flex-container" fxLayout="column" fxLayoutAlign="start stretch">
   <div fxLayout="row" fxLayoutAlign="center" class="card-container">
-    <div fxFlex="100%" fxFlex.md="100%" fxFlex.lg="80%">
-
+    <div fxFlex="100%" fxFlex.md="60%" fxFlex.lg="60%">
       <md-card>
-      </md-card>
-      <!--md-card>
         <md-card-content>
           <img id="image" src="assets/Alexanya.png" alt="Mountain View" style="width:304px;height:228px;">
 
@@ -32,13 +29,13 @@
                 <span>
                   <input [accept]="accept" type="file" (change)="onNativeInputFileSelect($event)" #inputFile hidden />
                   <button type="button" md-raised-button (click)="selectFile()">
-                      <md-icon>file_upload</md-icon>
-                      <ng-content *ngIf="!fileCount" select=".nofiles"></ng-content>
-                      <span *ngIf="fileCount">
-                          <span>{{fileCount}}</span>
-                <ng-content select=".selected"></ng-content>
-                </span>
-                </button>
+                    <md-icon>file_upload</md-icon>
+                    <ng-content *ngIf="!fileCount" select=".nofiles"></ng-content>
+                    <span *ngIf="fileCount">
+                      <span>{{fileCount}}</span>
+                      <ng-content select=".selected"></ng-content>
+                    </span>
+                  </button>
                 </span>
               </tr>
               <tr>
@@ -50,7 +47,70 @@
             </table>
           </form>
         </md-card-content>
-      </md-card-->
+      </md-card>
     </div>
   </div>
-</section>
+</section-->
+
+<div class="login-flex-container" fxLayout="column">
+
+  <button fxFlexAlign="center" class="logo-container">
+    <div class="logo"></div>
+  </button>
+  <!-- todos los hijos del div serán desplegados en renglores 1 centrados -->
+  <div fxLayout="row" fxLayoutAlign="center" class="card-container">
+
+    <div fxFlex="100%" fxFlex.md="70%" fxFlex.lg="70%">
+
+      <md-card>
+        <md-card-title>Login</md-card-title>
+        <md-card-content>
+          <!--form [formGroup]="signinForm" #form="ngForm" (ngSubmit)="loginUser(signinForm.value)" novalidate>
+            <div fxLayout="column">
+              <md-input-container>
+                <input mdInput required placeholder="Correo Electrónico" autocorrect="off" autocapitalize="off" spellcheck="off" formControlName="email">
+              </md-input-container>
+              <md-input-container>
+                <input mdInput required type="password" placeholder="Contraseña" autocomplete="off" autocorrect="off" autocapitalize="off"
+                  spellcheck="off" formControlName="password">
+              </md-input-container>
+              <button md-raised-button color="accent" [disabled]="form.invalid" type="submit">Ingresar</button>
+              <a md-button (click)="register()">Registrar</a>
+            </div>
+          </form-->
+          <form class="example-form" [formGroup]="newPhotoForm" #form="ngForm" (ngSubmit)="createNewPhoto(newPhotoForm.value)">
+
+            <div fxLayout="column">
+              <md-input-container class="example-full-width">
+                <input mdInput type="text" placeholder="Nombre" formControlName="name">
+              </md-input-container>
+
+
+              <md-input-container class="example-full-width">
+                <input mdInput type="text" placeholder="Descripción" formControlName="description">
+              </md-input-container>
+
+              <span>
+                <input [accept]="accept" type="file" (change)="onNativeInputFileSelect($event)" #inputFile hidden />
+                <button type="button" md-raised-button (click)="selectFile()">
+                  <md-icon>file_upload</md-icon>
+                  <ng-content *ngIf="!fileCount" select=".nofiles"></ng-content>
+                  <span *ngIf="fileCount">
+                    <span>{{fileCount}}</span>
+                    <ng-content select=".selected"></ng-content>
+                  </span>
+                </button>
+              </span>
+
+              <button type="submit" md-raised-button color="primary">Subir</button>
+            </div>
+
+          </form>
+        </md-card-content>
+      </md-card>
+
+    </div>
+
+  </div>
+
+</div>
