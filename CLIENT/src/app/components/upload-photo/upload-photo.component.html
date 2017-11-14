@@ -1,7 +1,9 @@
+
 <div class="login-flex-container" fxLayout="column">
 
   <button fxFlexAlign="center" class="logo-container">
-    <div class="logo"></div>
+    <div class="logo">
+    </div>
   </button>
   <!-- todos los hijos del div serán desplegados en renglores 1 centrados -->
   <div fxLayout="row" fxLayoutAlign="center" class="card-container">
@@ -10,7 +12,21 @@
 
       <md-card>
         <md-card-title>Login</md-card-title>
+        <img id="image" md-card-image src="assets/Alexanya.png">
         <md-card-content>
+          <!--form [formGroup]="signinForm" #form="ngForm" (ngSubmit)="loginUser(signinForm.value)" novalidate>
+            <div fxLayout="column">
+              <md-input-container>
+                <input mdInput required placeholder="Correo Electrónico" autocorrect="off" autocapitalize="off" spellcheck="off" formControlName="email">
+              </md-input-container>
+              <md-input-container>
+                <input mdInput required type="password" placeholder="Contraseña" autocomplete="off" autocorrect="off" autocapitalize="off"
+                  spellcheck="off" formControlName="password">
+              </md-input-container>
+              <button md-raised-button color="accent" [disabled]="form.invalid" type="submit">Ingresar</button>
+              <a md-button (click)="register()">Registrar</a>
+            </div>
+          </form-->
           <form class="example-form" [formGroup]="newPhotoForm" #form="ngForm" (ngSubmit)="createNewPhoto(newPhotoForm.value)">
 
             <div fxLayout="column">
@@ -23,19 +39,19 @@
                 <input mdInput type="text" placeholder="Descripción" formControlName="description">
               </md-input-container>
 
-
-              <span>
-                <input [accept]="accept" type="file" (change)="onNativeInputFileSelect($event)" #inputFile hidden />
-                <button class="example-full-width" type="button" md-raised-button (click)="selectFile()">
-                  <md-icon>file_upload</md-icon>
-                  <ng-content *ngIf="!fileCount" select=".nofiles"></ng-content>
-                  <span *ngIf="fileCount">
-                    <span>{{fileCount}}</span>
-                    <ng-content select=".selected"></ng-content>
-                  </span>
-                </button>
-              </span>
-
+              <div>
+                <span>
+                  <input [accept]="accept" type="file" (change)="onNativeInputFileSelect($event)" #inputFile hidden />
+                  <button class="example-full-width" type="button" md-raised-button (click)="selectFile()">
+                    <md-icon>file_upload</md-icon>
+                    <ng-content *ngIf="!fileCount" select=".nofiles"></ng-content>
+                    <span *ngIf="fileCount">
+                      <span>{{fileCount}}</span>
+                      <ng-content select=".selected"></ng-content>
+                    </span>
+                  </button>
+                </span>
+              </div>
 
 
               <button type="submit" md-raised-button color="primary">Subir</button>
