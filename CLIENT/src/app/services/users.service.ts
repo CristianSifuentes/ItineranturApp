@@ -13,13 +13,13 @@ import { AppConfig } from './../config/app.config';
 interface Response {
   token: string;
   user: string;
+  travellers: string[];
 }
 
 
 @Injectable()
 export class UsersService {
   request$: EventEmitter<any>;
-  private headers: HttpHeaders;
   private usersUrl: string;
   private travellersUrl: string;
   private translations: any;
@@ -59,7 +59,7 @@ export class UsersService {
         image: user.image,
         /*role: user.role*/
         role: 'TRAVELER'
-      }), { headers: this.headers })
+      })/*, { headers: this.headers }*/)
       .map(response => {
         this.request$.emit('finished');
         this.showSnackBar('heroCreated');
@@ -79,28 +79,6 @@ export class UsersService {
    * Método que valida si existen los datos del usuario
    * @param  objeto del tipo 'user'
    */
-  /*validateUser(user: any): Observable<User> {
-    this.request$.emit('starting');
-    return this.http
-      .post<Response>('http://localhost:3977/api/user/login', JSON.stringify({
-        email: user.email,
-        password: user.password,
-        gethash: false
-      }), { headers: this.headers })
-      .map(response => {
-        this.request$.emit('finished');
-        let user = response.user;
-        if (user) {
-          AuthIdentifiedUserStore.setUserIdentified(user);
-          return response.user;
-        } else {
-          return null;
-        }
-      })
-      .catch(error => this.handleError(error));
-  }*/
-
-
   validateUser(user: any): Observable<User> {
     this.request$.emit('starting');
     return this.http
@@ -126,28 +104,6 @@ export class UsersService {
    * Método que valida si existen los datos del usuario
    * @param  objeto del tipo 'user'
    */
-  /*loginUser(user: any): Observable<boolean> {
-    this.request$.emit('starting');
-    return this.http
-      .post<Response>('http://localhost:3977/api/user/login', JSON.stringify({
-        email: user.email,
-        password: user.password,
-        gethash: true
-      }), { headers: this.headers })
-      .map(response => {
-        this.request$.emit('finished');
-        let token = response.token;
-        if (token) {
-          AuthStore.setToken(token);
-          return true;
-        } else {
-          return false;
-        }
-      })
-      .catch(error => this.handleError(error));
-  }*/
-
-
   loginUser(user: any): Observable<boolean> {
     this.request$.emit('starting');
     return this.http.post<Response>('http://localhost:3977/api/user/login', JSON.stringify({
@@ -170,18 +126,23 @@ export class UsersService {
 
   /**
    * Método que obtiene todos los usuarios
-   * @param userId 
+   * @param userId usuario logeado
    */
   getAllTravellers(userId: string): Observable<User[]> {
     this.request$.emit('starting');
     return this.http
-      .get(this.travellersUrl)
+      .get<Response>(this.travellersUrl + '/' + userId)
       .map(response => {
         this.request$.emit('finished');
-        return response;
+        if (response.travellers) {
+          return response.travellers;
+        } else {
+          return null;
+        }
       })
       .catch(error => this.handleError(error));
   }
+
 
 
 

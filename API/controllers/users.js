@@ -1,7 +1,7 @@
 'user strict'
 
 var User = require('../models/user');
-var Status = require('../utils/http-status')
+var Status = require('../utils/http-status');
 var fs = require('fs');
 var path = require('path');
 var bcrypt = require('bcrypt-nodejs');

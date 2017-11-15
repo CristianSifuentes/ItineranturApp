@@ -8,6 +8,7 @@ import { UsersService } from '../../services/users.service';
 import { User } from './../../models/users';
 import { Router, ActivatedRoute } from '@angular/router';
 
+
 @Component({
   selector: 'app-travellers',
   templateUrl: './travellers.component.html',
@@ -15,7 +16,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class TravellersComponent implements OnInit {
 
-  public users: User[];
+  public travellers: User[];
   public hideSidebar;
   public cols: Observable<number>;
   public url: string;
@@ -30,9 +31,9 @@ export class TravellersComponent implements OnInit {
   ) {
 
     this.userService.getAllTravellers("59ebf97051638e4b98dc7d52").subscribe(
-      (users: Array<User>) => {
-        if (users) {
-          this.users = users;
+      (travellers: Array<User>) => {
+        if (travellers) {
+          this.travellers = travellers;
         }
       }, (error) => {
         console.log(error);

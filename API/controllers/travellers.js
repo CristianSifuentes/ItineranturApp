@@ -12,15 +12,15 @@ function getAllUser(req, res) {
 
     User.find({}, function (err, users) {
         if (err) {
-            res.status(500).send({
+            res.status(Status.INTERNAL_SERVER_ERROR).send({
                 message: 'Error en la patición'
             });
         } else {
-            res.status(200).send(users);
+            res.status(Status.OK).send({
+                travellers: users
+            });
         }
-
     });
-
 }
 
 module.exports = {

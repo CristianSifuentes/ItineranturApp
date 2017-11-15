@@ -1,3 +1,24 @@
-<p>
-  travellers works!
-</p>
+<section class="app flex-container" fxLayout="column" fxLayoutAlign="start stretch">
+  <div fxLayout="row" fxLayoutAlign="center" class="card-container">
+    <div fxFlex="100%" fxFlex.md="100%" fxFlex.lg="100%">
+      <md-card *ngFor="let traveler of travellers">
+        <md-card-content>
+          {{traveler.age}}
+        </md-card-content>
+        <!--md-card-header>
+          <img md-card-avatar (click)="seeAllPhotosUser(photo);" src="{{url_user + 'getimageuser/' + photo.user._id}}">
+          <md-card-title>{{ photo.user.name + ' ' + photo.user.lastname}}</md-card-title>
+          <md-card-subtitle>{{ photo.name }}</md-card-subtitle>
+        </md-card-header>
+        <img md-card-image src="{{url + 'getimage/' + photo.image}}" alt="{{photo.name}}">
+        <md-card-content>
+          {{photo.description}}
+        </md-card-content>
+        <md-card-actions>
+          <button md-button>LIKE</button>
+          <button md-button>SHARE</button>
+        </md-card-actions-->
+      </md-card>
+    </div>
+  </div>
+</section>

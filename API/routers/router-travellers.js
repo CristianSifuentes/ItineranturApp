@@ -6,5 +6,5 @@ var MiddlewareAuth = require('../middlewares/authenticated');
 
 
 var api = express.Router();
-api.get('/travellers', MiddlewareAuth.ensureAuth, TravellersController.getAllUser)
+api.get('/travellers/:id', MiddlewareAuth.ensureAuth, TravellersController.getAllUser)
 module.exports = api;
