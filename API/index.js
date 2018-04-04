@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var app = require('./app');
 var port = process.env._port || 3977;
 
-mongoose.connect('mongodb://localhost:/DbItinerantur2', (err, res) => {
+mongoose.connect('mongodb://localhost:27017/DbItinerantur', (err, res) => {
     if (err) {
         throw err;
     } else {
